@@ -18,8 +18,8 @@ Developing a source-grounded, model-agnostic desktop AI coding assistant (100k+ 
 
 **[View Detailed Notebook →](./agentic_developer_assistant.ipynb)**
 
-![Desktop LLM Application](images/desktop-llm-main.png)
-![Repository Analysis View](images/desktop-llm-analysis.png)
+![Desktop LLM Application](images/coeus2.png)
+
 
 **📸 Log & Bark Computer Vision Pipeline** *(Dec 2023 – Sep 2024)*  
 Designed and deployed a six-model edge AI pipeline for commercial log and bark percentage analysis, optimized for **Jetson Nano**.  
@@ -33,8 +33,8 @@ Created a stateful AI agent that classifies intent, manages conversations, deliv
 
 **[View Detailed Notebook →](./digital_consultant.ipynb)**
 
-![Digital Consultant Chat Interface](images/digital-consultant-chat.png)
-![Video Response Example](images/digital-consultant-video.png)
+![Digital Consultant Chat Interface](images/sb.png)
+
 
 **📄 Smart Document Chatbot (RAG)** *(Feb – Aug 2023)*  
 Built a retrieval-augmented generation chatbot that grounds LLM responses in corporate documents.  
