@@ -45,8 +45,8 @@ Feel free to reach out if you have interesting projects or roles!
 ---
 
 ### Connect with me
-- LinkedIn: [Add your LinkedIn URL here]
-- Email: [your.email@example.com]
+- LinkedIn: linkedin.com/in/josh-skelton-280696281
+- Email: jlukeskelton@gmail.com
 
 ---
 
