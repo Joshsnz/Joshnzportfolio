@@ -3,6 +3,8 @@
 **AI / Software Engineer** | Building production-grade AI systems and modern web applications.  
 Open to opportunities in **Grand Rapids, Michigan** (H-1B / sponsorship welcome).
 
+**Note**: Most projects are proprietary. I’m happy to discuss them in detail, walk through architecture, or share additional screenshots and demos during a conversation.
+
 ---
 
 ### 🚀 Selected Projects
@@ -11,11 +13,13 @@ Open to opportunities in **Grand Rapids, Michigan** (H-1B / sponsorship welcome)
 Building a secure, full-featured patient portal for a telehealth provider with lab results, appointments, prescriptions, **AI chatbots**, and intelligent rostering.  
 **Tech:** Nuxt 4, Vue 3, TypeScript, AWS Amplify, Cognito, API Gateway, Lambda
 
-**💻 Desktop LLM Application** *(Jan 2025 – Present)*  
-Developing a model-agnostic desktop environment focused on transparency, configurability, and validation-driven AI workflows.  
-**Tech:** C++, SDL2, Skia
+**💻 Agentic Developer Assistant (Desktop LLM Application)** *(Jan 2025 – Present)*  
+Developing a source-grounded, model-agnostic desktop AI coding assistant (100k+ LOC) focused on repository intelligence, architecture analysis, patch workflows, and evaluation-driven development.  
 
 **[View Detailed Notebook →](./agentic_developer_assistant.ipynb)**
+
+![Desktop LLM Application](images/desktop-llm-main.png)
+![Repository Analysis View](images/desktop-llm-analysis.png)
 
 **📸 Log & Bark Computer Vision Pipeline** *(Dec 2023 – Sep 2024)*  
 Designed and deployed a six-model edge AI pipeline for commercial log and bark percentage analysis, optimized for **Jetson Nano**.  
@@ -29,11 +33,12 @@ Created a stateful AI agent that classifies intent, manages conversations, deliv
 
 **[View Detailed Notebook →](./digital_consultant.ipynb)**
 
+![Digital Consultant Chat Interface](images/digital-consultant-chat.png)
+![Video Response Example](images/digital-consultant-video.png)
+
 **📄 Smart Document Chatbot (RAG)** *(Feb – Aug 2023)*  
 Built a retrieval-augmented generation chatbot that grounds LLM responses in corporate documents.  
 **Tech:** LangChain, FastAPI, FAISS, NGINX
-
-
 
 ---
 
@@ -41,7 +46,7 @@ Built a retrieval-augmented generation chatbot that grounds LLM responses in cor
 - **AI/ML:** PyTorch, LangChain, RAG, Computer Vision (YOLO, EfficientNet), Agentic Systems
 - **Frontend:** Nuxt 4 / Vue 3, TypeScript
 - **Backend & Cloud:** AWS (Amplify, Cognito, API Gateway, Lambda), FastAPI, Python, C++
-- **Other:** Docker, Git, Edge Deployment (Jetson Nano)
+- **Other:** Docker, Git, Edge Deployment (Jetson Nano), SDL2, Skia
 
 ---
 
