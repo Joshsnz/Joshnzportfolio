@@ -15,6 +15,8 @@ Building a secure, full-featured patient portal for a telehealth provider with l
 Developing a model-agnostic desktop environment focused on transparency, configurability, and validation-driven AI workflows.  
 **Tech:** C++, SDL2, Skia
 
+**[View Detailed Notebook →](./agentic_developer_assistant.ipynb)**
+
 **📸 Log & Bark Computer Vision Pipeline** *(Dec 2023 – Sep 2024)*  
 Designed and deployed a six-model edge AI pipeline for commercial log and bark percentage analysis, optimized for **Jetson Nano**.  
 **Tech:** YOLOv5-seg, EfficientNet, PCA, SVM, PyTorch, OpenCV, C++, Python  
@@ -31,7 +33,7 @@ Created a stateful AI agent that classifies intent, manages conversations, deliv
 Built a retrieval-augmented generation chatbot that grounds LLM responses in corporate documents.  
 **Tech:** LangChain, FastAPI, FAISS, NGINX
 
-**[View Detailed Notebook →](./agentic_developer_assistant.ipynb)**
+
 
 ---
 
