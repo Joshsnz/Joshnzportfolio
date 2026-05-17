@@ -1,4 +1,4 @@
-# Hi, I'm [Your Full Name] 👋
+# Hi, I'm Joshua Skelton 👋
 
 **AI / Software Engineer** | Building production-grade AI systems and modern web applications.  
 Open to opportunities in **Grand Rapids, Michigan** (H-1B / sponsorship welcome).
