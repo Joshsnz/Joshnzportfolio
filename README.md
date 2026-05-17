@@ -8,7 +8,7 @@ Open to opportunities in **Grand Rapids, Michigan** (H-1B / sponsorship welcome)
 ### 🚀 Selected Projects
 
 **🩺 Telehealth Patient Portal PoC** *(Apr 2026 – Present)*  
-Built a secure, full-featured patient portal for a telehealth provider with lab results, appointments, prescriptions, **AI chatbots**, and intelligent rostering.  
+Building a secure, full-featured patient portal for a telehealth provider with lab results, appointments, prescriptions, **AI chatbots**, and intelligent rostering.  
 **Tech:** Nuxt 4, Vue 3, TypeScript, AWS Amplify, Cognito, API Gateway, Lambda
 
 **💻 Desktop LLM Application** *(Jan 2025 – Present)*  
