@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Joshua Skelton — AI / Software Portfolio</title>
+  <style>
+    :root {
+      --bg: #0f1115;
+      --panel: #171a20;
+      --text: #e8e8e8;
+      --muted: #b8b8b8;
+      --accent: #9bd18f;
+      --border: #303743;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 56px 24px 80px;
+    }
+
+    a {
+      color: var(--accent);
+    }
+
+    .hero {
+      margin-bottom: 48px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      line-height: 1.05;
+      margin: 0 0 16px;
+    }
+
+    .hero p {
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 1.15rem;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .button {
+      display: inline-block;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 10px 16px;
+      text-decoration: none;
+      color: var(--text);
+      background: #12161d;
+    }
+
+    .button.primary {
+      border-color: #567a52;
+      background: #162316;
+      color: var(--accent);
+    }
+
+    section {
+      margin-top: 48px;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      margin-bottom: 16px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      border-radius: 18px;
+      padding: 22px;
+    }
+
+    .card h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .tagline {
+      color: var(--accent);
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .tag {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 4px 9px;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    footer {
+      margin-top: 64px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header class="hero">
+    <h1>Joshua Skelton</h1>
+    <p>
+      AI / Software Engineer building project-aware AI systems, native desktop tools,
+      cloud applications, retrieval systems, and computer vision workflows.
+    </p>
+
+    <div class="actions">
+      <a class="button primary" href="#projects">View Projects</a>
+      <a class="button" href="https://github.com/Joshsnz">GitHub</a>
+      <a class="button" href="https://www.linkedin.com/in/josh-skelton-280696281/">LinkedIn</a>
+    </div>
+  </header>
+
+  <section id="projects">
+    <h2>Featured Projects</h2>
+
+    <div class="grid">
+      <article class="card">
+        <div class="tagline">Featured case study</div>
+        <h3>Coeus AI</h3>
+        <p>
+          Native C++ project-aware AI desktop workspace with a custom Skia/SDL2 GUI,
+          repository context, retrieval-backed source QA, workflow orchestration,
+          telemetry, and private headless evaluation reports.
+        </p>
+        <a href="projects/coeus-ai.html">Open project page →</a>
+        <div class="tags">
+          <span class="tag">C++20</span>
+          <span class="tag">Skia</span>
+          <span class="tag">SDL2</span>
+          <span class="tag">Retrieval</span>
+          <span class="tag">AI tooling</span>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>Telehealth Patient Portal PoC</h3>
+        <p>
+          AWS/Nuxt patient portal concept for lab results, appointments, patient workflows,
+          authentication, and future AI-assisted healthcare operations.
+        </p>
+        <a href="https://github.com/Joshsnz/Joshnzportfolio">Details coming soon →</a>
+        <div class="tags">
+          <span class="tag">Nuxt</span>
+          <span class="tag">Vue</span>
+          <span class="tag">AWS</span>
+          <span class="tag">Cognito</span>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>Log & Bark Computer Vision Pipeline</h3>
+        <p>
+          Edge AI pipeline for commercial log and bark percentage analysis using segmentation,
+          classification, feature extraction, and traditional ML.
+        </p>
+        <a href="https://github.com/Joshsnz/Joshnzportfolio/blob/main/bark%26knot.ipynb">View notebook →</a>
+        <div class="tags">
+          <span class="tag">YOLO</span>
+          <span class="tag">PyTorch</span>
+          <span class="tag">OpenCV</span>
+          <span class="tag">Jetson</span>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>Agentic Digital Consultant</h3>
+        <p>
+          Stateful AI consultant workflow with intent classification, guided service collection,
+          frontend integration, and automated lead handling.
+        </p>
+        <a href="https://github.com/Joshsnz/Joshnzportfolio/blob/main/digital_consultant.ipynb">View notebook →</a>
+        <div class="tags">
+          <span class="tag">LangChain</span>
+          <span class="tag">FastAPI</span>
+          <span class="tag">Vue</span>
+          <span class="tag">OpenAI</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Technical Focus</h2>
+    <div class="grid">
+      <article class="card">
+        <h3>AI Systems</h3>
+        <p>Project-aware assistants, retrieval, grounding, workflow routing, evaluation, and tool-style runtimes.</p>
+      </article>
+      <article class="card">
+        <h3>Cloud Applications</h3>
+        <p>Nuxt/Vue frontends, AWS-backed APIs, authentication, serverless workflows, and healthcare-style portals.</p>
+      </article>
+      <article class="card">
+        <h3>Computer Vision</h3>
+        <p>Detection, segmentation, feature extraction, classical ML, and edge deployment on Jetson-class hardware.</p>
+      </article>
+    </div>
+  </section>
+
+  <footer>
+    <p>
+      Most project source is private or portfolio-packaged. Public pages focus on architecture,
+      demos, notebooks, screenshots, and evaluation evidence.
+    </p>
+    <p>
+      Contact: <a href="mailto:jlukeskelton@gmail.com">jlukeskelton@gmail.com</a>
+    </p>
+  </footer>
+</main>
+</body>
+</html>
