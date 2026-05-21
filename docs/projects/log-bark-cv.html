@@ -336,6 +336,36 @@
       margin-right: auto;
     }
 
+    .final-output-stack .manual-zoom {
+      overflow: hidden;
+    }
+
+    .final-output-stack .manual-zoom img {
+      width: 180%;
+      max-width: none;
+      margin-left: -40%;
+    }
+
+    .final-output-stack .manual-zoom-medium {
+      overflow: hidden;
+    }
+
+    .final-output-stack .manual-zoom-medium img {
+      width: 165%;
+      max-width: none;
+      margin-left: -32.5%;
+    }
+
+    .final-output-stack .manual-zoom-strong {
+      overflow: hidden;
+    }
+
+    .final-output-stack .manual-zoom-strong img {
+      width: 190%;
+      max-width: none;
+      margin-left: -45%;
+    }
+
     .table-wrap {
       overflow-x: auto;
       border: 1px solid var(--border);
@@ -398,6 +428,25 @@
       color: var(--accent);
     }
 
+    .geometry-flow {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .geometry-step {
+      border: 1px solid var(--border);
+      background:
+        linear-gradient(135deg, rgba(155, 209, 143, 0.045), rgba(16, 19, 24, 0.96)),
+        var(--code);
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    .geometry-step strong {
+      color: var(--accent);
+    }
+
     .stage-label {
       color: var(--accent);
       font-size: 0.95rem;
@@ -447,6 +496,7 @@
       <a href="#overview">Overview</a>
       <a href="#stage-a">Stage A</a>
       <a href="#stage-b">Stage B</a>
+      <a href="#geometry">Inference geometry</a>
       <a href="#metrics">Metrics</a>
       <a href="#validation">Validation</a>
       <a href="#final-output">Final output</a>
@@ -465,6 +515,7 @@
 
     <div class="actions">
       <a class="button primary" href="#overview">View pipeline</a>
+      <a class="button" href="#geometry">Inference geometry</a>
       <a class="button" href="#metrics">Training metrics</a>
       <a class="button" href="#validation">Validation examples</a>
       <a class="button" href="#final-output">Final outputs</a>
@@ -482,6 +533,8 @@
       <span class="tag">Jetson</span>
       <span class="tag">WSL</span>
       <span class="tag">Industrial AI</span>
+      <span class="tag">Tiled inference</span>
+      <span class="tag">Mask fusion</span>
     </div>
   </header>
 
@@ -551,14 +604,16 @@
 
       <div class="pipeline-step">
         <strong>Stage B1 — Log-boundary segmentation:</strong>
-        split stitched logs into overlapping halves, segment the outer log boundary
-        with YOLO, normalize crop height, and preserve offsets for final reconstruction.
+        split stitched logs into overlapping left/right halves, segment the outer log
+        boundary on each half with YOLO, normalize crop height, and preserve offsets
+        for final reconstruction.
       </div>
 
       <div class="pipeline-step">
         <strong>Stage B2 — Bark segmentation:</strong>
-        split normalized log halves into smaller bark crops, segment bark fragments
-        with a second YOLO model, then restitch and align predictions.
+        split each normalized half into two bark quarters, infer bark fragments on the
+        four quarter images, then restitch the four predictions back into full-log
+        coordinates.
       </div>
 
       <div class="pipeline-step">
@@ -754,23 +809,76 @@
     </figure>
   </section>
 
-  <section>
-    <h2>8. Bark restitching and final fusion</h2>
+  <section id="geometry">
+    <h2>8. Inference geometry and final fusion</h2>
     <p class="section-lead">
-      Bark quarter predictions are stitched back into halves. The overlap is removed,
-      right-side predictions are aligned, and saved offsets are used to reconstruct
-      the original geometry.
+      The strongest part of the approach is the tiled inference and coordinate reconstruction.
+      Instead of forcing a long stitched log through one compressed segmentation pass, the
+      pipeline splits the image into manageable pieces, predicts at higher effective resolution,
+      and then maps all masks back into the original stitched-log coordinate system.
     </p>
 
-    <div class="card">
-      <ul>
-        <li>Left/right bark quarters are restitched into bark-annotated halves.</li>
-        <li>The 3% overlap is removed before final log reconstruction.</li>
-        <li>Right-side polygons are shifted into full-log coordinates.</li>
-        <li>Log polygons are converted into Shapely geometries and merged with union.</li>
-        <li>The final boundary is rasterized, smoothed, and drawn in red.</li>
-        <li>Bark outlines are rendered in white over the stitched log body.</li>
-      </ul>
+    <div class="geometry-flow">
+      <div class="geometry-step">
+        <strong>1. Start from one stitched full-log image.</strong><br>
+        Stage A produces a long stitched log surface from consecutive video frames where
+        the log is present.
+      </div>
+
+      <div class="geometry-step">
+        <strong>2. Split the stitched log into overlapping left and right halves.</strong><br>
+        The log-boundary model infers each side separately. The overlap helps avoid seam
+        failures at the split point.
+      </div>
+
+      <div class="geometry-step">
+        <strong>3. Infer the log boundary on each half.</strong><br>
+        The log model predicts the outer log body on the left half and the right half.
+        Those masks are later merged into one full-log boundary.
+      </div>
+
+      <div class="geometry-step">
+        <strong>4. Normalize each detected half for bark inference.</strong><br>
+        The non-log background is greenified and each half is cropped to a shared top/bottom
+        height. Offsets are saved so predictions can be transformed back later.
+      </div>
+
+      <div class="geometry-step">
+        <strong>5. Split each normalized half into two quarters.</strong><br>
+        The left half becomes left-quarter A and left-quarter B. The right half becomes
+        right-quarter A and right-quarter B. This produces four bark-inference tiles.
+      </div>
+
+      <div class="geometry-step">
+        <strong>6. Infer bark fragments on all four quarters.</strong><br>
+        Running bark inference on quarters preserves texture detail and avoids compressing
+        the full stitched log into a single low-resolution model input.
+      </div>
+
+      <div class="geometry-step">
+        <strong>7. Stitch the four bark predictions back together.</strong><br>
+        The bark quarters are restitched into left/right halves, then the halves are aligned
+        into full-log coordinates. The saved crop offsets and split offsets keep the masks
+        geometrically consistent.
+      </div>
+
+      <div class="geometry-step">
+        <strong>8. Fuse final output.</strong><br>
+        The merged log boundary is drawn in red, and the bark fragment outlines are drawn
+        in white over the original stitched log body.
+      </div>
+    </div>
+
+    <div class="notice">
+      <p>
+        <strong>Approach assessment:</strong>
+        this tiled strategy is a strong practical solution for this problem. Long stitched
+        logs are awkward for a single segmentation pass because resizing can destroy bark
+        detail. Splitting into halves and then bark quarters preserves detail, improves
+        local inference quality, and makes the final output visually stronger. The tradeoff
+        is more coordinate bookkeeping, but the final stitched outputs show that this
+        geometry-management approach worked well.
+      </p>
     </div>
   </section>
 
@@ -1148,16 +1256,19 @@
     <h2>11. Final output examples</h2>
     <p class="section-lead">
       The final fusion output combines the stitched log body, white bark outlines,
-      and a unified red outer log boundary. These are stacked vertically and rendered
-      large because they are the clearest visual explanation of the finished pipeline.
+      and a unified red outer log boundary. Images with smaller logs are manually zoomed
+      so the segmentation output is easier to inspect.
     </p>
 
     <div class="final-output-stack">
-      <figure class="image-card hero-image">
+      <figure class="image-card hero-image manual-zoom-strong">
         <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/log2_stitched_final.jpg"
              alt="Final annotated log output 1"
              onerror="this.closest('figure').style.display='none'">
-        <figcaption>Final annotated log example with bark outlines and unified log boundary.</figcaption>
+        <figcaption>
+          Final annotated log example with bark outlines and unified log boundary.
+          This image is manually zoomed because the log occupies a smaller part of the original canvas.
+        </figcaption>
       </figure>
 
       <figure class="image-card hero-image">
@@ -1171,14 +1282,19 @@
         <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/log8_stitched_final.jpg"
              alt="Final annotated log output 3"
              onerror="this.closest('figure').style.display='none'">
-        <figcaption>Final bark and boundary visualization. This image is naturally larger, so it is displayed with a slightly constrained width.</figcaption>
+        <figcaption>
+          Final bark and boundary visualization. This image is naturally larger, so it is displayed with a slightly constrained width.
+        </figcaption>
       </figure>
 
-      <figure class="image-card hero-image">
+      <figure class="image-card hero-image manual-zoom-medium">
         <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/log28_stitched_final.jpg"
              alt="Final annotated log output 4"
              onerror="this.closest('figure').style.display='none'">
-        <figcaption>Additional output example from the final fusion stage.</figcaption>
+        <figcaption>
+          Additional output example from the final fusion stage. This image is manually zoomed
+          to make the smaller log easier to inspect.
+        </figcaption>
       </figure>
 
       <figure class="image-card hero-image">
@@ -1188,11 +1304,14 @@
         <figcaption>Additional final output showing bark outlines and red boundary.</figcaption>
       </figure>
 
-      <figure class="image-card hero-image">
+      <figure class="image-card hero-image manual-zoom">
         <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/log32_stitched_final.jpg"
              alt="Final annotated log output 6"
              onerror="this.closest('figure').style.display='none'">
-        <figcaption>Final fused output from another stitched log example.</figcaption>
+        <figcaption>
+          Final fused output from another stitched log example. This image is manually zoomed
+          to improve visual readability.
+        </figcaption>
       </figure>
     </div>
   </section>
@@ -1230,10 +1349,12 @@
       </article>
 
       <article class="card">
-        <h3>Why overlap is used for segmentation</h3>
+        <h3>Why tiled segmentation worked well</h3>
         <p>
-          Large stitched logs are split for segmentation. A small overlap reduces boundary
-          failures near crop edges and helps preserve continuity when the halves are merged.
+          Splitting the stitched log into halves, then splitting each half into bark
+          quarters, preserved detail that would be lost if the full stitched log were
+          resized into one model input. This is especially important for bark, where the
+          target regions are small and texture-like.
         </p>
       </article>
 
