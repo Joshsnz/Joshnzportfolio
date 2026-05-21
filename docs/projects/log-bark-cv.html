@@ -173,6 +173,10 @@
       grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
     }
 
+    .grid.validation-pairs {
+      grid-template-columns: repeat(auto-fit, minmax(520px, 1fr));
+    }
+
     .split {
       display: grid;
       grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
@@ -185,7 +189,8 @@
         grid-template-columns: 1fr;
       }
 
-      .grid.two {
+      .grid.two,
+      .grid.validation-pairs {
         grid-template-columns: 1fr;
       }
     }
@@ -325,7 +330,7 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 860px;
+      min-width: 960px;
     }
 
     th,
@@ -383,6 +388,31 @@
       margin-bottom: 10px;
     }
 
+    .model-heading {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background:
+        linear-gradient(135deg, rgba(155, 209, 143, 0.07), rgba(23, 26, 32, 0.92)),
+        var(--panel);
+      padding: 22px;
+      margin-bottom: 22px;
+    }
+
+    .model-heading p:last-child {
+      margin-bottom: 0;
+    }
+
+    .comparison-pair {
+      display: grid;
+      gap: 18px;
+    }
+
+    .comparison-pair .pair-title {
+      color: var(--accent);
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+    }
+
     footer {
       margin-top: 64px;
       padding-top: 28px;
@@ -407,6 +437,7 @@
       <a href="#stage-a">Stage A</a>
       <a href="#stage-b">Stage B</a>
       <a href="#metrics">Metrics</a>
+      <a href="#validation">Validation</a>
       <a href="#final-output">Final output</a>
       <a href="https://github.com/Joshsnz/Joshnzportfolio/blob/main/bark%26knot.ipynb">Notebook</a>
     </nav>
@@ -424,6 +455,7 @@
     <div class="actions">
       <a class="button primary" href="#overview">View pipeline</a>
       <a class="button" href="#metrics">Training metrics</a>
+      <a class="button" href="#validation">Validation examples</a>
       <a class="button" href="#final-output">Final outputs</a>
       <a class="button" href="https://github.com/Joshsnz/Joshnzportfolio/blob/main/bark%26knot.ipynb">Open notebook</a>
     </div>
@@ -469,19 +501,17 @@
       </div>
 
       <div class="card metric-card">
-        <div class="metric-label">Headline best checkpoint</div>
-        <div class="metric-value">Phase 2 — Unfreeze</div>
+        <div class="metric-label">Best model summary</div>
+        <div class="metric-value">Two-model pipeline</div>
         <p>
-          Phase 2 produced the strongest overall best-checkpoint metrics, with near-perfect
-          precision and strong mAP across both bounding-box and mask evaluations.
+          The final system uses separate YOLO segmentation models for the large
+          log-boundary task and the smaller bark-fragment task.
         </p>
 
         <ul>
-          <li><strong>Precision:</strong> ~0.999</li>
-          <li><strong>Recall:</strong> ~0.949</li>
-          <li><strong>Box mAP50:</strong> ~0.975</li>
-          <li><strong>Box mAP50:95:</strong> ~0.955</li>
-          <li><strong>Mask mAP50:95:</strong> ~0.965</li>
+          <li><strong>Log boundary:</strong> Phase 2 — Unfreeze selected as best checkpoint.</li>
+          <li><strong>Bark fragments:</strong> Phase 3 — Fine-tune selected for cleaner visual fusion.</li>
+          <li><strong>Evaluation note:</strong> bark mAP is lower because bark is fragmented and boundary-ambiguous.</li>
         </ul>
       </div>
     </div>
@@ -509,14 +539,19 @@
       </div>
 
       <div class="pipeline-step">
-        <strong>Stage B — GPU segmentation:</strong>
-        split stitched logs into overlapping halves, segment the log boundary with YOLO,
-        normalize crop height, run bark segmentation, restitch quarters and halves,
-        then reconstruct a unified final log boundary.
+        <strong>Stage B1 — Log-boundary segmentation:</strong>
+        split stitched logs into overlapping halves, segment the outer log boundary
+        with YOLO, normalize crop height, and preserve offsets for final reconstruction.
       </div>
 
       <div class="pipeline-step">
-        <strong>Final output:</strong>
+        <strong>Stage B2 — Bark segmentation:</strong>
+        split normalized log halves into smaller bark crops, segment bark fragments
+        with a second YOLO model, then restitch and align predictions.
+      </div>
+
+      <div class="pipeline-step">
+        <strong>Final fusion:</strong>
         white bark outlines plus a red unified log boundary over the stitched log body.
       </div>
     </div>
@@ -568,10 +603,8 @@
         <figcaption>
           SVM decision-score output for identifying log intervals from video frames.
           A small number of blue points appear above the decision line. This was acceptable
-          behaviour for the project because the labels were based on the broader frame/log
-          interval, while the selected region of interest may not yet show the log clearly
-          in every labelled frame. In other words, these points reflect label/ROI timing
-          rather than a serious pipeline failure.
+          because labels were based on the broader frame/log interval, while the selected
+          region of interest may not yet show the log clearly in every labelled frame.
         </figcaption>
       </figure>
     </div>
@@ -731,19 +764,28 @@
   </section>
 
   <section id="metrics">
-    <h2>9. Three-phase YOLO training metrics</h2>
+    <h2>9. Training results — two segmentation models</h2>
     <p class="section-lead">
-      The segmentation model was trained in three stages: Phase 1 froze the backbone,
-      Phase 2 unfroze the model for stronger adaptation, and Phase 3 fine-tuned with
-      a lower learning rate. The reported result should use the best checkpoint, not
-      the final epoch, because some plots show late instability.
+      The pipeline uses two trained YOLO segmentation models: one for the large continuous
+      log boundary, and another for fragmented bark regions. Their metrics are reported
+      separately because the visual and mathematical difficulty of the two tasks is different.
     </p>
+
+    <div class="model-heading">
+      <h3>9.1 Log-boundary segmentation model</h3>
+      <p>
+        The log model segments one large, continuous object: the outer log body. This is
+        visually cleaner and produces stronger metrics than the bark task. The selected
+        checkpoint is <strong>Phase 2 — Unfreeze</strong>, which produced the strongest
+        strict mAP and overall validation profile.
+      </p>
+    </div>
 
     <div class="table-wrap">
       <table>
         <thead>
           <tr>
-            <th>Metric</th>
+            <th>Log model metric</th>
             <th>Phase 1 — Freeze</th>
             <th>Phase 2 — Unfreeze</th>
             <th>Phase 3 — Fine-tune</th>
@@ -756,71 +798,168 @@
             <td>85</td>
             <td class="best">222</td>
             <td>8</td>
-            <td>Phase 2 is the strongest overall checkpoint.</td>
+            <td>Phase 2 is the selected log-boundary checkpoint.</td>
           </tr>
-
           <tr>
-            <td>Precision(B)</td>
+            <td>Precision(B/M)</td>
             <td>0.854</td>
             <td class="best">0.999</td>
             <td>0.999</td>
-            <td>Phase 2/3 are extremely selective with very few false positives.</td>
+            <td>Very few false positives after unfreezing.</td>
           </tr>
-
           <tr>
-            <td>Recall(B)</td>
+            <td>Recall(B/M)</td>
             <td>0.936</td>
             <td class="best">0.949</td>
             <td>0.949</td>
-            <td>Recall remains high, meaning most targets are found.</td>
+            <td>High target coverage across later phases.</td>
           </tr>
-
-          <tr>
-            <td>Precision(M)</td>
-            <td>0.854</td>
-            <td class="best">0.999</td>
-            <td>0.999</td>
-            <td>Mask predictions are highly precise at the best checkpoint.</td>
-          </tr>
-
-          <tr>
-            <td>Recall(M)</td>
-            <td>0.936</td>
-            <td class="best">0.949</td>
-            <td>0.949</td>
-            <td>Mask recall is strong and stable across later phases.</td>
-          </tr>
-
           <tr>
             <td>mAP50(B)</td>
             <td>0.894</td>
             <td class="best">0.975</td>
             <td>0.956</td>
-            <td>Loose-IoU box detection is very strong after full unfreeze.</td>
+            <td>Strong loose-IoU log detection.</td>
           </tr>
-
           <tr>
             <td>mAP50:95(B)</td>
             <td>0.545</td>
             <td class="best">0.955</td>
             <td>0.940</td>
-            <td>Phase 2 significantly improves stricter localization quality.</td>
+            <td>Phase 2 significantly improves stricter localization.</td>
           </tr>
-
           <tr>
             <td>mAP50(M)</td>
             <td>0.894</td>
             <td class="best">0.965</td>
             <td>0.956</td>
-            <td>Mask mAP50 remains strong across phases 2 and 3.</td>
+            <td>Strong mask-level segmentation after unfreeze.</td>
           </tr>
-
           <tr>
             <td>mAP50:95(M)</td>
             <td>0.662</td>
             <td class="best">0.965</td>
             <td>0.956</td>
-            <td>Strict mask quality is strongest in Phase 2.</td>
+            <td>Phase 2 is strongest for strict mask quality.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <figure class="image-card hero-image wide">
+      <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/loginfer/results_phase1.png"
+           alt="Log model phase 1 freeze results"
+           onerror="this.closest('figure').style.display='none'">
+      <figcaption>
+        Log model Phase 1 — Freeze: strong baseline and high recall, but weaker precision
+        and stricter mAP than later phases.
+      </figcaption>
+    </figure>
+
+    <figure class="image-card hero-image wide">
+      <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/loginfer/results_phase2.png"
+           alt="Log model phase 2 unfreeze results"
+           onerror="this.closest('figure').style.display='none'">
+      <figcaption>
+        Log model Phase 2 — Unfreeze: selected checkpoint. This phase gives the strongest
+        overall validation metrics for the log-boundary segmentation model.
+      </figcaption>
+    </figure>
+
+    <figure class="image-card hero-image wide">
+      <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/loginfer/results_phase3.png"
+           alt="Log model phase 3 fine-tune results"
+           onerror="this.closest('figure').style.display='none'">
+      <figcaption>
+        Log model Phase 3 — Fine-tune: still strong, but Phase 2 remains the best strict
+        validation checkpoint for the log-boundary model.
+      </figcaption>
+    </figure>
+
+    <div class="model-heading">
+      <h3>9.2 Bark-fragment segmentation model</h3>
+      <p>
+        The bark model is harder than the log model because bark appears as small,
+        fragmented, texture-like regions with ambiguous boundaries. Phase 2 produced the
+        strongest strict mask mAP50:95, while Phase 3 produced cleaner high-precision
+        qualitative inference for downstream fusion.
+      </p>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Bark model metric</th>
+            <th>Phase 1 — Freeze</th>
+            <th>Phase 2 — Unfreeze</th>
+            <th>Phase 3 — Fine-tune</th>
+            <th>Interpretation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Best epoch</td>
+            <td>194</td>
+            <td>377</td>
+            <td class="best">75</td>
+            <td>Phase 3 selected for cleaner visual fusion.</td>
+          </tr>
+          <tr>
+            <td>Precision(B)</td>
+            <td>0.693</td>
+            <td>0.982</td>
+            <td class="best">0.989</td>
+            <td>Box precision improves strongly after unfreeze/fine-tune.</td>
+          </tr>
+          <tr>
+            <td>Recall(B)</td>
+            <td>0.491</td>
+            <td class="best">0.945</td>
+            <td>0.936</td>
+            <td>Phase 2 has the highest box recall.</td>
+          </tr>
+          <tr>
+            <td>Precision(M)</td>
+            <td>0.681</td>
+            <td>0.879</td>
+            <td class="best">0.909</td>
+            <td>Phase 3 gives the cleanest mask precision profile.</td>
+          </tr>
+          <tr>
+            <td>Recall(M)</td>
+            <td>0.450</td>
+            <td class="best">0.842</td>
+            <td>0.842</td>
+            <td>Later phases improve bark mask coverage substantially.</td>
+          </tr>
+          <tr>
+            <td>mAP50(B)</td>
+            <td>0.561</td>
+            <td class="best">0.974</td>
+            <td>0.971</td>
+            <td>Box detection becomes strong once the model is unfrozen.</td>
+          </tr>
+          <tr>
+            <td>mAP50:95(B)</td>
+            <td>0.288</td>
+            <td>0.790</td>
+            <td class="best">0.814</td>
+            <td>Phase 3 is strongest for strict box quality.</td>
+          </tr>
+          <tr>
+            <td>mAP50(M)</td>
+            <td>0.528</td>
+            <td>0.875</td>
+            <td class="best">0.900</td>
+            <td>Phase 3 has the strongest loose-IoU mask score.</td>
+          </tr>
+          <tr>
+            <td>mAP50:95(M)</td>
+            <td>0.253</td>
+            <td class="best">0.548</td>
+            <td>0.534</td>
+            <td>Phase 2 is strongest for strict mask quality.</td>
           </tr>
         </tbody>
       </table>
@@ -828,52 +967,196 @@
 
     <div class="notice">
       <p>
-        <strong>Result interpretation:</strong>
-        the results are strong. Phase 2 is the most portfolio-worthy checkpoint because
-        it combines near-perfect precision, high recall, and high mAP50:95. The late
-        spikes in some training curves should be framed as training instability or
-        overrun behaviour, which is why best-checkpoint selection matters.
+        <strong>Bark model interpretation:</strong>
+        bark segmentation is inherently harder than log-boundary segmentation. The target
+        regions are smaller, more fragmented, texture-like, and label-boundary ambiguous.
+        For that reason, the bark model's strict mask mAP is lower, even when the visual
+        inference is useful for final bark-outline fusion.
       </p>
     </div>
+
+    <figure class="image-card hero-image wide">
+      <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/barkinfer/results_phase1_freeze.png"
+           alt="Bark model phase 1 freeze results"
+           onerror="this.closest('figure').style.display='none'">
+      <figcaption>
+        Bark model Phase 1 — Freeze: weak baseline compared with later phases. Bark is
+        a fragmented texture class, so the frozen model has limited ability to separate
+        bark patches cleanly.
+      </figcaption>
+    </figure>
+
+    <figure class="image-card hero-image wide">
+      <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/barkinfer/results_phase2_unfreeze.png"
+           alt="Bark model phase 2 unfreeze results"
+           onerror="this.closest('figure').style.display='none'">
+      <figcaption>
+        Bark model Phase 2 — Unfreeze: strongest strict mask mAP50:95 and strong recall.
+        This is the best checkpoint if prioritising strict benchmark score.
+      </figcaption>
+    </figure>
+
+    <figure class="image-card hero-image wide">
+      <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/barkinfer/results_phase3_finetune.png"
+           alt="Bark model phase 3 fine-tune results"
+           onerror="this.closest('figure').style.display='none'">
+      <figcaption>
+        Bark model Phase 3 — Fine-tune: selected for cleaner visual/fusion behaviour, with
+        the strongest mask precision and mAP50 profile.
+      </figcaption>
+    </figure>
   </section>
 
-  <section id="training-plots">
-    <h2>10. Training phase plots</h2>
+  <section id="validation">
+    <h2>10. Validation label/prediction examples</h2>
     <p class="section-lead">
-      These plots show the three training stages: Phase 1 freeze, Phase 2 unfreeze,
-      and Phase 3 fine-tune. They are rendered large because they are central evidence
-      for the model performance.
+      These validation batches show model evidence beyond scalar metrics. Labels represent
+      the ground truth annotations; predictions show what the trained models inferred.
+      The log model is expected to look cleaner because it segments one large continuous
+      object, while the bark model predicts smaller fragmented regions.
     </p>
 
-    <figure class="image-card hero-image wide">
-      <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/results_phase1.png"
-           alt="Phase 1 freeze training results"
-           onerror="this.closest('figure').style.display='none'">
-      <figcaption>
-        Phase 1 — Freeze: strong baseline, high recall, but lower precision and stricter mAP
-        compared with later phases.
-      </figcaption>
-    </figure>
+    <div class="model-heading">
+      <h3>10.1 Log-boundary validation examples</h3>
+      <p>
+        These examples come from the selected log-boundary model. They show that the model
+        consistently captures the long horizontal log body across stitched halves and varied
+        lighting/background conditions.
+      </p>
+    </div>
 
-    <figure class="image-card hero-image wide">
-      <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/results_phase2.png"
-           alt="Phase 2 unfreeze training results"
-           onerror="this.closest('figure').style.display='none'">
-      <figcaption>
-        Phase 2 — Unfreeze: strongest overall best checkpoint, with near-perfect precision
-        and strong mAP50:95.
-      </figcaption>
-    </figure>
+    <div class="grid validation-pairs">
+      <div class="comparison-pair">
+        <div class="pair-title">Log validation batch 0 — labels</div>
+        <figure class="image-card large">
+          <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/loginfer/val_batch0_labels.jpg"
+               alt="Log validation batch 0 labels"
+               onerror="this.closest('.comparison-pair').style.display='none'">
+          <figcaption>Ground-truth log-boundary masks for validation batch 0.</figcaption>
+        </figure>
+      </div>
 
-    <figure class="image-card hero-image wide">
-      <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/results_phase3.png"
-           alt="Phase 3 fine-tune training results"
-           onerror="this.closest('figure').style.display='none'">
-      <figcaption>
-        Phase 3 — Fine-tune: strong early fine-tune checkpoint, but later instability
-        supports reporting the best checkpoint rather than the final epoch.
-      </figcaption>
-    </figure>
+      <div class="comparison-pair">
+        <div class="pair-title">Log validation batch 0 — predictions</div>
+        <figure class="image-card large">
+          <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/loginfer/val_batch0_pred.jpg"
+               alt="Log validation batch 0 predictions"
+               onerror="this.closest('.comparison-pair').style.display='none'">
+          <figcaption>Predicted log-boundary masks for validation batch 0.</figcaption>
+        </figure>
+      </div>
+
+      <div class="comparison-pair">
+        <div class="pair-title">Log validation batch 1 — labels</div>
+        <figure class="image-card large">
+          <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/loginfer/val_batch1_labels.jpg"
+               alt="Log validation batch 1 labels"
+               onerror="this.closest('.comparison-pair').style.display='none'">
+          <figcaption>Ground-truth log-boundary masks for validation batch 1.</figcaption>
+        </figure>
+      </div>
+
+      <div class="comparison-pair">
+        <div class="pair-title">Log validation batch 1 — predictions</div>
+        <figure class="image-card large">
+          <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/loginfer/val_batch1_pred.jpg"
+               alt="Log validation batch 1 predictions"
+               onerror="this.closest('.comparison-pair').style.display='none'">
+          <figcaption>Predicted log-boundary masks for validation batch 1.</figcaption>
+        </figure>
+      </div>
+
+      <div class="comparison-pair">
+        <div class="pair-title">Log validation batch 2 — labels</div>
+        <figure class="image-card large">
+          <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/loginfer/val_batch2_labels.jpg"
+               alt="Log validation batch 2 labels"
+               onerror="this.closest('.comparison-pair').style.display='none'">
+          <figcaption>Ground-truth log-boundary masks for validation batch 2.</figcaption>
+        </figure>
+      </div>
+
+      <div class="comparison-pair">
+        <div class="pair-title">Log validation batch 2 — predictions</div>
+        <figure class="image-card large">
+          <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/loginfer/val_batch2_pred.jpg"
+               alt="Log validation batch 2 predictions"
+               onerror="this.closest('.comparison-pair').style.display='none'">
+          <figcaption>Predicted log-boundary masks for validation batch 2.</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="model-heading">
+      <h3>10.2 Bark-fragment validation examples</h3>
+      <p>
+        These examples come from the selected bark inference checkpoint. They are judged
+        alongside the final fused output because bark labels are more ambiguous and fragmented
+        than the outer log boundary.
+      </p>
+    </div>
+
+    <div class="grid validation-pairs">
+      <div class="comparison-pair">
+        <div class="pair-title">Bark validation batch 0 — labels</div>
+        <figure class="image-card large">
+          <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/barkinfer/val_batch0_labels.jpg"
+               alt="Bark validation batch 0 labels"
+               onerror="this.closest('.comparison-pair').style.display='none'">
+          <figcaption>Ground-truth bark masks for validation batch 0.</figcaption>
+        </figure>
+      </div>
+
+      <div class="comparison-pair">
+        <div class="pair-title">Bark validation batch 0 — predictions</div>
+        <figure class="image-card large">
+          <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/barkinfer/val_batch0_pred.jpg"
+               alt="Bark validation batch 0 predictions"
+               onerror="this.closest('.comparison-pair').style.display='none'">
+          <figcaption>Predicted bark masks for validation batch 0.</figcaption>
+        </figure>
+      </div>
+
+      <div class="comparison-pair">
+        <div class="pair-title">Bark validation batch 1 — labels</div>
+        <figure class="image-card large">
+          <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/barkinfer/val_batch1_labels.jpg"
+               alt="Bark validation batch 1 labels"
+               onerror="this.closest('.comparison-pair').style.display='none'">
+          <figcaption>Ground-truth bark masks for validation batch 1.</figcaption>
+        </figure>
+      </div>
+
+      <div class="comparison-pair">
+        <div class="pair-title">Bark validation batch 1 — predictions</div>
+        <figure class="image-card large">
+          <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/barkinfer/val_batch1_pred.jpg"
+               alt="Bark validation batch 1 predictions"
+               onerror="this.closest('.comparison-pair').style.display='none'">
+          <figcaption>Predicted bark masks for validation batch 1.</figcaption>
+        </figure>
+      </div>
+
+      <div class="comparison-pair">
+        <div class="pair-title">Bark validation batch 2 — labels</div>
+        <figure class="image-card large">
+          <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/barkinfer/val_batch2_labels.jpg"
+               alt="Bark validation batch 2 labels"
+               onerror="this.closest('.comparison-pair').style.display='none'">
+          <figcaption>Ground-truth bark masks for validation batch 2.</figcaption>
+        </figure>
+      </div>
+
+      <div class="comparison-pair">
+        <div class="pair-title">Bark validation batch 2 — predictions</div>
+        <figure class="image-card large">
+          <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/barkinfer/val_batch2_pred.jpg"
+               alt="Bark validation batch 2 predictions"
+               onerror="this.closest('.comparison-pair').style.display='none'">
+          <figcaption>Predicted bark masks for validation batch 2.</figcaption>
+        </figure>
+      </div>
+    </div>
   </section>
 
   <section id="final-output">
@@ -970,11 +1253,21 @@
       </article>
 
       <article class="card">
-        <h3>Why Phase 2 is the best checkpoint</h3>
+        <h3>Why bark metrics are lower than log metrics</h3>
         <p>
-          Phase 2 gives the strongest balance of high precision, high recall, and strict
-          mAP. Phase 3 remains strong early but shows later instability, so best-checkpoint
-          selection is more important than final-epoch reporting.
+          The log boundary is one large continuous object. Bark appears as many small,
+          fragmented, texture-like regions with subjective boundaries. Strict mask IoU
+          scores are therefore lower for bark even when the visual output is useful for
+          downstream bark-outline fusion.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Why checkpoint selection matters</h3>
+        <p>
+          The selected model should be chosen from validation behaviour and downstream
+          output quality, not simply the final epoch. Log uses Phase 2; bark uses Phase 3
+          for cleaner qualitative fusion while noting Phase 2's stronger strict mask mAP.
         </p>
       </article>
     </div>
