@@ -37,7 +37,7 @@
     }
 
     main {
-      max-width: 1260px;
+      max-width: 1440px;
       margin: 0 auto;
       padding: 32px 24px 84px;
     }
@@ -118,7 +118,7 @@
     }
 
     .lead {
-      max-width: 960px;
+      max-width: 980px;
       color: var(--muted);
       font-size: 1.14rem;
     }
@@ -158,7 +158,7 @@
 
     .section-lead {
       color: var(--muted);
-      max-width: 960px;
+      max-width: 980px;
       margin-bottom: 22px;
       font-size: 1.04rem;
     }
@@ -173,10 +173,6 @@
       grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
     }
 
-    .grid.validation-pairs {
-      grid-template-columns: repeat(auto-fit, minmax(520px, 1fr));
-    }
-
     .split {
       display: grid;
       grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
@@ -189,8 +185,7 @@
         grid-template-columns: 1fr;
       }
 
-      .grid.two,
-      .grid.validation-pairs {
+      .grid.two {
         grid-template-columns: 1fr;
       }
     }
@@ -305,19 +300,40 @@
       grid-column: 1 / -1;
     }
 
+    .validation-stack {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+
+    .validation-stack .image-card {
+      padding: 24px;
+    }
+
+    .validation-stack img {
+      width: 100%;
+      max-height: none;
+    }
+
     .final-output-stack {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 28px;
+      gap: 34px;
     }
 
     .final-output-stack .image-card {
-      padding: 24px;
+      padding: 28px;
     }
 
     .final-output-stack img {
       width: 100%;
       max-height: none;
+    }
+
+    .final-output-stack .constrained-output {
+      max-width: 1160px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .table-wrap {
@@ -402,15 +418,10 @@
       margin-bottom: 0;
     }
 
-    .comparison-pair {
-      display: grid;
-      gap: 18px;
-    }
-
-    .comparison-pair .pair-title {
+    .pair-title {
       color: var(--accent);
-      font-size: 0.95rem;
-      margin-bottom: 8px;
+      font-size: 1rem;
+      margin-bottom: 10px;
     }
 
     footer {
@@ -1012,150 +1023,124 @@
     <p class="section-lead">
       These validation batches show model evidence beyond scalar metrics. Labels represent
       the ground truth annotations; predictions show what the trained models inferred.
-      The log model is expected to look cleaner because it segments one large continuous
-      object, while the bark model predicts smaller fragmented regions.
+      The images are stacked one at a time so the masks are readable.
     </p>
 
     <div class="model-heading">
       <h3>10.1 Log-boundary validation examples</h3>
       <p>
-        These examples come from the selected log-boundary model. They show that the model
-        consistently captures the long horizontal log body across stitched halves and varied
-        lighting/background conditions.
+        The log model is expected to look cleaner because it segments one large continuous
+        object: the outer log boundary.
       </p>
     </div>
 
-    <div class="grid validation-pairs">
-      <div class="comparison-pair">
+    <div class="validation-stack">
+      <figure class="image-card hero-image">
         <div class="pair-title">Log validation batch 0 — labels</div>
-        <figure class="image-card large">
-          <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/loginfer/val_batch0_labels.jpg"
-               alt="Log validation batch 0 labels"
-               onerror="this.closest('.comparison-pair').style.display='none'">
-          <figcaption>Ground-truth log-boundary masks for validation batch 0.</figcaption>
-        </figure>
-      </div>
+        <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/loginfer/val_batch0_labels.jpg"
+             alt="Log validation batch 0 labels"
+             onerror="this.closest('figure').style.display='none'">
+        <figcaption>Ground-truth log-boundary masks for validation batch 0.</figcaption>
+      </figure>
 
-      <div class="comparison-pair">
+      <figure class="image-card hero-image">
         <div class="pair-title">Log validation batch 0 — predictions</div>
-        <figure class="image-card large">
-          <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/loginfer/val_batch0_pred.jpg"
-               alt="Log validation batch 0 predictions"
-               onerror="this.closest('.comparison-pair').style.display='none'">
-          <figcaption>Predicted log-boundary masks for validation batch 0.</figcaption>
-        </figure>
-      </div>
+        <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/loginfer/val_batch0_pred.jpg"
+             alt="Log validation batch 0 predictions"
+             onerror="this.closest('figure').style.display='none'">
+        <figcaption>Predicted log-boundary masks for validation batch 0.</figcaption>
+      </figure>
 
-      <div class="comparison-pair">
+      <figure class="image-card hero-image">
         <div class="pair-title">Log validation batch 1 — labels</div>
-        <figure class="image-card large">
-          <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/loginfer/val_batch1_labels.jpg"
-               alt="Log validation batch 1 labels"
-               onerror="this.closest('.comparison-pair').style.display='none'">
-          <figcaption>Ground-truth log-boundary masks for validation batch 1.</figcaption>
-        </figure>
-      </div>
+        <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/loginfer/val_batch1_labels.jpg"
+             alt="Log validation batch 1 labels"
+             onerror="this.closest('figure').style.display='none'">
+        <figcaption>Ground-truth log-boundary masks for validation batch 1.</figcaption>
+      </figure>
 
-      <div class="comparison-pair">
+      <figure class="image-card hero-image">
         <div class="pair-title">Log validation batch 1 — predictions</div>
-        <figure class="image-card large">
-          <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/loginfer/val_batch1_pred.jpg"
-               alt="Log validation batch 1 predictions"
-               onerror="this.closest('.comparison-pair').style.display='none'">
-          <figcaption>Predicted log-boundary masks for validation batch 1.</figcaption>
-        </figure>
-      </div>
+        <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/loginfer/val_batch1_pred.jpg"
+             alt="Log validation batch 1 predictions"
+             onerror="this.closest('figure').style.display='none'">
+        <figcaption>Predicted log-boundary masks for validation batch 1.</figcaption>
+      </figure>
 
-      <div class="comparison-pair">
+      <figure class="image-card hero-image">
         <div class="pair-title">Log validation batch 2 — labels</div>
-        <figure class="image-card large">
-          <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/loginfer/val_batch2_labels.jpg"
-               alt="Log validation batch 2 labels"
-               onerror="this.closest('.comparison-pair').style.display='none'">
-          <figcaption>Ground-truth log-boundary masks for validation batch 2.</figcaption>
-        </figure>
-      </div>
+        <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/loginfer/val_batch2_labels.jpg"
+             alt="Log validation batch 2 labels"
+             onerror="this.closest('figure').style.display='none'">
+        <figcaption>Ground-truth log-boundary masks for validation batch 2.</figcaption>
+      </figure>
 
-      <div class="comparison-pair">
+      <figure class="image-card hero-image">
         <div class="pair-title">Log validation batch 2 — predictions</div>
-        <figure class="image-card large">
-          <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/loginfer/val_batch2_pred.jpg"
-               alt="Log validation batch 2 predictions"
-               onerror="this.closest('.comparison-pair').style.display='none'">
-          <figcaption>Predicted log-boundary masks for validation batch 2.</figcaption>
-        </figure>
-      </div>
+        <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/loginfer/val_batch2_pred.jpg"
+             alt="Log validation batch 2 predictions"
+             onerror="this.closest('figure').style.display='none'">
+        <figcaption>Predicted log-boundary masks for validation batch 2.</figcaption>
+      </figure>
     </div>
 
-    <div class="model-heading">
+    <div class="model-heading" style="margin-top: 44px;">
       <h3>10.2 Bark-fragment validation examples</h3>
       <p>
-        These examples come from the selected bark inference checkpoint. They are judged
-        alongside the final fused output because bark labels are more ambiguous and fragmented
-        than the outer log boundary.
+        The bark model predicts smaller fragmented texture regions. These examples should
+        be interpreted alongside the final fused output, because exact bark boundaries are
+        more ambiguous than the outer log boundary.
       </p>
     </div>
 
-    <div class="grid validation-pairs">
-      <div class="comparison-pair">
+    <div class="validation-stack">
+      <figure class="image-card hero-image">
         <div class="pair-title">Bark validation batch 0 — labels</div>
-        <figure class="image-card large">
-          <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/barkinfer/val_batch0_labels.jpg"
-               alt="Bark validation batch 0 labels"
-               onerror="this.closest('.comparison-pair').style.display='none'">
-          <figcaption>Ground-truth bark masks for validation batch 0.</figcaption>
-        </figure>
-      </div>
+        <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/barkinfer/val_batch0_labels.jpg"
+             alt="Bark validation batch 0 labels"
+             onerror="this.closest('figure').style.display='none'">
+        <figcaption>Ground-truth bark masks for validation batch 0.</figcaption>
+      </figure>
 
-      <div class="comparison-pair">
+      <figure class="image-card hero-image">
         <div class="pair-title">Bark validation batch 0 — predictions</div>
-        <figure class="image-card large">
-          <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/barkinfer/val_batch0_pred.jpg"
-               alt="Bark validation batch 0 predictions"
-               onerror="this.closest('.comparison-pair').style.display='none'">
-          <figcaption>Predicted bark masks for validation batch 0.</figcaption>
-        </figure>
-      </div>
+        <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/barkinfer/val_batch0_pred.jpg"
+             alt="Bark validation batch 0 predictions"
+             onerror="this.closest('figure').style.display='none'">
+        <figcaption>Predicted bark masks for validation batch 0.</figcaption>
+      </figure>
 
-      <div class="comparison-pair">
+      <figure class="image-card hero-image">
         <div class="pair-title">Bark validation batch 1 — labels</div>
-        <figure class="image-card large">
-          <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/barkinfer/val_batch1_labels.jpg"
-               alt="Bark validation batch 1 labels"
-               onerror="this.closest('.comparison-pair').style.display='none'">
-          <figcaption>Ground-truth bark masks for validation batch 1.</figcaption>
-        </figure>
-      </div>
+        <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/barkinfer/val_batch1_labels.jpg"
+             alt="Bark validation batch 1 labels"
+             onerror="this.closest('figure').style.display='none'">
+        <figcaption>Ground-truth bark masks for validation batch 1.</figcaption>
+      </figure>
 
-      <div class="comparison-pair">
+      <figure class="image-card hero-image">
         <div class="pair-title">Bark validation batch 1 — predictions</div>
-        <figure class="image-card large">
-          <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/barkinfer/val_batch1_pred.jpg"
-               alt="Bark validation batch 1 predictions"
-               onerror="this.closest('.comparison-pair').style.display='none'">
-          <figcaption>Predicted bark masks for validation batch 1.</figcaption>
-        </figure>
-      </div>
+        <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/barkinfer/val_batch1_pred.jpg"
+             alt="Bark validation batch 1 predictions"
+             onerror="this.closest('figure').style.display='none'">
+        <figcaption>Predicted bark masks for validation batch 1.</figcaption>
+      </figure>
 
-      <div class="comparison-pair">
+      <figure class="image-card hero-image">
         <div class="pair-title">Bark validation batch 2 — labels</div>
-        <figure class="image-card large">
-          <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/barkinfer/val_batch2_labels.jpg"
-               alt="Bark validation batch 2 labels"
-               onerror="this.closest('.comparison-pair').style.display='none'">
-          <figcaption>Ground-truth bark masks for validation batch 2.</figcaption>
-        </figure>
-      </div>
+        <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/barkinfer/val_batch2_labels.jpg"
+             alt="Bark validation batch 2 labels"
+             onerror="this.closest('figure').style.display='none'">
+        <figcaption>Ground-truth bark masks for validation batch 2.</figcaption>
+      </figure>
 
-      <div class="comparison-pair">
+      <figure class="image-card hero-image">
         <div class="pair-title">Bark validation batch 2 — predictions</div>
-        <figure class="image-card large">
-          <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/barkinfer/val_batch2_pred.jpg"
-               alt="Bark validation batch 2 predictions"
-               onerror="this.closest('.comparison-pair').style.display='none'">
-          <figcaption>Predicted bark masks for validation batch 2.</figcaption>
-        </figure>
-      </div>
+        <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/barkinfer/val_batch2_pred.jpg"
+             alt="Bark validation batch 2 predictions"
+             onerror="this.closest('figure').style.display='none'">
+        <figcaption>Predicted bark masks for validation batch 2.</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -1182,11 +1167,11 @@
         <figcaption>Final stitched segmentation output example.</figcaption>
       </figure>
 
-      <figure class="image-card hero-image">
+      <figure class="image-card hero-image constrained-output">
         <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/log8_stitched_final.jpg"
              alt="Final annotated log output 3"
              onerror="this.closest('figure').style.display='none'">
-        <figcaption>Final bark and boundary visualization.</figcaption>
+        <figcaption>Final bark and boundary visualization. This image is naturally larger, so it is displayed with a slightly constrained width.</figcaption>
       </figure>
 
       <figure class="image-card hero-image">
