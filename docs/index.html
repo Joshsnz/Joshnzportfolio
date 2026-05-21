@@ -95,7 +95,7 @@
     }
 
     .hero p {
-      max-width: 820px;
+      max-width: 850px;
       color: var(--muted);
       font-size: 1.15rem;
     }
@@ -145,7 +145,7 @@
 
     .section-lead {
       color: var(--muted);
-      max-width: 820px;
+      max-width: 850px;
       margin-bottom: 22px;
       font-size: 1.04rem;
     }
@@ -176,6 +176,16 @@
       margin-bottom: 0;
     }
 
+    .card ul {
+      margin: 12px 0 0;
+      padding-left: 20px;
+      color: var(--muted);
+    }
+
+    .card li {
+      margin-bottom: 6px;
+    }
+
     .tagline {
       color: var(--accent);
       font-size: 0.95rem;
@@ -203,6 +213,10 @@
       background:
         linear-gradient(135deg, rgba(155, 209, 143, 0.07), rgba(23, 26, 32, 0.92)),
         var(--panel);
+    }
+
+    .focus-card {
+      min-height: 250px;
     }
 
     .note {
@@ -245,8 +259,10 @@
     <div class="eyebrow">AI / Software Engineering Portfolio</div>
     <h1>Joshua Skelton</h1>
     <p>
-      AI / Software Engineer building project-aware AI systems, native desktop tools,
-      cloud applications, retrieval systems, and computer vision workflows.
+      AI / Software Engineer building project-aware assistants, agentic workflows,
+      LLM-powered tools, automation systems, cloud applications, and computer vision
+      pipelines. My work focuses on turning AI from a chat interface into useful
+      software infrastructure: grounded, testable, integrated, and operational.
     </p>
 
     <div class="actions">
@@ -260,8 +276,9 @@
   <section id="projects">
     <h2>Featured Projects</h2>
     <p class="section-lead">
-      Selected projects showing AI systems work, project-aware tooling, computer vision,
-      workflow automation, and practical software engineering.
+      Selected projects showing applied AI systems work: project-aware tooling,
+      retrieval and grounding, agentic workflows, automation, computer vision,
+      and practical software engineering.
     </p>
 
     <div class="grid featured">
@@ -284,7 +301,8 @@
           <span class="tag">Skia</span>
           <span class="tag">SDL2</span>
           <span class="tag">Retrieval</span>
-          <span class="tag">AI tooling</span>
+          <span class="tag">LLM tooling</span>
+          <span class="tag">Evaluation</span>
         </div>
       </article>
 
@@ -327,6 +345,7 @@
           <span class="tag">Vue</span>
           <span class="tag">OpenAI</span>
           <span class="tag">Workflow</span>
+          <span class="tag">Automation</span>
         </div>
       </article>
     </div>
@@ -362,36 +381,109 @@
         <span class="tag">AWS</span>
         <span class="tag">Cognito</span>
         <span class="tag">Healthcare workflows</span>
+        <span class="tag">Automation</span>
       </div>
     </article>
   </section>
 
   <section id="focus">
     <h2>Technical Focus</h2>
+    <p class="section-lead">
+      My strongest focus is applied AI engineering: building the runtime, tooling,
+      retrieval, workflow, and evaluation layers around LLMs so they can operate
+      reliably inside real software products.
+    </p>
 
     <div class="grid">
-      <article class="card">
-        <h3>AI Systems</h3>
+      <article class="card focus-card">
+        <div class="tagline">LLM systems / agentic workflows</div>
+        <h3>Agentic AI Systems</h3>
         <p>
-          Project-aware assistants, retrieval, grounding, workflow routing,
-          tool-style runtimes, evaluation, and applied AI product architecture.
+          Designing assistants that can route intent, preserve context, call tools,
+          coordinate workflows, and operate inside application state rather than
+          behaving as isolated chat boxes.
         </p>
+        <ul>
+          <li>LLM orchestration and prompt/runtime design.</li>
+          <li>Tool-calling and workflow routing.</li>
+          <li>Stateful assistant behaviour and multi-turn continuity.</li>
+          <li>Structured outputs, validation, and guardrails.</li>
+        </ul>
       </article>
 
-      <article class="card">
+      <article class="card focus-card">
+        <div class="tagline">Retrieval / grounding / evals</div>
+        <h3>Project-Aware AI Tooling</h3>
+        <p>
+          Building systems that ground model behaviour in files, project state,
+          retrieved context, and testable evidence instead of generic assumptions.
+        </p>
+        <ul>
+          <li>Codebase retrieval and source-grounded QA.</li>
+          <li>Context assembly and evidence-aware answers.</li>
+          <li>Negative grounding and hallucination reduction.</li>
+          <li>Automated benchmark reports and scenario-based evals.</li>
+        </ul>
+      </article>
+
+      <article class="card focus-card">
+        <div class="tagline">Automation / product integration</div>
+        <h3>Workflow Automation</h3>
+        <p>
+          Turning business processes into structured software flows with clear state,
+          integrations, user journeys, and automation boundaries.
+        </p>
+        <ul>
+          <li>FastAPI, Vue/Nuxt, and AWS-backed applications.</li>
+          <li>Operational dashboards and portal workflows.</li>
+          <li>CRM/booking/payment-style process integration.</li>
+          <li>AI-assisted business workflow design.</li>
+        </ul>
+      </article>
+
+      <article class="card focus-card">
+        <div class="tagline">Native / systems engineering</div>
+        <h3>Desktop and Runtime Engineering</h3>
+        <p>
+          Building lower-level application surfaces and runtime infrastructure where
+          performance, state, tooling, and UX need to work together.
+        </p>
+        <ul>
+          <li>C++ desktop GUI work with Skia/SDL2/OpenGL.</li>
+          <li>Runtime orchestration and telemetry surfaces.</li>
+          <li>Release packaging and public/private project boundaries.</li>
+          <li>Debuggable application architecture.</li>
+        </ul>
+      </article>
+
+      <article class="card focus-card">
+        <div class="tagline">Vision / edge AI</div>
+        <h3>Computer Vision and Edge ML</h3>
+        <p>
+          Practical computer vision workflows for detection, segmentation, feature
+          extraction, classification, and hardware-constrained deployment.
+        </p>
+        <ul>
+          <li>YOLO, PyTorch, OpenCV, and traditional ML pipelines.</li>
+          <li>Image/video processing and feature extraction.</li>
+          <li>Jetson-class edge AI deployment planning.</li>
+          <li>Applied industrial inspection use cases.</li>
+        </ul>
+      </article>
+
+      <article class="card focus-card">
+        <div class="tagline">Cloud / full-stack delivery</div>
         <h3>Cloud Applications</h3>
         <p>
-          Nuxt/Vue frontends, AWS-backed APIs, authentication, serverless workflows,
-          and healthcare-style portal architecture.
+          Building usable frontends and backend workflows around AI, authentication,
+          data access, and operational requirements.
         </p>
-      </article>
-
-      <article class="card">
-        <h3>Computer Vision</h3>
-        <p>
-          Detection, segmentation, feature extraction, classical ML, and edge deployment
-          on Jetson-class hardware.
-        </p>
+        <ul>
+          <li>Nuxt/Vue frontend architecture.</li>
+          <li>AWS serverless and Cognito-backed application flows.</li>
+          <li>API design and frontend/backend integration.</li>
+          <li>Healthcare-style portal and workflow concepts.</li>
+        </ul>
       </article>
     </div>
   </section>
