@@ -290,6 +290,41 @@
       margin-top: 12px;
     }
 
+    .video-placeholder {
+      border: 1px dashed #567a52;
+      background:
+        linear-gradient(135deg, rgba(155, 209, 143, 0.08), rgba(23, 26, 32, 0.88)),
+        var(--panel);
+      border-radius: 18px;
+      padding: 24px;
+    }
+
+    .video-box {
+      display: grid;
+      place-items: center;
+      min-height: 220px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: #0c0f13;
+      color: var(--muted);
+      text-align: center;
+      padding: 24px;
+      margin-top: 16px;
+    }
+
+    .video-play {
+      width: 58px;
+      height: 58px;
+      border: 1px solid #567a52;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      color: var(--accent);
+      background: var(--accent-soft);
+      margin: 0 auto 12px;
+      font-size: 1.3rem;
+    }
+
     .flow {
       display: grid;
       gap: 12px;
@@ -394,6 +429,7 @@
 
     <nav class="nav" aria-label="Primary navigation">
       <a href="#overview">Overview</a>
+      <a href="#video">Video</a>
       <a href="#architecture">Architecture</a>
       <a href="#flow">Conversation flow</a>
       <a href="#code-review">Code review package</a>
@@ -408,13 +444,14 @@
     <p class="lead">
       A stateful, multi-turn AI consultant built for a New Zealand AI consultancy.
       The system classifies user intent, maintains conversation state, delivers
-      contextual pre-scripted video responses, guides users through a structured
+      contextual Elai.io-generated video responses, guides users through a structured
       consultation form, verifies email ownership with confirmation codes, and submits
       qualified leads to the business.
     </p>
 
     <div class="actions">
       <a class="button primary" href="#flow">View conversation flow</a>
+      <a class="button" href="#video">Watch demo video</a>
       <a class="button" href="#architecture">System architecture</a>
       <a class="button" href="#code-review">Core logic package</a>
       <a class="button" href="https://github.com/Joshsnz/Joshnzportfolio/blob/main/digital_consultant.ipynb">Open notebook</a>
@@ -429,6 +466,7 @@
       <span class="tag">Nuxt 3</span>
       <span class="tag">Vue 3</span>
       <span class="tag">TypeScript</span>
+      <span class="tag">Elai.io video assets</span>
       <span class="tag">Email verification</span>
       <span class="tag">Structured logging</span>
     </div>
@@ -456,6 +494,12 @@
         </p>
 
         <p>
+          The project used pre-scripted Elai.io-generated videos as the visual assistant
+          layer. The backend returned a video key with each response, allowing the frontend
+          to synchronize the chat state with the appropriate avatar/video clip.
+        </p>
+
+        <p>
           The project was completed and deployed during September–December 2024.
           The public portfolio shows the architecture and flow. A cleaned private
           core-logic repository can be shared for code review without exposing secrets,
@@ -475,10 +519,43 @@
           <li>Stateful assistant rather than one-shot chat.</li>
           <li>Intent-aware routing between service info and consultation flow.</li>
           <li>10-stage structured consultation form.</li>
+          <li>Elai.io-generated videos triggered by assistant state.</li>
           <li>Confirmation-code email verification.</li>
           <li>Lead notification to business email.</li>
           <li>Cleaned backend core logic available in a private review repo.</li>
         </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="video">
+    <h2>Demo video</h2>
+
+    <div class="video-placeholder">
+      <h3>Video walkthrough placeholder</h3>
+      <p>
+        A short walkthrough video will be added here. The planned demo should show the
+        website assistant, the chat interface, state-triggered Elai.io video clips,
+        the consultation flow, email confirmation, and the backend handoff behaviour.
+      </p>
+
+      <div class="video-box">
+        <div>
+          <div class="video-play">▶</div>
+          <strong>Demo video coming soon</strong>
+          <p style="margin: 8px 0 0;">
+            Replace this placeholder with a YouTube, Loom, or GitHub-hosted demo link.
+          </p>
+        </div>
+      </div>
+
+      <div class="actions">
+        <a class="button" href="https://github.com/Joshsnz/Joshnzportfolio/blob/main/digital_consultant.ipynb">
+          View project notebook
+        </a>
+        <a class="button disabled" href="#video">
+          Video link placeholder
+        </a>
       </div>
     </div>
   </section>
@@ -505,7 +582,8 @@
     <p class="section-lead">
       The system was built as a full-stack agentic web application with a FastAPI backend,
       LangChain/OpenAI intent layer, deterministic state management, async email verification,
-      structured JSON logs, and a Nuxt/Vue frontend with synchronized video playback.
+      structured JSON logs, a Nuxt/Vue frontend, and pre-scripted Elai.io-generated videos
+      synchronized to assistant states.
     </p>
 
     <div class="grid">
@@ -536,10 +614,11 @@
       </article>
 
       <article class="card">
-        <h3>Video response system</h3>
+        <h3>Elai.io video response layer</h3>
         <p>
-          Mapped conversation states and form stages to pre-scripted videos, giving the
-          assistant a richer front-facing presentation than text alone.
+          Pre-scripted avatar/video clips were generated with Elai.io and mapped to
+          conversation states, giving the assistant a polished visual response surface
+          without requiring real-time video generation.
         </p>
       </article>
 
@@ -565,7 +644,8 @@
     <h2>Core conversation flow</h2>
     <p class="section-lead">
       The application worked as a stateful consultation funnel: natural chat at the
-      surface, deterministic workflow control underneath.
+      surface, deterministic workflow control underneath, and video clips triggered by
+      the current assistant state.
     </p>
 
     <div class="flow">
@@ -590,9 +670,9 @@
       </div>
 
       <div class="flow-step">
-        <strong>4. Contextual video selection:</strong>
-        the system maps the current state to a relevant pre-scripted video such as
-        welcome, consultation stage, confirmation code, cancellation, or goodbye.
+        <strong>4. Elai.io video selection:</strong>
+        the backend maps the current state to a video key. The frontend uses that key
+        to display the corresponding pre-rendered Elai.io video clip.
       </div>
 
       <div class="flow-step">
@@ -737,6 +817,7 @@
           <li>No raw logs or lead data.</li>
           <li>No frontend build artifacts.</li>
           <li>No production deployment secrets.</li>
+          <li>No Elai.io video files or private video project assets.</li>
         </ul>
       </div>
     </div>
@@ -771,10 +852,10 @@
       </article>
 
       <article class="card">
-        <h3>Video-enhanced UX</h3>
+        <h3>Elai.io-enhanced UX</h3>
         <p>
-          Pre-scripted videos were mapped to assistant states, giving the site a more
-          polished front-facing consultant experience without requiring real-time avatar
+          Pre-rendered Elai.io video clips were mapped to assistant states, giving the
+          site a more polished consultant experience without needing real-time avatar
           generation.
         </p>
       </article>
@@ -877,13 +958,14 @@
       </article>
 
       <article class="card">
-        <h3>Frontend</h3>
+        <h3>Frontend and video</h3>
         <ul>
           <li>Nuxt 3</li>
           <li>Vue 3</li>
           <li>TypeScript</li>
           <li>Chat interface</li>
           <li>Synchronized video player</li>
+          <li>Elai.io-generated video clips</li>
         </ul>
       </article>
 
@@ -930,10 +1012,26 @@
       </article>
 
       <article class="card">
+        <h3>Productized presentation layer</h3>
+        <p>
+          The system paired chat-based interaction with Elai.io-generated videos, making
+          the assistant feel closer to a guided digital consultant than a plain support bot.
+        </p>
+      </article>
+
+      <article class="card">
         <h3>Production-aware engineering</h3>
         <p>
           The system included logging, validation, state cleanup, security-oriented
           design notes, and deployment-oriented frontend/backend separation.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Reviewable core logic</h3>
+        <p>
+          The cleaned private package makes the backend logic reviewable without exposing
+          the client-facing source tree, credentials, videos, or production artifacts.
         </p>
       </article>
     </div>
@@ -953,6 +1051,12 @@
         the architecture, conversation flow, technical design, and implementation approach.
         A cleaned core backend logic package is available through a private review repo
         if code-level review is requested.
+      </p>
+      <p>
+        <strong>Video boundary:</strong>
+        the public portfolio may include a short demo walkthrough, but the original
+        Elai.io project files and production video assets are not included in the
+        public repository.
       </p>
     </div>
   </section>
