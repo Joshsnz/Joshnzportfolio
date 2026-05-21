@@ -1,1 +1,794 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Log & Bark Computer Vision Pipeline — Joshua Skelton Portfolio</title>
 
+  <style>
+    :root {
+      --bg: #0f1115;
+      --panel: #171a20;
+      --panel-2: #12161d;
+      --text: #e8e8e8;
+      --muted: #b8b8b8;
+      --accent: #9bd18f;
+      --accent-soft: #162316;
+      --border: #303743;
+      --code: #101318;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(155, 209, 143, 0.08), transparent 34rem),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    main {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 32px 24px 84px;
+    }
+
+    a {
+      color: var(--accent);
+    }
+
+    .topbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      padding-bottom: 20px;
+      margin-bottom: 48px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .portfolio-back {
+      display: inline-block;
+      border: 1px solid #567a52;
+      border-radius: 999px;
+      padding: 9px 14px;
+      color: var(--accent);
+      background: var(--accent-soft);
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    .nav a:hover,
+    .portfolio-back:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+      letter-spacing: 0.02em;
+    }
+
+    h1 {
+      font-size: clamp(2.3rem, 5vw, 4.2rem);
+      line-height: 1.04;
+      margin: 0 0 16px;
+    }
+
+    h2 {
+      font-size: 1.7rem;
+      margin: 0 0 16px;
+    }
+
+    h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+
+    p {
+      margin-top: 0;
+    }
+
+    .hero {
+      margin-bottom: 52px;
+    }
+
+    .lead {
+      max-width: 900px;
+      color: var(--muted);
+      font-size: 1.14rem;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    .button {
+      display: inline-block;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 10px 16px;
+      color: var(--text);
+      background: var(--panel-2);
+      text-decoration: none;
+      transition: border-color 0.15s ease, transform 0.15s ease;
+    }
+
+    .button:hover {
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .button.primary {
+      border-color: #567a52;
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    section {
+      margin-top: 54px;
+    }
+
+    .section-lead {
+      color: var(--muted);
+      max-width: 900px;
+      margin-bottom: 22px;
+      font-size: 1.04rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .grid.two {
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    @media (max-width: 860px) {
+      .split {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      background: rgba(23, 26, 32, 0.92);
+      border-radius: 18px;
+      padding: 22px;
+    }
+
+    .card p,
+    .card li {
+      color: var(--muted);
+    }
+
+    .card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .card ul {
+      margin: 12px 0 0;
+      padding-left: 20px;
+    }
+
+    .card li {
+      margin-bottom: 6px;
+    }
+
+    .metric-card {
+      border-color: rgba(155, 209, 143, 0.45);
+    }
+
+    .metric-value {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--text);
+      margin: 6px 0;
+    }
+
+    .metric-label {
+      color: var(--muted);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .notice {
+      border: 1px solid var(--border);
+      background: rgba(23, 26, 32, 0.88);
+      border-radius: 18px;
+      padding: 22px;
+      margin-top: 22px;
+    }
+
+    .notice strong {
+      color: var(--text);
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .tag {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 4px 9px;
+      color: var(--muted);
+      font-size: 0.85rem;
+      background: var(--code);
+    }
+
+    .image-card {
+      border: 1px solid var(--border);
+      background: rgba(23, 26, 32, 0.92);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .image-card img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      background: #f6f7f4;
+      border: 1px solid var(--border);
+    }
+
+    .image-card figcaption {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-top: 10px;
+    }
+
+    .wide {
+      grid-column: 1 / -1;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: rgba(23, 26, 32, 0.92);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 820px;
+    }
+
+    th,
+    td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--muted);
+      background: var(--code);
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .best {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    code {
+      background: var(--code);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 2px 6px;
+    }
+
+    .pipeline {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .pipeline-step {
+      border: 1px solid var(--border);
+      background: var(--code);
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .pipeline-step strong {
+      color: var(--accent);
+    }
+
+    footer {
+      margin-top: 64px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    footer p:last-child {
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+
+<body>
+<main>
+  <div class="topbar">
+    <a class="portfolio-back" href="../index.html">← Back to main portfolio</a>
+
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="#pipeline">Pipeline</a>
+      <a href="#metrics">Metrics</a>
+      <a href="#training">Training phases</a>
+      <a href="#outputs">Outputs</a>
+      <a href="https://github.com/Joshsnz/Joshnzportfolio/blob/main/bark%26knot.ipynb">Notebook</a>
+    </nav>
+  </div>
+
+  <header class="hero">
+    <div class="eyebrow">Computer vision / edge AI portfolio project</div>
+    <h1>Log & Bark Computer Vision Pipeline</h1>
+    <p class="lead">
+      A two-stage industrial computer vision pipeline for detecting logs in video,
+      stitching continuous log images, segmenting the main log boundary, detecting
+      bark regions, and generating a final annotated output for bark-percentage analysis.
+    </p>
+
+    <div class="actions">
+      <a class="button primary" href="#metrics">View training metrics</a>
+      <a class="button" href="#outputs">View output examples</a>
+      <a class="button" href="https://github.com/Joshsnz/Joshnzportfolio/blob/main/bark%26knot.ipynb">Open notebook</a>
+      <a class="button" href="https://github.com/Joshsnz/Joshnzportfolio">GitHub repo</a>
+    </div>
+
+    <div class="tags">
+      <span class="tag">Computer vision</span>
+      <span class="tag">YOLO segmentation</span>
+      <span class="tag">PyTorch</span>
+      <span class="tag">OpenCV</span>
+      <span class="tag">EfficientNet</span>
+      <span class="tag">PCA</span>
+      <span class="tag">SVM</span>
+      <span class="tag">Jetson</span>
+      <span class="tag">Industrial AI</span>
+    </div>
+  </header>
+
+  <section id="summary">
+    <h2>Project summary</h2>
+
+    <div class="split">
+      <div class="card">
+        <p>
+          This project was designed for an industrial log-processing workflow where
+          the system needs to identify when a log enters the camera view, stitch the
+          relevant frames into a continuous log image, then segment both the log boundary
+          and bark regions.
+        </p>
+
+        <p>
+          The architecture separates lightweight edge detection from heavier GPU-based
+          segmentation. Stage A runs on Jetson-class hardware and detects log intervals
+          in video. Stage B runs on GPU and performs segmentation over stitched log images.
+        </p>
+
+        <p>
+          The final output combines bark outlines with a unified red log boundary,
+          producing a visual result that can support downstream bark-percentage estimation.
+        </p>
+      </div>
+
+      <div class="card metric-card">
+        <div class="metric-label">Headline best checkpoint</div>
+        <div class="metric-value">Phase 2</div>
+        <p>
+          Phase 2 produced the strongest overall best-checkpoint metrics, with near-perfect
+          precision and strong mAP across both bounding-box and mask evaluations.
+        </p>
+
+        <ul>
+          <li><strong>Precision:</strong> ~0.999</li>
+          <li><strong>Recall:</strong> ~0.949</li>
+          <li><strong>Box mAP50:</strong> ~0.975</li>
+          <li><strong>Box mAP50:95:</strong> ~0.955</li>
+          <li><strong>Mask mAP50:95:</strong> ~0.965</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="pipeline">
+    <h2>Pipeline overview</h2>
+    <p class="section-lead">
+      The notebook describes a two-stage system: Jetson-based video detection and frame
+      stitching, followed by GPU-based log and bark segmentation.
+    </p>
+
+    <div class="pipeline">
+      <div class="pipeline-step">
+        <strong>1. Video input and region of interest</strong><br>
+        Only the region where the log appears is processed, reducing background noise and computation.
+      </div>
+
+      <div class="pipeline-step">
+        <strong>2. Frame differencing</strong><br>
+        Consecutive frames are differenced so moving logs stand out against a mostly static background.
+      </div>
+
+      <div class="pipeline-step">
+        <strong>3. EfficientNet feature extraction</strong><br>
+        A frozen EfficientNet model is used as a feature extractor for compact image representations.
+      </div>
+
+      <div class="pipeline-step">
+        <strong>4. Standardization, PCA, and SVM</strong><br>
+        Features are standardized, reduced to four principal components, and classified as log/no-log with an SVM.
+      </div>
+
+      <div class="pipeline-step">
+        <strong>5. Log interval detection and stitching</strong><br>
+        Consecutive positive frames are grouped into intervals and stitched horizontally into full log images.
+      </div>
+
+      <div class="pipeline-step">
+        <strong>6. YOLO log boundary segmentation</strong><br>
+        The stitched log is split into overlapping halves and the outer log boundary is segmented.
+      </div>
+
+      <div class="pipeline-step">
+        <strong>7. Bark segmentation and final fusion</strong><br>
+        Bark regions are segmented, restitched, aligned with the original geometry, and combined with a unified red log outline.
+      </div>
+    </div>
+  </section>
+
+  <section id="evidence">
+    <h2>Notebook visual evidence</h2>
+    <p class="section-lead">
+      These images are referenced from the repository's existing <code>images/</code> folder.
+      Missing images will simply not display until they are added.
+    </p>
+
+    <div class="grid two">
+      <figure class="image-card">
+        <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/frames.png"
+             alt="Frame differencing and video input example"
+             onerror="this.closest('figure').style.display='none'">
+        <figcaption>Frame differencing / video-stage evidence used to isolate moving logs.</figcaption>
+      </figure>
+
+      <figure class="image-card">
+        <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/decision.png"
+             alt="SVM decision score plot"
+             onerror="this.closest('figure').style.display='none'">
+        <figcaption>SVM decision-score style output for log/no-log frame classification.</figcaption>
+      </figure>
+
+      <figure class="image-card">
+        <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/logannot.png"
+             alt="Log segmentation annotation example"
+             onerror="this.closest('figure').style.display='none'">
+        <figcaption>Log boundary segmentation annotation example.</figcaption>
+      </figure>
+
+      <figure class="image-card">
+        <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/barkannot.png"
+             alt="Bark segmentation annotation example"
+             onerror="this.closest('figure').style.display='none'">
+        <figcaption>Bark segmentation annotation example for texture-region masks.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="metrics">
+    <h2>Three-phase training metrics</h2>
+    <p class="section-lead">
+      The model was trained in three stages. Phase 1 established a strong baseline,
+      Phase 2 produced the best overall checkpoint, and Phase 3 confirmed strong early
+      fine-tune behaviour but showed later instability. The portfolio should report best
+      checkpoint performance, not final-epoch performance.
+    </p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Phase 1</th>
+            <th>Phase 2</th>
+            <th>Phase 3</th>
+            <th>Interpretation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Best epoch</td>
+            <td>85</td>
+            <td class="best">222</td>
+            <td>8</td>
+            <td>Phase 2 is the strongest overall checkpoint.</td>
+          </tr>
+
+          <tr>
+            <td>Precision(B)</td>
+            <td>0.854</td>
+            <td class="best">0.999</td>
+            <td>0.999</td>
+            <td>Phase 2/3 are extremely selective with very few false positives.</td>
+          </tr>
+
+          <tr>
+            <td>Recall(B)</td>
+            <td>0.936</td>
+            <td class="best">0.949</td>
+            <td>0.949</td>
+            <td>Recall remains high, meaning most targets are found.</td>
+          </tr>
+
+          <tr>
+            <td>Precision(M)</td>
+            <td>0.854</td>
+            <td class="best">0.999</td>
+            <td>0.999</td>
+            <td>Mask predictions are highly precise at the best checkpoint.</td>
+          </tr>
+
+          <tr>
+            <td>Recall(M)</td>
+            <td>0.936</td>
+            <td class="best">0.949</td>
+            <td>0.949</td>
+            <td>Mask recall is strong and stable across later phases.</td>
+          </tr>
+
+          <tr>
+            <td>mAP50(B)</td>
+            <td>0.894</td>
+            <td class="best">0.975</td>
+            <td>0.956</td>
+            <td>Loose-IoU box detection is very strong after full unfreeze.</td>
+          </tr>
+
+          <tr>
+            <td>mAP50:95(B)</td>
+            <td>0.545</td>
+            <td class="best">0.955</td>
+            <td>0.940</td>
+            <td>Phase 2 significantly improves stricter localization quality.</td>
+          </tr>
+
+          <tr>
+            <td>mAP50(M)</td>
+            <td>0.894</td>
+            <td class="best">0.965</td>
+            <td>0.956</td>
+            <td>Mask mAP50 remains strong across phases 2 and 3.</td>
+          </tr>
+
+          <tr>
+            <td>mAP50:95(M)</td>
+            <td>0.662</td>
+            <td class="best">0.965</td>
+            <td>0.956</td>
+            <td>Strict mask quality is the strongest in Phase 2.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="notice">
+      <p>
+        <strong>Result interpretation:</strong>
+        these are strong results. Phase 2 is the most portfolio-worthy checkpoint because
+        it combines near-perfect precision, high recall, and high mAP50:95. The late spikes
+        in some training plots should be explained as training instability or overrun behaviour,
+        which is why best-checkpoint selection matters.
+      </p>
+    </div>
+  </section>
+
+  <section id="training">
+    <h2>Training phase plots</h2>
+    <p class="section-lead">
+      Add these images to the repository root <code>images/</code> folder with the exact names:
+      <code>results_phase1.png</code>, <code>results_phase2.png</code>, and <code>results_phase3.png</code>.
+    </p>
+
+    <div class="grid">
+      <figure class="image-card wide">
+        <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/results_phase1.png"
+             alt="Phase 1 training results"
+             onerror="this.closest('figure').style.display='none'">
+        <figcaption>
+          Phase 1: strong baseline, high recall, but lower precision and stricter mAP than later phases.
+        </figcaption>
+      </figure>
+
+      <figure class="image-card wide">
+        <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/results_phase2.png"
+             alt="Phase 2 training results"
+             onerror="this.closest('figure').style.display='none'">
+        <figcaption>
+          Phase 2: strongest overall best checkpoint, with near-perfect precision and strong mAP50:95.
+        </figcaption>
+      </figure>
+
+      <figure class="image-card wide">
+        <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/results_phase3.png"
+             alt="Phase 3 training results"
+             onerror="this.closest('figure').style.display='none'">
+        <figcaption>
+          Phase 3: strong early fine-tune checkpoint, but later plots show instability, supporting best-checkpoint selection.
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="outputs">
+    <h2>Final output examples</h2>
+    <p class="section-lead">
+      The final fusion output combines the stitched log body, white bark outlines,
+      and a unified red outer log boundary.
+    </p>
+
+    <div class="grid two">
+      <figure class="image-card">
+        <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/log2_stitched_final.jpg"
+             alt="Final annotated log output 1"
+             onerror="this.closest('figure').style.display='none'">
+        <figcaption>Final annotated log example with bark outlines and unified log boundary.</figcaption>
+      </figure>
+
+      <figure class="image-card">
+        <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/log5_stitched_final.jpg"
+             alt="Final annotated log output 2"
+             onerror="this.closest('figure').style.display='none'">
+        <figcaption>Final stitched segmentation output example.</figcaption>
+      </figure>
+
+      <figure class="image-card">
+        <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/log8_stitched_final.jpg"
+             alt="Final annotated log output 3"
+             onerror="this.closest('figure').style.display='none'">
+        <figcaption>Final bark and boundary visualization.</figcaption>
+      </figure>
+
+      <figure class="image-card">
+        <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/log28_stitched_final.jpg"
+             alt="Final annotated log output 4"
+             onerror="this.closest('figure').style.display='none'">
+        <figcaption>Additional output example from the final fusion stage.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="explainability">
+    <h2>Explainability and model behaviour</h2>
+
+    <div class="grid">
+      <article class="card">
+        <h3>Why frame differencing helps</h3>
+        <p>
+          The conveyor background is mostly static while logs move through the frame.
+          Differencing consecutive frames suppresses background information and emphasizes
+          motion, making the log/no-log classifier easier to train.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Why PCA + SVM is useful on edge hardware</h3>
+        <p>
+          EfficientNet features are high dimensional. PCA compresses them into a small
+          representation, and the SVM performs lightweight binary classification suitable
+          for Jetson-class deployment.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Why overlap is used for segmentation</h3>
+        <p>
+          Large stitched logs are split for segmentation. A small overlap reduces boundary
+          failures near crop edges and helps preserve continuity when the halves are merged.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Why Phase 2 is the best checkpoint</h3>
+        <p>
+          Phase 2 gives the strongest balance of high precision, high recall, and strict
+          mAP. Phase 3 remains strong early but shows later instability, so best-checkpoint
+          selection is more important than final-epoch reporting.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section id="skills">
+    <h2>What this project demonstrates</h2>
+
+    <div class="grid">
+      <article class="card">
+        <h3>End-to-end ML pipeline design</h3>
+        <p>
+          The project combines video processing, feature extraction, classical ML,
+          neural segmentation, post-processing, and final visualization.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Hybrid classical + deep learning approach</h3>
+        <p>
+          Instead of using one model for everything, the system combines EfficientNet,
+          PCA, SVM, YOLO segmentation, morphology, and geometric union.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Industrial computer vision framing</h3>
+        <p>
+          The pipeline is built around a real inspection-style problem: detecting logs,
+          preserving full-surface geometry, and identifying bark regions.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <footer>
+    <p>
+      Links:
+      <a href="../index.html">main portfolio</a> ·
+      <a href="https://github.com/Joshsnz/Joshnzportfolio/blob/main/bark%26knot.ipynb">notebook</a> ·
+      <a href="https://github.com/Joshsnz/Joshnzportfolio">GitHub repo</a>
+    </p>
+  </footer>
+</main>
+</body>
+</html>
