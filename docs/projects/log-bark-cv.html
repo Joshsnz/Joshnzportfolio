@@ -37,7 +37,7 @@
     }
 
     main {
-      max-width: 1220px;
+      max-width: 1260px;
       margin: 0 auto;
       padding: 32px 24px 84px;
     }
@@ -118,7 +118,7 @@
     }
 
     .lead {
-      max-width: 940px;
+      max-width: 960px;
       color: var(--muted);
       font-size: 1.14rem;
     }
@@ -158,7 +158,7 @@
 
     .section-lead {
       color: var(--muted);
-      max-width: 940px;
+      max-width: 960px;
       margin-bottom: 22px;
       font-size: 1.04rem;
     }
@@ -173,10 +173,6 @@
       grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
     }
 
-    .grid.final-output {
-      grid-template-columns: repeat(auto-fit, minmax(520px, 1fr));
-    }
-
     .split {
       display: grid;
       grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
@@ -189,8 +185,7 @@
         grid-template-columns: 1fr;
       }
 
-      .grid.two,
-      .grid.final-output {
+      .grid.two {
         grid-template-columns: 1fr;
       }
     }
@@ -277,6 +272,10 @@
       padding: 20px;
     }
 
+    .image-card.hero-image {
+      padding: 22px;
+    }
+
     .image-card img {
       display: block;
       width: 100%;
@@ -286,7 +285,8 @@
       border: 1px solid var(--border);
     }
 
-    .image-card.large img {
+    .image-card.large img,
+    .image-card.hero-image img {
       border-radius: 14px;
     }
 
@@ -300,6 +300,21 @@
       grid-column: 1 / -1;
     }
 
+    .final-output-stack {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+
+    .final-output-stack .image-card {
+      padding: 24px;
+    }
+
+    .final-output-stack img {
+      width: 100%;
+      max-height: none;
+    }
+
     .table-wrap {
       overflow-x: auto;
       border: 1px solid var(--border);
@@ -310,7 +325,7 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 820px;
+      min-width: 860px;
     }
 
     th,
@@ -455,7 +470,7 @@
 
       <div class="card metric-card">
         <div class="metric-label">Headline best checkpoint</div>
-        <div class="metric-value">Phase 2</div>
+        <div class="metric-value">Phase 2 — Unfreeze</div>
         <p>
           Phase 2 produced the strongest overall best-checkpoint metrics, with near-perfect
           precision and strong mAP across both bounding-box and mask evaluations.
@@ -552,8 +567,24 @@
              onerror="this.closest('figure').style.display='none'">
         <figcaption>
           SVM decision-score output for identifying log intervals from video frames.
+          A small number of blue points appear above the decision line. This was acceptable
+          behaviour for the project because the labels were based on the broader frame/log
+          interval, while the selected region of interest may not yet show the log clearly
+          in every labelled frame. In other words, these points reflect label/ROI timing
+          rather than a serious pipeline failure.
         </figcaption>
       </figure>
+    </div>
+
+    <div class="notice">
+      <p>
+        <strong>SVM decision-score note:</strong>
+        the decision plot should be interpreted with the labelling process in mind.
+        Some frames are labelled from the full log interval, but the region of interest
+        can lag slightly behind the full-frame log presence. A few blue points crossing
+        the threshold are therefore acceptable in this context, because the downstream
+        interval grouping and stitching logic is tolerant to small frame-level ambiguity.
+      </p>
     </div>
   </section>
 
@@ -702,10 +733,10 @@
   <section id="metrics">
     <h2>9. Three-phase YOLO training metrics</h2>
     <p class="section-lead">
-      The segmentation model was trained in three stages: frozen-backbone stabilization,
-      full unfreeze training, then lower-learning-rate fine-tuning. The reported result
-      should use the best checkpoint, not the final epoch, because some plots show late
-      instability.
+      The segmentation model was trained in three stages: Phase 1 froze the backbone,
+      Phase 2 unfroze the model for stronger adaptation, and Phase 3 fine-tuned with
+      a lower learning rate. The reported result should use the best checkpoint, not
+      the final epoch, because some plots show late instability.
     </p>
 
     <div class="table-wrap">
@@ -713,9 +744,9 @@
         <thead>
           <tr>
             <th>Metric</th>
-            <th>Phase 1</th>
-            <th>Phase 2</th>
-            <th>Phase 3</th>
+            <th>Phase 1 — Freeze</th>
+            <th>Phase 2 — Unfreeze</th>
+            <th>Phase 3 — Fine-tune</th>
             <th>Interpretation</th>
           </tr>
         </thead>
@@ -809,39 +840,38 @@
   <section id="training-plots">
     <h2>10. Training phase plots</h2>
     <p class="section-lead">
-      Add these files to the repository root <code>images/</code> folder:
-      <code>results_phase1.png</code>, <code>results_phase2.png</code>, and
-      <code>results_phase3.png</code>. They are rendered large here because they are
-      central evidence for the model performance.
+      These plots show the three training stages: Phase 1 freeze, Phase 2 unfreeze,
+      and Phase 3 fine-tune. They are rendered large because they are central evidence
+      for the model performance.
     </p>
 
-    <figure class="image-card large wide">
+    <figure class="image-card hero-image wide">
       <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/results_phase1.png"
-           alt="Phase 1 training results"
+           alt="Phase 1 freeze training results"
            onerror="this.closest('figure').style.display='none'">
       <figcaption>
-        Phase 1: strong baseline, high recall, but lower precision and stricter mAP
+        Phase 1 — Freeze: strong baseline, high recall, but lower precision and stricter mAP
         compared with later phases.
       </figcaption>
     </figure>
 
-    <figure class="image-card large wide">
+    <figure class="image-card hero-image wide">
       <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/results_phase2.png"
-           alt="Phase 2 training results"
+           alt="Phase 2 unfreeze training results"
            onerror="this.closest('figure').style.display='none'">
       <figcaption>
-        Phase 2: strongest overall best checkpoint, with near-perfect precision and
-        strong mAP50:95.
+        Phase 2 — Unfreeze: strongest overall best checkpoint, with near-perfect precision
+        and strong mAP50:95.
       </figcaption>
     </figure>
 
-    <figure class="image-card large wide">
+    <figure class="image-card hero-image wide">
       <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/results_phase3.png"
-           alt="Phase 3 training results"
+           alt="Phase 3 fine-tune training results"
            onerror="this.closest('figure').style.display='none'">
       <figcaption>
-        Phase 3: strong early fine-tune checkpoint, but later instability supports
-        reporting the best checkpoint rather than the final epoch.
+        Phase 3 — Fine-tune: strong early fine-tune checkpoint, but later instability
+        supports reporting the best checkpoint rather than the final epoch.
       </figcaption>
     </figure>
   </section>
@@ -850,47 +880,47 @@
     <h2>11. Final output examples</h2>
     <p class="section-lead">
       The final fusion output combines the stitched log body, white bark outlines,
-      and a unified red outer log boundary. These are rendered larger because they
-      are the clearest visual explanation of the finished pipeline.
+      and a unified red outer log boundary. These are stacked vertically and rendered
+      large because they are the clearest visual explanation of the finished pipeline.
     </p>
 
-    <div class="grid final-output">
-      <figure class="image-card large">
+    <div class="final-output-stack">
+      <figure class="image-card hero-image">
         <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/log2_stitched_final.jpg"
              alt="Final annotated log output 1"
              onerror="this.closest('figure').style.display='none'">
         <figcaption>Final annotated log example with bark outlines and unified log boundary.</figcaption>
       </figure>
 
-      <figure class="image-card large">
+      <figure class="image-card hero-image">
         <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/log5_stitched_final.jpg"
              alt="Final annotated log output 2"
              onerror="this.closest('figure').style.display='none'">
         <figcaption>Final stitched segmentation output example.</figcaption>
       </figure>
 
-      <figure class="image-card large">
+      <figure class="image-card hero-image">
         <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/log8_stitched_final.jpg"
              alt="Final annotated log output 3"
              onerror="this.closest('figure').style.display='none'">
         <figcaption>Final bark and boundary visualization.</figcaption>
       </figure>
 
-      <figure class="image-card large">
+      <figure class="image-card hero-image">
         <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/log28_stitched_final.jpg"
              alt="Final annotated log output 4"
              onerror="this.closest('figure').style.display='none'">
         <figcaption>Additional output example from the final fusion stage.</figcaption>
       </figure>
 
-      <figure class="image-card large">
+      <figure class="image-card hero-image">
         <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/log29_stitched_final.jpg"
              alt="Final annotated log output 5"
              onerror="this.closest('figure').style.display='none'">
         <figcaption>Additional final output showing bark outlines and red boundary.</figcaption>
       </figure>
 
-      <figure class="image-card large">
+      <figure class="image-card hero-image">
         <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/log32_stitched_final.jpg"
              alt="Final annotated log output 6"
              onerror="this.closest('figure').style.display='none'">
@@ -909,6 +939,16 @@
           The conveyor background is mostly static while logs move through the frame.
           Differencing consecutive frames suppresses background information and emphasizes
           motion, making the log/no-log classifier easier to train.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Why some SVM score points cross the line</h3>
+        <p>
+          Some blue points above the decision line were acceptable because labels were
+          based on broader frame/log-interval timing, while the ROI did not always show
+          the log clearly at the same moment. The interval grouping stage is tolerant
+          to this kind of small frame-level ambiguity.
         </p>
       </article>
 
