@@ -1,0 +1,866 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agentic Digital Consultant — Joshua Skelton Portfolio</title>
+
+  <style>
+    :root {
+      --bg: #0f1115;
+      --panel: #171a20;
+      --panel-2: #12161d;
+      --text: #e8e8e8;
+      --muted: #b8b8b8;
+      --accent: #9bd18f;
+      --accent-soft: #162316;
+      --border: #303743;
+      --code: #101318;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(155, 209, 143, 0.08), transparent 34rem),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    main {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 32px 24px 84px;
+    }
+
+    a {
+      color: var(--accent);
+    }
+
+    .topbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      padding-bottom: 20px;
+      margin-bottom: 48px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .portfolio-back {
+      display: inline-block;
+      border: 1px solid #567a52;
+      border-radius: 999px;
+      padding: 9px 14px;
+      color: var(--accent);
+      background: var(--accent-soft);
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    .nav a:hover,
+    .portfolio-back:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+      letter-spacing: 0.02em;
+    }
+
+    h1 {
+      font-size: clamp(2.3rem, 5vw, 4.2rem);
+      line-height: 1.04;
+      margin: 0 0 16px;
+    }
+
+    h2 {
+      font-size: 1.7rem;
+      margin: 0 0 16px;
+    }
+
+    h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+
+    p {
+      margin-top: 0;
+    }
+
+    .hero {
+      margin-bottom: 52px;
+    }
+
+    .lead {
+      max-width: 960px;
+      color: var(--muted);
+      font-size: 1.14rem;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    .button {
+      display: inline-block;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 10px 16px;
+      color: var(--text);
+      background: var(--panel-2);
+      text-decoration: none;
+      transition: border-color 0.15s ease, transform 0.15s ease;
+    }
+
+    .button:hover {
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .button.primary {
+      border-color: #567a52;
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    section {
+      margin-top: 58px;
+    }
+
+    .section-lead {
+      color: var(--muted);
+      max-width: 960px;
+      margin-bottom: 22px;
+      font-size: 1.04rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 22px;
+    }
+
+    .grid.two {
+      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.12fr) minmax(320px, 0.88fr);
+      gap: 22px;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .split {
+        grid-template-columns: 1fr;
+      }
+
+      .grid.two {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      background: rgba(23, 26, 32, 0.92);
+      border-radius: 18px;
+      padding: 22px;
+    }
+
+    .card p,
+    .card li {
+      color: var(--muted);
+    }
+
+    .card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .card ul,
+    .card ol {
+      margin: 12px 0 0;
+      padding-left: 20px;
+    }
+
+    .card li {
+      margin-bottom: 6px;
+    }
+
+    .highlight-card {
+      border-color: rgba(155, 209, 143, 0.45);
+    }
+
+    .metric-label {
+      color: var(--muted);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .metric-value {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--text);
+      margin: 6px 0 12px;
+    }
+
+    .notice {
+      border: 1px solid var(--border);
+      background: rgba(23, 26, 32, 0.88);
+      border-radius: 18px;
+      padding: 22px;
+      margin-top: 22px;
+    }
+
+    .notice strong {
+      color: var(--text);
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .tag {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 4px 9px;
+      color: var(--muted);
+      font-size: 0.85rem;
+      background: var(--code);
+    }
+
+    .image-card {
+      border: 1px solid var(--border);
+      background: rgba(23, 26, 32, 0.92);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .image-card img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      background: #f6f7f4;
+      border: 1px solid var(--border);
+    }
+
+    .image-card figcaption {
+      color: var(--muted);
+      font-size: 0.94rem;
+      margin-top: 12px;
+    }
+
+    .flow {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .flow-step {
+      border: 1px solid var(--border);
+      background: var(--code);
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .flow-step strong {
+      color: var(--accent);
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: rgba(23, 26, 32, 0.92);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 760px;
+    }
+
+    th,
+    td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--muted);
+      background: var(--code);
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    code {
+      background: var(--code);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 2px 6px;
+    }
+
+    footer {
+      margin-top: 64px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    footer p:last-child {
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+
+<body>
+<main>
+  <div class="topbar">
+    <a class="portfolio-back" href="../index.html">← Back to main portfolio</a>
+
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="#overview">Overview</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#flow">Conversation flow</a>
+      <a href="#features">Features</a>
+      <a href="#security">Security</a>
+      <a href="https://github.com/Joshsnz/Joshnzportfolio/blob/main/digital_consultant.ipynb">Notebook</a>
+    </nav>
+  </div>
+
+  <header class="hero">
+    <div class="eyebrow">Agentic workflow / AI consultant portfolio project</div>
+    <h1>Agentic Digital Consultant</h1>
+    <p class="lead">
+      A stateful, multi-turn AI consultant built for a New Zealand AI consultancy.
+      The system classifies user intent, maintains conversation state, delivers
+      contextual pre-scripted video responses, guides users through a structured
+      consultation form, verifies email ownership with confirmation codes, and submits
+      qualified leads to the business.
+    </p>
+
+    <div class="actions">
+      <a class="button primary" href="#flow">View conversation flow</a>
+      <a class="button" href="#architecture">System architecture</a>
+      <a class="button" href="#features">Technical highlights</a>
+      <a class="button" href="https://github.com/Joshsnz/Joshnzportfolio/blob/main/digital_consultant.ipynb">Open notebook</a>
+    </div>
+
+    <div class="tags">
+      <span class="tag">Agentic workflows</span>
+      <span class="tag">LLMs</span>
+      <span class="tag">GPT-4</span>
+      <span class="tag">LangChain</span>
+      <span class="tag">FastAPI</span>
+      <span class="tag">Nuxt 3</span>
+      <span class="tag">Vue 3</span>
+      <span class="tag">TypeScript</span>
+      <span class="tag">Email verification</span>
+      <span class="tag">Structured logging</span>
+    </div>
+  </header>
+
+  <section id="overview">
+    <h2>Project summary</h2>
+
+    <div class="split">
+      <div class="card">
+        <p>
+          This project automated the initial consultation path for an AI consultancy.
+          Instead of a static contact form, the website used an AI-driven assistant
+          that could greet visitors, understand what they wanted, answer service
+          questions, transition into a guided consultation, collect structured
+          business-problem details, verify the user's email, and send the completed
+          lead to the business.
+        </p>
+
+        <p>
+          The key design decision was to combine flexible LLM-driven intent classification
+          with deterministic state management. The model handled natural language
+          interpretation, while the application controlled form progress, validation,
+          video selection, email confirmation, and final lead submission.
+        </p>
+
+        <p>
+          The project was completed and deployed during September–December 2024.
+          The full source is private because it was built as a client/business project,
+          but the architecture, flow, and implementation approach are summarized here.
+        </p>
+      </div>
+
+      <div class="card highlight-card">
+        <div class="metric-label">Project outcome</div>
+        <div class="metric-value">Completed & deployed</div>
+        <p>
+          A working AI consultation system with multi-turn state, guided form collection,
+          contextual video responses, email verification, and automated business handoff.
+        </p>
+
+        <ul>
+          <li>Stateful assistant rather than one-shot chat.</li>
+          <li>Intent-aware routing between service info and consultation flow.</li>
+          <li>10-stage structured consultation form.</li>
+          <li>Confirmation-code email verification.</li>
+          <li>Lead notification to business email.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="visual">
+    <h2>Visual reference</h2>
+    <p class="section-lead">
+      The notebook includes a project image for the Smart-Based consultant work.
+      If the file is present in the repository images folder, it will render here.
+    </p>
+
+    <figure class="image-card">
+      <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/sb.png"
+           alt="Smart-Based AI digital consultant project image"
+           onerror="this.closest('figure').style.display='none'">
+      <figcaption>
+        Smart-Based AI consultant project image from the original portfolio notebook.
+      </figcaption>
+    </figure>
+  </section>
+
+  <section id="architecture">
+    <h2>System architecture</h2>
+    <p class="section-lead">
+      The system was built as a full-stack agentic web application with a FastAPI backend,
+      LangChain/OpenAI intent layer, thread-safe state management, async email verification,
+      structured logs, and a Nuxt/Vue frontend with synchronized video playback.
+    </p>
+
+    <div class="grid">
+      <article class="card">
+        <h3>FastAPI backend</h3>
+        <p>
+          Served the assistant endpoints, handled user messages, coordinated state,
+          triggered video responses, advanced consultation stages, and managed lead
+          submission.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>LangChain + GPT-4 intent layer</h3>
+        <p>
+          Classified messages into intents such as greeting, consultation, services,
+          information, thanks, goodbye, and unknown while tolerating natural language
+          variation and typos.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Custom state machine</h3>
+        <p>
+          Maintained per-thread dialog state, form stage, user details, greeting state,
+          finalization state, and last-active timestamps for cleanup.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Video response system</h3>
+        <p>
+          Served contextual pre-scripted videos mapped to conversation states and form
+          progress, giving the assistant a richer presentation layer than text alone.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Email verification system</h3>
+        <p>
+          Sent confirmation codes through SMTP, validated user email ownership, and only
+          finalized consultation submissions after successful code verification.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Nuxt 3 / Vue frontend</h3>
+        <p>
+          Provided the chat interface and synchronized video player, connecting the user
+          experience to the backend assistant state.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section id="flow">
+    <h2>Core conversation flow</h2>
+    <p class="section-lead">
+      The application worked as a stateful consultation funnel: natural chat at the
+      surface, deterministic workflow control underneath.
+    </p>
+
+    <div class="flow">
+      <div class="flow-step">
+        <strong>1. User greeting / initial message:</strong>
+        the assistant greets the visitor, classifies intent, and determines whether
+        the user wants service information, a consultation, or general help.
+      </div>
+
+      <div class="flow-step">
+        <strong>2. Intent classification:</strong>
+        GPT-4-based prompts classify the message into supported intents such as
+        <code>greeting</code>, <code>consultation</code>, <code>info</code>,
+        <code>services</code>, <code>goodbye</code>, <code>thanks</code>, or
+        <code>unknown</code>.
+      </div>
+
+      <div class="flow-step">
+        <strong>3. State update:</strong>
+        the backend updates the user's thread/session state, including dialog state,
+        form stage, collected user details, last active time, and finalization status.
+      </div>
+
+      <div class="flow-step">
+        <strong>4. Contextual video selection:</strong>
+        the system maps the current state to a relevant pre-scripted video such as
+        welcome, consultation stage, confirmation code, or goodbye.
+      </div>
+
+      <div class="flow-step">
+        <strong>5. Guided consultation form:</strong>
+        if the user wants a consultation, the assistant collects structured business
+        requirements through a staged form.
+      </div>
+
+      <div class="flow-step">
+        <strong>6. Email confirmation:</strong>
+        the user provides an email address, receives a confirmation code, and must
+        enter the code before the lead is finalized.
+      </div>
+
+      <div class="flow-step">
+        <strong>7. Business handoff:</strong>
+        after verification, the backend sends the completed consultation details to
+        the business email for follow-up.
+      </div>
+    </div>
+  </section>
+
+  <section id="form">
+    <h2>Consultation form engine</h2>
+    <p class="section-lead">
+      The consultation flow collected structured information needed to qualify an AI
+      solution request. The LLM provided conversational flexibility while the state
+      machine kept the form deterministic.
+    </p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Stage</th>
+            <th>Information collected</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Business problem</td>
+            <td>Understand what the user wants solved.</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Domain</td>
+            <td>Identify the business area or industry context.</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Problem type</td>
+            <td>Classify the nature of the AI/automation opportunity.</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Data format</td>
+            <td>Understand whether usable data exists and what shape it is in.</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Timeline</td>
+            <td>Gauge urgency and project planning expectations.</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>Expected solution</td>
+            <td>Capture the user's desired outcome or workflow change.</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>Additional details</td>
+            <td>Allow open-ended context before contact details.</td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>Name</td>
+            <td>Identify the requester.</td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td>Email</td>
+            <td>Collect a contact method and start verification.</td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td>Confirmation code</td>
+            <td>Verify email ownership before final submission.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="features">
+    <h2>Key technical highlights</h2>
+
+    <div class="grid">
+      <article class="card">
+        <h3>Stateful agent design</h3>
+        <p>
+          Each conversation maintained a separate thread state, allowing the assistant
+          to continue form collection and route responses based on prior progress.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Intent routing</h3>
+        <p>
+          GPT-4 was used to classify what the user wanted, but the backend controlled
+          what the application did next. That separation reduced random behaviour.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Deterministic form progression</h3>
+        <p>
+          The consultation process followed a known state machine with validation,
+          cancellation support, edge-case handling, and finalization rules.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Video-enhanced UX</h3>
+        <p>
+          Pre-scripted videos were mapped to assistant states, giving the site a more
+          polished front-facing consultant experience without requiring real-time avatar
+          generation.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Email verification</h3>
+        <p>
+          Confirmation codes helped prevent unverified form submissions and created a
+          cleaner lead handoff process.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Structured logs</h3>
+        <p>
+          The backend logged conversation activity and internal system events, improving
+          observability and debugging for a multi-turn assistant workflow.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section id="security">
+    <h2>Security, validation, and operational behaviour</h2>
+
+    <div class="grid">
+      <article class="card">
+        <h3>Input validation</h3>
+        <p>
+          The form flow validated structured inputs such as email and confirmation code
+          before finalizing the consultation submission.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Thread cleanup</h3>
+        <p>
+          Inactive conversation threads were cleaned after a timeout, preventing abandoned
+          sessions from accumulating indefinitely.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Rate-limiting ready</h3>
+        <p>
+          The design included production-facing concerns such as security headers, CORS,
+          sanitization, and rate-limiting readiness.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Private source boundary</h3>
+        <p>
+          The full implementation remains private because this was a client/business
+          project. This public page presents the architecture and technical approach.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section id="stack">
+    <h2>Technology stack</h2>
+
+    <div class="grid">
+      <article class="card">
+        <h3>Backend</h3>
+        <ul>
+          <li>Python 3</li>
+          <li>FastAPI</li>
+          <li>asyncio</li>
+          <li>Thread-safe state handling</li>
+          <li>Structured JSON logging</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h3>AI layer</h3>
+        <ul>
+          <li>OpenAI GPT-4</li>
+          <li>LangChain</li>
+          <li>Prompt-engineered intent classification</li>
+          <li>Natural-language routing</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h3>Frontend</h3>
+        <ul>
+          <li>Nuxt 3</li>
+          <li>Vue 3</li>
+          <li>TypeScript</li>
+          <li>Chat interface</li>
+          <li>Synchronized video player</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h3>Email and lead flow</h3>
+        <ul>
+          <li>ProtonMail SMTP</li>
+          <li>smtplib</li>
+          <li>email-validator</li>
+          <li>Confirmation codes</li>
+          <li>Business lead notification</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section id="explainability">
+    <h2>Why this is portfolio-relevant</h2>
+
+    <div class="grid">
+      <article class="card">
+        <h3>Not just a chatbot</h3>
+        <p>
+          The project demonstrates an agentic application layer: classification,
+          routing, state, video responses, form progression, verification, and final
+          business handoff.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>LLM + deterministic workflow</h3>
+        <p>
+          The LLM handled flexible language interpretation, while deterministic backend
+          logic managed the actual business process.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Commercial use case</h3>
+        <p>
+          The assistant was built around a practical consultancy funnel: qualify leads,
+          collect useful details, verify contact information, and notify the business.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Production-aware engineering</h3>
+        <p>
+          The system included logging, validation, state cleanup, security-oriented
+          design notes, and deployment-oriented frontend/backend separation.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section id="status">
+    <h2>Status and public boundary</h2>
+
+    <div class="notice">
+      <p>
+        <strong>Status:</strong>
+        completed and successfully deployed during September–December 2024.
+      </p>
+      <p>
+        <strong>Public boundary:</strong>
+        the full source code is private. This portfolio page summarizes the architecture,
+        conversation flow, technical design, and implementation approach. Core conversation
+        engine details, prompt templates, video mapping logic, and example flows are
+        available upon request.
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    <p>
+      Links:
+      <a href="../index.html">main portfolio</a> ·
+      <a href="https://github.com/Joshsnz/Joshnzportfolio/blob/main/digital_consultant.ipynb">notebook</a> ·
+      <a href="https://github.com/Joshsnz/Joshnzportfolio">GitHub repo</a>
+    </p>
+  </footer>
+</main>
+</body>
+</html>
