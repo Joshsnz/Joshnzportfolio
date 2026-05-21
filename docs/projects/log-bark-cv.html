@@ -336,36 +336,6 @@
       margin-right: auto;
     }
 
-    .final-output-stack .manual-zoom {
-      overflow: hidden;
-    }
-
-    .final-output-stack .manual-zoom img {
-      width: 180%;
-      max-width: none;
-      margin-left: -40%;
-    }
-
-    .final-output-stack .manual-zoom-medium {
-      overflow: hidden;
-    }
-
-    .final-output-stack .manual-zoom-medium img {
-      width: 165%;
-      max-width: none;
-      margin-left: -32.5%;
-    }
-
-    .final-output-stack .manual-zoom-strong {
-      overflow: hidden;
-    }
-
-    .final-output-stack .manual-zoom-strong img {
-      width: 190%;
-      max-width: none;
-      margin-left: -45%;
-    }
-
     .table-wrap {
       overflow-x: auto;
       border: 1px solid var(--border);
@@ -1178,19 +1148,16 @@
     <h2>11. Final output examples</h2>
     <p class="section-lead">
       The final fusion output combines the stitched log body, white bark outlines,
-      and a unified red outer log boundary. Images with smaller logs are manually zoomed
-      so the segmentation output is easier to inspect.
+      and a unified red outer log boundary. These are stacked vertically and rendered
+      large because they are the clearest visual explanation of the finished pipeline.
     </p>
 
     <div class="final-output-stack">
-      <figure class="image-card hero-image manual-zoom-strong">
+      <figure class="image-card hero-image">
         <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/log2_stitched_final.jpg"
              alt="Final annotated log output 1"
              onerror="this.closest('figure').style.display='none'">
-        <figcaption>
-          Final annotated log example with bark outlines and unified log boundary.
-          This image is manually zoomed because the log occupies a smaller part of the original canvas.
-        </figcaption>
+        <figcaption>Final annotated log example with bark outlines and unified log boundary.</figcaption>
       </figure>
 
       <figure class="image-card hero-image">
@@ -1204,19 +1171,14 @@
         <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/log8_stitched_final.jpg"
              alt="Final annotated log output 3"
              onerror="this.closest('figure').style.display='none'">
-        <figcaption>
-          Final bark and boundary visualization. This image is naturally larger, so it is displayed with a slightly constrained width.
-        </figcaption>
+        <figcaption>Final bark and boundary visualization. This image is naturally larger, so it is displayed with a slightly constrained width.</figcaption>
       </figure>
 
-      <figure class="image-card hero-image manual-zoom-medium">
+      <figure class="image-card hero-image">
         <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/log28_stitched_final.jpg"
              alt="Final annotated log output 4"
              onerror="this.closest('figure').style.display='none'">
-        <figcaption>
-          Additional output example from the final fusion stage. This image is manually zoomed
-          to make the smaller log easier to inspect.
-        </figcaption>
+        <figcaption>Additional output example from the final fusion stage.</figcaption>
       </figure>
 
       <figure class="image-card hero-image">
@@ -1226,14 +1188,11 @@
         <figcaption>Additional final output showing bark outlines and red boundary.</figcaption>
       </figure>
 
-      <figure class="image-card hero-image manual-zoom">
+      <figure class="image-card hero-image">
         <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/log32_stitched_final.jpg"
              alt="Final annotated log output 6"
              onerror="this.closest('figure').style.display='none'">
-        <figcaption>
-          Final fused output from another stitched log example. This image is manually zoomed
-          to improve visual readability.
-        </figcaption>
+        <figcaption>Final fused output from another stitched log example.</figcaption>
       </figure>
     </div>
   </section>
