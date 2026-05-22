@@ -431,6 +431,7 @@
       <a href="#overview">Overview</a>
       <a href="#video">Video</a>
       <a href="#architecture">Architecture</a>
+      <a href="#deployment">Deployment</a>
       <a href="#flow">Conversation flow</a>
       <a href="#code-review">Code review package</a>
       <a href="#security">Security</a>
@@ -445,14 +446,15 @@
       A stateful, multi-turn AI consultant built for a New Zealand AI consultancy.
       The system classifies user intent, maintains conversation state, delivers
       contextual Elai.io-generated video responses, guides users through a structured
-      consultation form, verifies email ownership with confirmation codes, and submits
-      qualified leads to the business.
+      consultation form, verifies email ownership with confirmation codes, submits
+      qualified leads to the business, and was deployed on a DigitalOcean Droplet.
     </p>
 
     <div class="actions">
       <a class="button primary" href="#flow">View conversation flow</a>
       <a class="button" href="#video">Watch demo video</a>
       <a class="button" href="#architecture">System architecture</a>
+      <a class="button" href="#deployment">Deployment notes</a>
       <a class="button" href="#code-review">Core logic package</a>
       <a class="button" href="https://github.com/Joshsnz/Joshnzportfolio/blob/main/digital_consultant.ipynb">Open notebook</a>
     </div>
@@ -466,6 +468,7 @@
       <span class="tag">Nuxt 3</span>
       <span class="tag">Vue 3</span>
       <span class="tag">TypeScript</span>
+      <span class="tag">DigitalOcean Droplet</span>
       <span class="tag">Elai.io video assets</span>
       <span class="tag">Email verification</span>
       <span class="tag">Structured logging</span>
@@ -500,6 +503,13 @@
         </p>
 
         <p>
+          The application was deployed on a DigitalOcean Droplet, giving the project a
+          real hosted backend environment rather than remaining as a local-only prototype.
+          The deployment separated runtime configuration and secrets from the reviewable
+          core logic.
+        </p>
+
+        <p>
           The project was completed and deployed during September–December 2024.
           The public portfolio shows the architecture and flow. A cleaned private
           core-logic repository can be shared for code review without exposing secrets,
@@ -512,7 +522,8 @@
         <div class="metric-value">Completed & deployed</div>
         <p>
           A working AI consultation system with multi-turn state, guided form collection,
-          contextual video responses, email verification, and automated business handoff.
+          contextual video responses, email verification, automated business handoff,
+          and DigitalOcean Droplet deployment.
         </p>
 
         <ul>
@@ -522,6 +533,7 @@
           <li>Elai.io-generated videos triggered by assistant state.</li>
           <li>Confirmation-code email verification.</li>
           <li>Lead notification to business email.</li>
+          <li>FastAPI backend deployed on a DigitalOcean Droplet.</li>
           <li>Cleaned backend core logic available in a private review repo.</li>
         </ul>
       </div>
@@ -536,7 +548,8 @@
       <p>
         A short walkthrough video will be added here. The planned demo should show the
         website assistant, the chat interface, state-triggered Elai.io video clips,
-        the consultation flow, email confirmation, and the backend handoff behaviour.
+        the consultation flow, email confirmation, backend handoff behaviour, and the
+        deployed-system architecture.
       </p>
 
       <div class="video-box">
@@ -582,8 +595,8 @@
     <p class="section-lead">
       The system was built as a full-stack agentic web application with a FastAPI backend,
       LangChain/OpenAI intent layer, deterministic state management, async email verification,
-      structured JSON logs, a Nuxt/Vue frontend, and pre-scripted Elai.io-generated videos
-      synchronized to assistant states.
+      structured JSON logs, a Nuxt/Vue frontend, pre-scripted Elai.io-generated videos
+      synchronized to assistant states, and production deployment on a DigitalOcean Droplet.
     </p>
 
     <div class="grid">
@@ -635,6 +648,68 @@
         <p>
           Provided the chat interface and synchronized video player, connecting the user
           experience to backend assistant state and video-response keys.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>DigitalOcean deployment</h3>
+        <p>
+          The backend was deployed on a DigitalOcean Droplet, demonstrating a real hosted
+          deployment path with runtime configuration kept separate from the reviewable
+          source logic.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Private review boundary</h3>
+        <p>
+          The public portfolio summarizes the architecture and behaviour, while the cleaned
+          private code package preserves the core backend logic without exposing secrets,
+          logs, frontend assets, or production deployment configuration.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section id="deployment">
+    <h2>Deployment and operations</h2>
+    <p class="section-lead">
+      This project was not only a notebook or local prototype. It was deployed as a hosted
+      web application, with the backend running on a DigitalOcean Droplet and the frontend
+      connecting to the assistant API.
+    </p>
+
+    <div class="grid">
+      <article class="card">
+        <h3>DigitalOcean Droplet</h3>
+        <p>
+          The production backend was hosted on a DigitalOcean Droplet, providing a practical
+          server environment for the FastAPI assistant service.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Runtime configuration boundary</h3>
+        <p>
+          Environment variables, SMTP credentials, OpenAI keys, session secrets, and other
+          deployment-specific settings were kept outside the source code and are not included
+          in the public or private review package.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Operational logging</h3>
+        <p>
+          The backend used structured JSON logging for internal events and conversation flow
+          diagnostics, while raw logs and lead data remain excluded from review materials.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Reviewable core logic</h3>
+        <p>
+          The private review repo focuses on the durable backend logic: intent routing,
+          state transitions, email confirmation, lead handoff, and API handling.
         </p>
       </article>
     </div>
@@ -817,6 +892,7 @@
           <li>No raw logs or lead data.</li>
           <li>No frontend build artifacts.</li>
           <li>No production deployment secrets.</li>
+          <li>No DigitalOcean server configuration or private infrastructure details.</li>
           <li>No Elai.io video files or private video project assets.</li>
         </ul>
       </div>
@@ -869,10 +945,26 @@
       </article>
 
       <article class="card">
+        <h3>Hosted deployment</h3>
+        <p>
+          The project was deployed on a DigitalOcean Droplet, demonstrating a working
+          hosted backend rather than only a local prototype.
+        </p>
+      </article>
+
+      <article class="card">
         <h3>Structured logs</h3>
         <p>
           The backend logged conversation activity and internal system events in JSON,
           improving observability and debugging for a multi-turn assistant workflow.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Configurable runtime boundary</h3>
+        <p>
+          Deployment-specific settings, API keys, session secrets, and email credentials
+          were handled outside the source code.
         </p>
       </article>
     </div>
@@ -970,6 +1062,16 @@
       </article>
 
       <article class="card">
+        <h3>Deployment</h3>
+        <ul>
+          <li>DigitalOcean Droplet</li>
+          <li>Hosted FastAPI backend</li>
+          <li>Environment-based configuration</li>
+          <li>Separated secrets and runtime settings</li>
+        </ul>
+      </article>
+
+      <article class="card">
         <h3>Email and lead flow</h3>
         <ul>
           <li>SMTP email delivery</li>
@@ -1020,10 +1122,18 @@
       </article>
 
       <article class="card">
+        <h3>Deployment experience</h3>
+        <p>
+          Deploying the application on a DigitalOcean Droplet added practical server
+          configuration, environment management, and hosted backend experience.
+        </p>
+      </article>
+
+      <article class="card">
         <h3>Production-aware engineering</h3>
         <p>
           The system included logging, validation, state cleanup, security-oriented
-          design notes, and deployment-oriented frontend/backend separation.
+          design notes, deployment-aware configuration, and frontend/backend separation.
         </p>
       </article>
 
@@ -1031,7 +1141,7 @@
         <h3>Reviewable core logic</h3>
         <p>
           The cleaned private package makes the backend logic reviewable without exposing
-          the client-facing source tree, credentials, videos, or production artifacts.
+          the client-facing source tree, credentials, videos, server configuration, or production artifacts.
         </p>
       </article>
     </div>
@@ -1046,9 +1156,15 @@
         completed and successfully deployed during September–December 2024.
       </p>
       <p>
+        <strong>Deployment:</strong>
+        the production backend was deployed on a DigitalOcean Droplet. The public portfolio
+        references the deployment approach but does not expose server configuration, secrets,
+        logs, or infrastructure details.
+      </p>
+      <p>
         <strong>Public boundary:</strong>
         the full production source remains private. The public portfolio summarizes
-        the architecture, conversation flow, technical design, and implementation approach.
+        the architecture, conversation flow, technical design, deployment approach, and implementation approach.
         A cleaned core backend logic package is available through a private review repo
         if code-level review is requested.
       </p>
