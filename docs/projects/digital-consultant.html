@@ -290,8 +290,8 @@
       margin-top: 12px;
     }
 
-    .video-placeholder {
-      border: 1px dashed #567a52;
+    .video-card {
+      border: 1px solid #567a52;
       background:
         linear-gradient(135deg, rgba(155, 209, 143, 0.08), rgba(23, 26, 32, 0.88)),
         var(--panel);
@@ -299,30 +299,29 @@
       padding: 24px;
     }
 
-    .video-box {
-      display: grid;
-      place-items: center;
-      min-height: 220px;
+    .video-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
       border: 1px solid var(--border);
       border-radius: 16px;
+      overflow: hidden;
       background: #0c0f13;
-      color: var(--muted);
-      text-align: center;
-      padding: 24px;
-      margin-top: 16px;
+      margin-top: 18px;
     }
 
-    .video-play {
-      width: 58px;
-      height: 58px;
-      border: 1px solid #567a52;
-      border-radius: 999px;
-      display: grid;
-      place-items: center;
-      color: var(--accent);
-      background: var(--accent-soft);
-      margin: 0 auto 12px;
-      font-size: 1.3rem;
+    .video-frame iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .video-caption {
+      color: var(--muted);
+      margin-top: 12px;
+      font-size: 0.95rem;
     }
 
     .flow {
@@ -451,8 +450,8 @@
     </p>
 
     <div class="actions">
-      <a class="button primary" href="#flow">View conversation flow</a>
-      <a class="button" href="#video">Watch demo video</a>
+      <a class="button primary" href="#video">Watch demo video</a>
+      <a class="button" href="#flow">View conversation flow</a>
       <a class="button" href="#architecture">System architecture</a>
       <a class="button" href="#deployment">Deployment notes</a>
       <a class="button" href="#code-review">Core logic package</a>
@@ -543,31 +542,35 @@
   <section id="video">
     <h2>Demo video</h2>
 
-    <div class="video-placeholder">
-      <h3>Video walkthrough placeholder</h3>
+    <div class="video-card">
+      <h3>Agentic Digital Consultant walkthrough</h3>
       <p>
-        A short walkthrough video will be added here. The planned demo should show the
-        website assistant, the chat interface, state-triggered Elai.io video clips,
-        the consultation flow, email confirmation, backend handoff behaviour, and the
-        deployed-system architecture.
+        This demo shows the assistant greeting a user, routing intent, entering the
+        consultation workflow, collecting structured business details, sending an email
+        verification code, and finalizing the lead submission.
       </p>
 
-      <div class="video-box">
-        <div>
-          <div class="video-play">▶</div>
-          <strong>Demo video coming soon</strong>
-          <p style="margin: 8px 0 0;">
-            Replace this placeholder with a YouTube, Loom, or GitHub-hosted demo link.
-          </p>
-        </div>
+      <div class="video-frame">
+        <iframe
+          src="https://www.youtube.com/embed/DUNwig9QBZ4"
+          title="Agentic Digital Consultant demo video"
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
       </div>
 
+      <p class="video-caption">
+        The embedded walkthrough demonstrates the deployed consultation workflow and the
+        state-triggered video response layer.
+      </p>
+
       <div class="actions">
+        <a class="button primary" href="https://www.youtube.com/watch?v=DUNwig9QBZ4" target="_blank" rel="noopener noreferrer">
+          Open on YouTube
+        </a>
         <a class="button" href="https://github.com/Joshsnz/Joshnzportfolio/blob/main/digital_consultant.ipynb">
           View project notebook
-        </a>
-        <a class="button disabled" href="#video">
-          Video link placeholder
         </a>
       </div>
     </div>
