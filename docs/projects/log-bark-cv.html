@@ -552,6 +552,8 @@
       A two-stage industrial computer vision pipeline for detecting logs in video,
       stitching continuous log images, segmenting the main log boundary, detecting
       bark regions, and generating a final annotated output for bark-percentage analysis.
+      The system combines a classical feature/classification stage with deep-learning
+      segmentation models.
     </p>
 
     <div class="actions">
@@ -607,14 +609,16 @@
       </div>
 
       <div class="card metric-card">
-        <div class="metric-label">Best model summary</div>
-        <div class="metric-value">Two-model pipeline</div>
+        <div class="metric-label">System summary</div>
+        <div class="metric-value">Six-component hybrid pipeline</div>
         <p>
-          The final system uses separate YOLO segmentation models for the large
-          log-boundary task and the smaller bark-fragment task.
+          The full system is more than two YOLO models. It combines a classical
+          frame-level detection pipeline with two downstream segmentation models.
         </p>
 
         <ul>
+          <li><strong>Feature / ML stage:</strong> ROI differencing, EfficientNet feature extraction, fitted scaling, PCA reduction, and RBF SVM classification.</li>
+          <li><strong>Segmentation stage:</strong> one YOLO model for log-boundary segmentation and one YOLO model for bark-fragment segmentation.</li>
           <li><strong>Log boundary:</strong> Phase 2 — Unfreeze selected as best checkpoint.</li>
           <li><strong>Bark fragments:</strong> Phase 3 — Fine-tune selected for cleaner visual fusion.</li>
           <li><strong>Evaluation note:</strong> bark mAP is lower because bark is fragmented and boundary-ambiguous.</li>
@@ -632,6 +636,15 @@
     </p>
 
     <div class="impact-grid">
+      <div class="impact-card">
+        <span>Hybrid model stack</span>
+        <strong>Classical ML + YOLO</strong>
+        <p>
+          Combined EfficientNet features, fitted preprocessing, PCA, SVM frame classification,
+          and two YOLO segmentation models in one end-to-end inspection pipeline.
+        </p>
+      </div>
+
       <div class="impact-card">
         <span>Log-boundary segmentation</span>
         <strong>97.5% mAP50</strong>
@@ -686,7 +699,9 @@
         <strong>Metric boundary:</strong>
         model metrics come from the training/validation results shown below. The 70–80%
         workflow reduction is an estimated operational target for manual inspection effort,
-        not a measured production analytics result.
+        not a measured production analytics result. The six-component wording refers to the
+        full inspection pipeline, while the metrics section focuses specifically on the two
+        trained YOLO segmentation models.
       </p>
     </div>
   </section>
@@ -702,8 +717,8 @@
       <div class="pipeline-step">
         <strong>Stage A — Jetson video detection:</strong>
         process a region of interest, isolate motion with frame differencing,
-        extract EfficientNet features, reduce them with PCA, classify log/no-log
-        frames with an SVM, and group positive frames into log intervals.
+        extract EfficientNet features, reduce them with fitted preprocessing and PCA,
+        classify log/no-log frames with an SVM, and group positive frames into log intervals.
       </div>
 
       <div class="pipeline-step">
@@ -993,11 +1008,12 @@
   </section>
 
   <section id="metrics">
-    <h2>9. Training results — two segmentation models</h2>
+    <h2>9. Training results — two YOLO segmentation models</h2>
     <p class="section-lead">
-      The pipeline uses two trained YOLO segmentation models: one for the large continuous
-      log boundary, and another for fragmented bark regions. Their metrics are reported
-      separately because the visual and mathematical difficulty of the two tasks is different.
+      The full project uses a larger hybrid model stack, but the scalar training tables below
+      report the two trained YOLO segmentation models: one for the large continuous log boundary,
+      and another for fragmented bark regions. Their metrics are reported separately because
+      the visual and mathematical difficulty of the two tasks is different.
     </p>
 
     <div class="model-heading">
@@ -1496,8 +1512,8 @@
       <article class="card">
         <h3>End-to-end ML pipeline design</h3>
         <p>
-          The project combines video processing, feature extraction, classical ML,
-          neural segmentation, post-processing, and final visualization.
+          The project combines video processing, feature extraction, fitted preprocessing,
+          classical ML, neural segmentation, post-processing, and final visualization.
         </p>
       </article>
 
@@ -1505,7 +1521,7 @@
         <h3>Hybrid classical + deep learning approach</h3>
         <p>
           Instead of using one model for everything, the system combines EfficientNet,
-          PCA, SVM, YOLO segmentation, morphology, and geometric union.
+          fitted scaling, PCA, SVM, YOLO segmentation, morphology, and geometric union.
         </p>
       </article>
 
