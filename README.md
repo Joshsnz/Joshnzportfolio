@@ -1,66 +1,149 @@
-# Hi, I'm Joshua Skelton 👋
+# Joshua Skelton — AI / Software Portfolio
 
-**AI / Software Engineer** | Building production-grade AI systems and modern web applications.  
-Open to opportunities in **Grand Rapids, Michigan** (H-1B / sponsorship welcome).
+**AI Software Engineer | Forward-Deployed AI Engineer | Applied LLM Systems | Computer Vision**
 
-**Note**: Most projects are proprietary. I’m happy to discuss them in detail, walk through architecture, or share additional screenshots and demos during a conversation.
+I build applied AI systems, project-aware AI tools, full-stack agentic workflows, cloud-backed applications, and computer vision pipelines.
 
----
+Primary portfolio site:
 
-### 🚀 Selected Projects
+**[Open full portfolio →](https://joshsnz.github.io/Joshnzportfolio/)**
 
-**🩺 Telehealth Patient Portal PoC** *(Apr 2026 – Present)*  
-Building a secure, full-featured patient portal for a telehealth provider with lab results, appointments, prescriptions, **AI chatbots**, and intelligent rostering.  
-**Tech:** Nuxt 4, Vue 3, TypeScript, AWS Amplify, Cognito, API Gateway, Lambda
+I am open to opportunities in **Grand Rapids, Michigan** and remote/hybrid AI software roles.  
+**H-1B / sponsorship welcome.**
 
-**💻 Agentic Developer Assistant (Desktop LLM Application)** *(Jan 2025 – Present)*  
-Developing a source-grounded, model-agnostic desktop AI coding assistant (100k+ LOC) focused on repository intelligence, architecture analysis, patch workflows, and evaluation-driven development.  
-
-**[View Detailed Notebook →](./agentic_developer_assistant.ipynb)**
-
-![Desktop LLM Application](images/coeus2.png)
-
-
-**📸 Log & Bark Computer Vision Pipeline** *(Dec 2023 – Sep 2024)*  
-Designed and deployed a six-model edge AI pipeline for commercial log and bark percentage analysis, optimized for **Jetson Nano**.  
-**Tech:** YOLOv5-seg, EfficientNet, PCA, SVM, PyTorch, OpenCV, C++, Python  
-
-**[View Detailed Notebook →](./bark&knot.ipynb)**
-
-**🤖 Agentic Digital Consultant** *(Sep – Dec 2024)*  
-Created a stateful AI agent that classifies intent, manages conversations, delivers **scripted video responses**, guides users through consultation forms, and automates email verification + lead submissions.  
-**Tech:** LangChain, FastAPI, OpenAI GPT-4, Nuxt 3/Vue 3  
-
-**[View Detailed Notebook →](./digital_consultant.ipynb)**
-
-![Digital Consultant Chat Interface](images/sb.png)
-
-
-**📄 Smart Document Chatbot (RAG)** *(Feb – Aug 2023)*  
-Built a retrieval-augmented generation chatbot that grounds LLM responses in corporate documents.  
-**Tech:** LangChain, FastAPI, FAISS, NGINX
+Most substantial project source is private or client-related. I am happy to discuss architecture, walk through demos, and share private review packages where appropriate.
 
 ---
 
-### 🛠️ Skills & Technologies
-- **AI/ML:** PyTorch, LangChain, RAG, Computer Vision (YOLO, EfficientNet), Agentic Systems
-- **Frontend:** Nuxt 4 / Vue 3, TypeScript
-- **Backend & Cloud:** AWS (Amplify, Cognito, API Gateway, Lambda), FastAPI, Python, C++
-- **Other:** Docker, Git, Edge Deployment (Jetson Nano), SDL2, Skia
+## Featured Projects
+
+### Coeus AI — Project-Aware AI Desktop Workspace
+
+Native C++ desktop AI workspace for working with software projects. Coeus combines a custom Skia/SDL2 GUI, local project context, source-grounded retrieval, plan/apply workflows, telemetry, and headless evaluation reports.
+
+**Highlights**
+
+- Native C++20 desktop application
+- Custom Skia / SDL2 / OpenGL GUI
+- Project-aware assistant runtime
+- Source-grounded repository QA
+- Plan/apply workflow support
+- Context Lattice Engine / compiled-turn architecture
+- Public demo release and RepoGrounding evaluation reports
+- Private codebase review package available on request
+
+**[Open Coeus AI project page →](https://joshsnz.github.io/coeus.ai/)**
 
 ---
 
-### 📍 Currently Exploring
-**Grand Rapids, Michigan** opportunities in AI, Data Science, Software Engineering, or Healthcare Tech.
+### Log & Bark Computer Vision Pipeline
 
-Feel free to reach out if you have interesting projects or roles!
+Industrial computer vision pipeline for commercial log and bark percentage analysis. The system combines video processing, frame differencing, EfficientNet feature extraction, PCA, SVM classification, YOLO segmentation, stitched log reconstruction, and final bark/log boundary visualization.
+
+**Highlights**
+
+- End-to-end computer vision workflow
+- Classical ML + deep learning pipeline
+- Log detection and stitched surface reconstruction
+- Log-boundary and bark segmentation
+- Training metrics, validation examples, and final inference outputs
+- Edge-deployment constraints considered around Jetson-class hardware
+
+**Tech:** Python, C++, PyTorch, OpenCV, scikit-learn, EfficientNet, PCA, SVM, YOLO segmentation, WSL2
+
+**[Open computer vision project page →](https://joshsnz.github.io/Joshnzportfolio/projects/log-bark-cv.html)**
 
 ---
 
-### Connect with me
-- LinkedIn: [linkedin.com/in/josh-skelton-280696281](https://linkedin.com/in/josh-skelton-280696281)
-- Email: jlukeskelton@gmail.com
+### Agentic Digital Consultant
+
+Deployed AI consultation workflow for a New Zealand AI consultancy. The assistant classifies user intent, routes users through deterministic conversation states, triggers Elai.io-generated video responses, collects consultation details, verifies email ownership with confirmation codes, and sends completed leads to the business.
+
+**Highlights**
+
+- LLM intent classification
+- Deterministic state-machine workflow
+- Structured consultation form
+- Email verification and lead handoff
+- Elai.io-triggered video response layer
+- FastAPI backend deployed on a DigitalOcean Droplet
+- Cleaned private backend review package available on request
+
+**Tech:** Python, FastAPI, LangChain, OpenAI, Nuxt 3, Vue 3, TypeScript, SMTP, DigitalOcean
+
+**[Open digital consultant project page →](https://joshsnz.github.io/Joshnzportfolio/projects/digital-consultant.html)**
 
 ---
 
-*Last updated: May 2026*
+## Currently Working On
+
+### Telehealth Patient Portal PoC
+
+Building a patient portal proof of concept for a telehealth provider, focused on lab results, appointments, prescriptions, patient workflows, authentication, and future AI-assisted healthcare operations.
+
+**Current focus**
+
+- Patient dashboard
+- Lab result status workflow
+- Appointment flow
+- AWS-aligned backend architecture
+- Cognito authentication
+- Clean path from mock data to live API integration
+
+**Tech:** Nuxt 4, Vue 3, TypeScript, AWS Cognito, API Gateway, Lambda, Amplify-ready frontend architecture
+
+---
+
+## Technical Focus
+
+- Applied LLM systems
+- Project-aware AI tools
+- Forward-deployed AI workflows
+- Retrieval and source grounding
+- Agentic workflow design
+- Deterministic state machines around LLMs
+- Computer vision and model evaluation
+- Full-stack AI applications
+- Cloud-backed product development
+- Validation, observability, and technical documentation
+
+---
+
+## Skills & Technologies
+
+**Languages:** Python, C++, TypeScript, SQL  
+**AI / LLM:** OpenAI, LangChain, retrieval workflows, prompt/control design, agentic workflows  
+**Computer Vision:** PyTorch, OpenCV, YOLO segmentation, EfficientNet, PCA, SVM, scikit-learn  
+**Frontend:** Nuxt, Vue, TypeScript  
+**Backend:** FastAPI, REST APIs, session/state workflows, structured logging  
+**Cloud / Deployment:** AWS Cognito, API Gateway, Lambda, Amplify-ready architecture, DigitalOcean Droplets  
+**Systems / Tooling:** Skia, SDL2, OpenGL, Git, WSL2, Jetson-class deployment constraints
+
+---
+
+## Private Review Material
+
+Some projects include private code or client-related implementation details. Public pages focus on architecture, demos, evaluation evidence, screenshots, and technical summaries.
+
+Private review material may be available on request, including:
+
+- selected source excerpts,
+- cleaned backend/core logic packages,
+- source-tree structure,
+- codebase metrics,
+- architecture notes,
+- technical study documents,
+- evaluation summaries,
+- and additional screenshots or walkthroughs.
+
+---
+
+## Connect
+
+- **Portfolio:** [joshsnz.github.io/Joshnzportfolio](https://joshsnz.github.io/Joshnzportfolio/)
+- **LinkedIn:** [linkedin.com/in/josh-skelton-280696281](https://linkedin.com/in/josh-skelton-280696281)
+- **Email:** jlukeskelton@gmail.com
+
+---
+
+_Last updated: May 2026_
