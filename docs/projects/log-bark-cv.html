@@ -12,6 +12,7 @@
       --panel-2: #12161d;
       --text: #e8e8e8;
       --muted: #b8b8b8;
+      --muted-2: #8e98a6;
       --accent: #9bd18f;
       --accent-soft: #162316;
       --border: #303743;
@@ -231,6 +232,45 @@
       font-size: 0.9rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
+    }
+
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .impact-card {
+      border: 1px solid rgba(155, 209, 143, 0.28);
+      background:
+        linear-gradient(135deg, rgba(155, 209, 143, 0.055), rgba(16, 19, 24, 0.95)),
+        var(--code);
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    .impact-card span {
+      display: block;
+      color: var(--muted-2);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+
+    .impact-card strong {
+      display: block;
+      color: var(--text);
+      font-size: 1.35rem;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .impact-card p {
+      color: var(--muted);
+      font-size: 0.94rem;
+      margin-bottom: 0;
     }
 
     .notice {
@@ -494,6 +534,7 @@
 
     <nav class="nav" aria-label="Primary navigation">
       <a href="#overview">Overview</a>
+      <a href="#impact">Impact</a>
       <a href="#stage-a">Stage A</a>
       <a href="#stage-b">Stage B</a>
       <a href="#geometry">Inference geometry</a>
@@ -515,6 +556,7 @@
 
     <div class="actions">
       <a class="button primary" href="#overview">View pipeline</a>
+      <a class="button" href="#impact">Impact metrics</a>
       <a class="button" href="#geometry">Inference geometry</a>
       <a class="button" href="#metrics">Training metrics</a>
       <a class="button" href="#validation">Validation examples</a>
@@ -578,6 +620,74 @@
           <li><strong>Evaluation note:</strong> bark mAP is lower because bark is fragmented and boundary-ambiguous.</li>
         </ul>
       </div>
+    </div>
+  </section>
+
+  <section id="impact">
+    <h2>Impact metrics</h2>
+    <p class="section-lead">
+      The project demonstrates a complete industrial computer vision workflow: edge-aware
+      video classification, stitched-log reconstruction, YOLO segmentation, tiled inference,
+      mask fusion, and final bark-boundary visualization.
+    </p>
+
+    <div class="impact-grid">
+      <div class="impact-card">
+        <span>Log-boundary segmentation</span>
+        <strong>97.5% mAP50</strong>
+        <p>
+          Achieved <code>0.975</code> mAP50 on the selected Phase 2 log-boundary checkpoint.
+        </p>
+      </div>
+
+      <div class="impact-card">
+        <span>Strict log localization</span>
+        <strong>95.5% mAP50:95</strong>
+        <p>
+          Phase 2 reached <code>0.955</code> box mAP50:95 and <code>0.965</code> mask mAP50:95.
+        </p>
+      </div>
+
+      <div class="impact-card">
+        <span>Bark-fragment detection</span>
+        <strong>98.9% precision</strong>
+        <p>
+          Phase 3 bark model reached <code>0.989</code> box precision and <code>0.909</code> mask precision.
+        </p>
+      </div>
+
+      <div class="impact-card">
+        <span>Bark mask quality</span>
+        <strong>90.0% mAP50</strong>
+        <p>
+          Phase 3 bark model reached <code>0.900</code> mask mAP50 for fragmented bark-region inference.
+        </p>
+      </div>
+
+      <div class="impact-card">
+        <span>Edge-aware frame stage</span>
+        <strong>4 PCA components</strong>
+        <p>
+          Compressed EfficientNet features into a lightweight PCA + SVM frame classifier for log interval detection.
+        </p>
+      </div>
+
+      <div class="impact-card">
+        <span>Workflow impact target</span>
+        <strong>70–80% reduction</strong>
+        <p>
+          Designed to reduce manual inspection effort by automating interval detection, stitching, segmentation, and final annotation.
+        </p>
+      </div>
+    </div>
+
+    <div class="notice">
+      <p>
+        <strong>Metric boundary:</strong>
+        model metrics come from the training/validation results shown below. The 70–80%
+        workflow reduction is an estimated operational target for manual inspection effort,
+        not a measured production analytics result.
+      </p>
     </div>
   </section>
 
@@ -1422,6 +1532,7 @@
     <p>
       Links:
       <a href="../index.html">main portfolio</a> ·
+      <a href="#impact">impact metrics</a> ·
       <a href="https://github.com/Joshsnz/Joshnzportfolio/blob/main/bark%26knot.ipynb">notebook</a> ·
       <a href="https://github.com/Joshsnz/Joshnzportfolio">GitHub repo</a>
     </p>
