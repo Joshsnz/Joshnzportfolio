@@ -280,6 +280,12 @@
       margin-bottom: 0;
     }
 
+    .impact-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 780px;
+    }
+
     .notice {
       border: 1px solid var(--border);
       background: rgba(23, 26, 32, 0.88);
@@ -483,11 +489,11 @@
     <div class="eyebrow">Agentic workflow / AI consultant portfolio project</div>
     <h1>Agentic Digital Consultant</h1>
     <p class="lead">
-      A stateful, multi-turn AI consultant built for a New Zealand AI consultancy.
-      The system classifies user intent, maintains conversation state, delivers
-      contextual Elai.io-generated video responses, guides users through a structured
-      consultation form, verifies email ownership with confirmation codes, submits
-      qualified leads to the business, and was deployed on a DigitalOcean Droplet.
+      A deployed, stateful AI consultation system built for a New Zealand AI consultancy.
+      It replaced a passive contact-form experience with a guided digital consultant that
+      classified visitor intent, collected structured project details, verified email ownership,
+      synchronized avatar/video responses with conversation state, and handed qualified leads
+      to the business.
     </p>
 
     <div class="actions">
@@ -523,11 +529,10 @@
       <div class="card">
         <p>
           This project automated the initial consultation path for an AI consultancy.
-          Instead of a static contact form, the website used an AI-driven assistant
-          that could greet visitors, understand what they wanted, answer service
-          questions, transition into a guided consultation, collect structured
-          business-problem details, verify the user's email, and send the completed
-          lead to the business.
+          Instead of sending visitors to a static form, the site used an AI-driven assistant
+          that could greet users, understand what they wanted, answer service questions,
+          transition into a guided consultation, collect structured business-problem details,
+          verify the user's email, and send the completed lead to the business.
         </p>
 
         <p>
@@ -568,6 +573,7 @@
         </p>
 
         <ul>
+          <li>Converted passive inquiry capture into guided AI consultation intake.</li>
           <li>Stateful assistant rather than one-shot chat.</li>
           <li>Intent-aware routing between service info and consultation flow.</li>
           <li>10-stage structured consultation form.</li>
@@ -582,74 +588,136 @@
   </section>
 
   <section id="impact">
-    <h2>Impact metrics</h2>
+    <h2>Operational impact</h2>
     <p class="section-lead">
-      The project demonstrates an end-to-end agentic consultation workflow: deployed backend,
-      multi-turn state, structured intake, verification, and automated business handoff.
+      The main impact was turning an unstructured contact path into a deployed, guided
+      consultation workflow. The assistant collected useful project context before human
+      follow-up, verified contact information, and automated the lead handoff.
     </p>
 
     <div class="impact-grid">
       <div class="impact-card">
-        <span>Production deployment</span>
-        <strong>DigitalOcean Droplet</strong>
+        <span>Intake automation</span>
+        <strong>Static form → guided consultant</strong>
         <p>
-          Deployed the FastAPI backend to a real hosted server environment rather than keeping
-          the project as a local-only prototype.
+          Replaced passive lead capture with a multi-turn assistant that could ask relevant
+          follow-up questions and guide users through the consultation process.
         </p>
       </div>
 
       <div class="impact-card">
-        <span>Consultation intake</span>
-        <strong>10-stage workflow</strong>
+        <span>Qualification quality</span>
+        <strong>10-stage structured intake</strong>
         <p>
-          Guided users through a structured intake flow covering problem, domain, data,
-          timeline, expected solution, contact details, and verification.
+          Standardized the information collected from each prospect: problem, domain,
+          problem type, data format, timeline, expected solution, extra context, name,
+          email, and verification code.
         </p>
       </div>
 
       <div class="impact-card">
-        <span>Lead handoff</span>
-        <strong>Email verified</strong>
+        <span>Manual follow-up reduction</span>
+        <strong>Pre-qualified lead summaries</strong>
         <p>
-          Required confirmation-code verification before finalizing the consultation and
-          sending the completed lead details to the business.
+          Reduced the need for the business to manually ask first-pass discovery questions
+          by collecting the core project details before the lead reached the inbox.
         </p>
       </div>
 
       <div class="impact-card">
-        <span>Agent control design</span>
-        <strong>LLM + deterministic state</strong>
+        <span>Lead handoff quality</span>
+        <strong>Email verified before submission</strong>
         <p>
-          Used the LLM for flexible intent classification while deterministic backend logic
-          controlled form stage, validation, video selection, and finalization.
+          Required confirmation-code verification before finalizing the consultation,
+          improving the quality of submitted contact details and reducing low-quality
+          or mistyped email leads.
         </p>
       </div>
 
       <div class="impact-card">
-        <span>Demo validation</span>
-        <strong>End-to-end walkthrough</strong>
+        <span>Business workflow</span>
+        <strong>Automated handoff</strong>
         <p>
-          Demo covers greeting, intent routing, consultation flow, email verification code,
-          and final submission path.
+          After verification, the backend sent the completed consultation details to the
+          business email, creating a direct path from website conversation to actionable lead.
         </p>
       </div>
 
       <div class="impact-card">
-        <span>Review package</span>
-        <strong>Core backend logic</strong>
+        <span>Deployment outcome</span>
+        <strong>Hosted production backend</strong>
         <p>
-          Cleaned review boundary preserves the durable application logic while excluding
-          secrets, logs, videos, frontend build output, and deployment configuration.
+          Deployed the FastAPI assistant service on a DigitalOcean Droplet, proving the
+          workflow in a real hosted environment rather than as a notebook-only prototype.
         </p>
       </div>
+
+      <div class="impact-card">
+        <span>Product experience</span>
+        <strong>State-triggered video responses</strong>
+        <p>
+          Improved presentation beyond plain chat by pairing assistant states with
+          pre-rendered Elai.io video clips, making the workflow feel more like a digital
+          consultant than a basic chatbot.
+        </p>
+      </div>
+
+      <div class="impact-card">
+        <span>Engineering boundary</span>
+        <strong>Reviewable core logic</strong>
+        <p>
+          Cleaned the backend into a private review package showing the durable application
+          logic while excluding secrets, logs, video assets, frontend build output, and
+          deployment configuration.
+        </p>
+      </div>
+    </div>
+
+    <div class="table-wrap" style="margin-top: 22px;">
+      <table class="impact-table">
+        <thead>
+          <tr>
+            <th>Before</th>
+            <th>After</th>
+            <th>Operational impact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Visitor leaves a generic message or contact request.</td>
+            <td>Assistant collects structured project context through a guided workflow.</td>
+            <td>Business receives a more complete lead with useful discovery information already captured.</td>
+          </tr>
+          <tr>
+            <td>Human follow-up needed to ask basic qualification questions.</td>
+            <td>Assistant asks the initial discovery questions automatically.</td>
+            <td>Reduces repetitive first-pass intake work and makes follow-up conversations more focused.</td>
+          </tr>
+          <tr>
+            <td>Contact details may be mistyped or unverifiable.</td>
+            <td>Email confirmation code verifies contact ownership before final submission.</td>
+            <td>Improves lead quality and reduces wasted follow-up on bad contact details.</td>
+          </tr>
+          <tr>
+            <td>Plain chatbot or static form experience.</td>
+            <td>State-aware chat with synchronized video responses.</td>
+            <td>Creates a more polished consultant-style user experience for a service business.</td>
+          </tr>
+          <tr>
+            <td>Prototype could remain local or notebook-bound.</td>
+            <td>Backend deployed on a DigitalOcean Droplet.</td>
+            <td>Demonstrates practical deployment, environment management, and production-aware backend design.</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
     <div class="notice">
       <p>
         <strong>Metric boundary:</strong>
-        these metrics describe the implemented and demonstrated system: deployment, workflow
-        stages, verification flow, and reviewable core logic. They do not claim production
-        conversion lift or time savings without measured business analytics.
+        these are operational impact claims based on implemented system behaviour and the
+        demonstrated workflow. The page does not claim measured conversion lift, revenue impact,
+        or exact time savings because those would require production analytics from the business.
       </p>
     </div>
   </section>
