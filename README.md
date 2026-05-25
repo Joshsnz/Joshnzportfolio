@@ -8,8 +8,28 @@ Primary portfolio site:
 
 **[Open full portfolio →](https://joshsnz.github.io/Joshnzportfolio/)**
 
-
 Most substantial project source is private or client-related. I am happy to discuss architecture, walk through demos, and share private review packages where appropriate.
+
+---
+
+## Current Role
+
+### Software Engineer / Technical AI Lead — Selfcaremen Telehealth Company  
+**Apr 2026 – Present | Remote / Auckland, NZ**
+
+Building a patient portal proof of concept for a telehealth provider, focused on lab results, appointments, prescriptions, secure patient workflows, authentication, and AWS-aligned backend integration.
+
+**Current work includes:**
+
+- Patient dashboard and lab-result status workflow
+- Appointment and prescription-related portal flows
+- Nuxt/Vue frontend architecture
+- Cognito authentication
+- AWS-aligned backend service boundaries
+- Clean path from mock data to live API integration
+- Translating patient-journey and stakeholder requirements into production-oriented product features
+
+**Tech:** Nuxt 4, Vue 3, TypeScript, AWS Cognito, API Gateway, Lambda, Amplify-ready frontend architecture
 
 ---
 
@@ -70,25 +90,6 @@ Deployed AI consultation workflow for a New Zealand AI consultancy. The assistan
 **Tech:** Python, FastAPI, LangChain, OpenAI, Nuxt 3, Vue 3, TypeScript, SMTP, DigitalOcean
 
 **[Open digital consultant project page →](https://joshsnz.github.io/Joshnzportfolio/projects/digital-consultant.html)**
-
----
-
-## Currently Working On
-
-### Telehealth Patient Portal PoC
-
-Building a patient portal proof of concept for a telehealth provider, focused on lab results, appointments, prescriptions, patient workflows, authentication, and future AI-assisted healthcare operations.
-
-**Current focus**
-
-- Patient dashboard
-- Lab result status workflow
-- Appointment flow
-- AWS-aligned backend architecture
-- Cognito authentication
-- Clean path from mock data to live API integration
-
-**Tech:** Nuxt 4, Vue 3, TypeScript, AWS Cognito, API Gateway, Lambda, Amplify-ready frontend architecture
 
 ---
 
