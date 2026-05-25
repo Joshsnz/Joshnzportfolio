@@ -8,8 +8,6 @@ Primary portfolio site:
 
 **[Open full portfolio →](https://joshsnz.github.io/Joshnzportfolio/)**
 
-I am open to opportunities in **Grand Rapids, Michigan** and remote/hybrid AI software roles.  
-**H-1B / sponsorship welcome.**
 
 Most substantial project source is private or client-related. I am happy to discuss architecture, walk through demos, and share private review packages where appropriate.
 
