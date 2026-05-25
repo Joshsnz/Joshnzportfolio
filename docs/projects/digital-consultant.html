@@ -12,6 +12,7 @@
       --panel-2: #12161d;
       --text: #e8e8e8;
       --muted: #b8b8b8;
+      --muted-2: #8e98a6;
       --accent: #9bd18f;
       --accent-soft: #162316;
       --border: #303743;
@@ -240,6 +241,45 @@
       margin: 6px 0 12px;
     }
 
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .impact-card {
+      border: 1px solid rgba(155, 209, 143, 0.28);
+      background:
+        linear-gradient(135deg, rgba(155, 209, 143, 0.055), rgba(16, 19, 24, 0.95)),
+        var(--code);
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    .impact-card span {
+      display: block;
+      color: var(--muted-2);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+
+    .impact-card strong {
+      display: block;
+      color: var(--text);
+      font-size: 1.35rem;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .impact-card p {
+      color: var(--muted);
+      font-size: 0.94rem;
+      margin-bottom: 0;
+    }
+
     .notice {
       border: 1px solid var(--border);
       background: rgba(23, 26, 32, 0.88);
@@ -428,6 +468,7 @@
 
     <nav class="nav" aria-label="Primary navigation">
       <a href="#overview">Overview</a>
+      <a href="#impact">Impact</a>
       <a href="#video">Video</a>
       <a href="#architecture">Architecture</a>
       <a href="#deployment">Deployment</a>
@@ -451,6 +492,7 @@
 
     <div class="actions">
       <a class="button primary" href="#video">Watch demo video</a>
+      <a class="button" href="#impact">View impact metrics</a>
       <a class="button" href="#flow">View conversation flow</a>
       <a class="button" href="#architecture">System architecture</a>
       <a class="button" href="#deployment">Deployment notes</a>
@@ -536,6 +578,79 @@
           <li>Cleaned backend core logic available in a private review repo.</li>
         </ul>
       </div>
+    </div>
+  </section>
+
+  <section id="impact">
+    <h2>Impact metrics</h2>
+    <p class="section-lead">
+      The project demonstrates an end-to-end agentic consultation workflow: deployed backend,
+      multi-turn state, structured intake, verification, and automated business handoff.
+    </p>
+
+    <div class="impact-grid">
+      <div class="impact-card">
+        <span>Production deployment</span>
+        <strong>DigitalOcean Droplet</strong>
+        <p>
+          Deployed the FastAPI backend to a real hosted server environment rather than keeping
+          the project as a local-only prototype.
+        </p>
+      </div>
+
+      <div class="impact-card">
+        <span>Consultation intake</span>
+        <strong>10-stage workflow</strong>
+        <p>
+          Guided users through a structured intake flow covering problem, domain, data,
+          timeline, expected solution, contact details, and verification.
+        </p>
+      </div>
+
+      <div class="impact-card">
+        <span>Lead handoff</span>
+        <strong>Email verified</strong>
+        <p>
+          Required confirmation-code verification before finalizing the consultation and
+          sending the completed lead details to the business.
+        </p>
+      </div>
+
+      <div class="impact-card">
+        <span>Agent control design</span>
+        <strong>LLM + deterministic state</strong>
+        <p>
+          Used the LLM for flexible intent classification while deterministic backend logic
+          controlled form stage, validation, video selection, and finalization.
+        </p>
+      </div>
+
+      <div class="impact-card">
+        <span>Demo validation</span>
+        <strong>End-to-end walkthrough</strong>
+        <p>
+          Demo covers greeting, intent routing, consultation flow, email verification code,
+          and final submission path.
+        </p>
+      </div>
+
+      <div class="impact-card">
+        <span>Review package</span>
+        <strong>Core backend logic</strong>
+        <p>
+          Cleaned review boundary preserves the durable application logic while excluding
+          secrets, logs, videos, frontend build output, and deployment configuration.
+        </p>
+      </div>
+    </div>
+
+    <div class="notice">
+      <p>
+        <strong>Metric boundary:</strong>
+        these metrics describe the implemented and demonstrated system: deployment, workflow
+        stages, verification flow, and reviewable core logic. They do not claim production
+        conversion lift or time savings without measured business analytics.
+      </p>
     </div>
   </section>
 
@@ -1184,6 +1299,7 @@
     <p>
       Links:
       <a href="../index.html">main portfolio</a> ·
+      <a href="#impact">impact metrics</a> ·
       <a href="https://github.com/Joshsnz/Joshnzportfolio/blob/main/digital_consultant.ipynb">notebook</a> ·
       <a href="https://github.com/Joshsnz/Joshnzportfolio">GitHub repo</a>
     </p>
