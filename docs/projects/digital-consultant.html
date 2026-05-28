@@ -124,6 +124,17 @@
       font-size: 1.14rem;
     }
 
+    .timeline-pill {
+      display: inline-block;
+      border: 1px solid rgba(155, 209, 143, 0.32);
+      background: rgba(155, 209, 143, 0.08);
+      color: var(--accent);
+      border-radius: 999px;
+      padding: 6px 11px;
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+
     .actions {
       display: flex;
       flex-wrap: wrap;
@@ -227,6 +238,32 @@
       border-color: rgba(155, 209, 143, 0.45);
     }
 
+    .story-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .story-card {
+      border: 1px solid var(--border);
+      background: rgba(16, 19, 24, 0.86);
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    .story-card h3 {
+      font-size: 1rem;
+      color: var(--text);
+      margin-bottom: 7px;
+    }
+
+    .story-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 0;
+    }
+
     .metric-label {
       color: var(--muted);
       font-size: 0.9rem;
@@ -257,6 +294,13 @@
       padding: 18px;
     }
 
+    .impact-card.featured-impact {
+      border-color: rgba(155, 209, 143, 0.55);
+      background:
+        linear-gradient(135deg, rgba(155, 209, 143, 0.11), rgba(16, 19, 24, 0.95)),
+        var(--code);
+    }
+
     .impact-card span {
       display: block;
       color: var(--muted-2);
@@ -272,6 +316,11 @@
       font-size: 1.35rem;
       line-height: 1.2;
       margin-bottom: 8px;
+    }
+
+    .impact-card.featured-impact strong {
+      color: var(--accent);
+      font-size: 1.55rem;
     }
 
     .impact-card p {
@@ -312,6 +361,12 @@
       color: var(--muted);
       font-size: 0.85rem;
       background: var(--code);
+    }
+
+    .tag.strong {
+      color: var(--accent);
+      border-color: rgba(155, 209, 143, 0.32);
+      background: rgba(155, 209, 143, 0.08);
     }
 
     .image-card {
@@ -487,26 +542,31 @@
 
   <header class="hero">
     <div class="eyebrow">Agentic workflow / AI consultant portfolio project</div>
+    <div class="timeline-pill">September – December 2024 · completed and deployed</div>
     <h1>Agentic Digital Consultant</h1>
     <p class="lead">
-      A deployed, stateful AI consultation system built for a New Zealand AI consultancy.
-      It replaced a passive contact-form experience with a guided digital consultant that
-      classified visitor intent, collected structured project details, verified email ownership,
-      synchronized avatar/video responses with conversation state, and handed qualified leads
-      to the business.
+      A deployed AI consultation system built for a New Zealand AI consultancy. Instead of
+      relying on a passive contact form, the site guided visitors through a structured
+      consultation, verified their email address, and sent a qualified lead summary to the business.
+    </p>
+    <p class="lead">
+      The project combined an LLM for natural-language intent routing with deterministic
+      backend workflow control, so the assistant could feel conversational while still following
+      a reliable business process.
     </p>
 
     <div class="actions">
-      <a class="button primary" href="#video">Watch demo video</a>
-      <a class="button" href="#impact">View impact metrics</a>
-      <a class="button" href="#flow">View conversation flow</a>
-      <a class="button" href="#architecture">System architecture</a>
-      <a class="button" href="#deployment">Deployment notes</a>
-      <a class="button" href="#code-review">Core logic package</a>
-      <a class="button" href="https://github.com/Joshsnz/Joshnzportfolio/blob/main/digital_consultant.ipynb">Open notebook</a>
+      <a class="button primary" href="#impact">View Operational Impact</a>
+      <a class="button" href="#video">Watch Demo Video</a>
+      <a class="button" href="#flow">View Conversation Flow</a>
+      <a class="button" href="#architecture">System Architecture</a>
+      <a class="button" href="#deployment">Deployment Notes</a>
+      <a class="button" href="#code-review">Core Logic Package</a>
+      <a class="button" href="https://github.com/Joshsnz/Joshnzportfolio/blob/main/digital_consultant.ipynb">Open Notebook</a>
     </div>
 
     <div class="tags">
+      <span class="tag strong">Static form → guided consultant</span>
       <span class="tag">Agentic workflows</span>
       <span class="tag">LLMs</span>
       <span class="tag">GPT-4</span>
@@ -523,43 +583,37 @@
   </header>
 
   <section id="overview">
-    <h2>Project summary</h2>
+    <h2>Problem and solution</h2>
 
     <div class="split">
       <div class="card">
+        <h3>The business problem</h3>
         <p>
-          This project automated the initial consultation path for an AI consultancy.
-          Instead of sending visitors to a static form, the site used an AI-driven assistant
-          that could greet users, understand what they wanted, answer service questions,
-          transition into a guided consultation, collect structured business-problem details,
-          verify the user's email, and send the completed lead to the business.
+          A service business often needs more than a name and email before it can assess a
+          potential project. A static form can collect contact details, but it does not guide
+          the visitor, ask structured discovery questions, verify contact information, or
+          prepare a useful handoff for the business.
         </p>
 
         <p>
-          The key design decision was to combine flexible LLM-driven intent classification
-          with deterministic state management. The model handled natural language
-          interpretation, while the application controlled form progress, validation,
-          video selection, email confirmation, and final lead submission.
+          This project turned that first-contact experience into a guided AI consultation.
+          The assistant could greet visitors, understand whether they wanted information or
+          a consultation, collect project details through a structured intake flow, verify
+          email ownership, and send the completed consultation summary to the business.
         </p>
 
         <p>
-          The project used pre-scripted Elai.io-generated videos as the visual assistant
-          layer. The backend returned a video key with each response, allowing the frontend
-          to synchronize the chat state with the appropriate avatar/video clip.
+          The key design choice was to keep the LLM and the business workflow separate.
+          The LLM classified intent and handled flexible language, while deterministic backend
+          logic controlled state, form stages, validation, video selection, email confirmation,
+          and final lead submission.
         </p>
 
         <p>
-          The application was deployed on a DigitalOcean Droplet, giving the project a
-          real hosted backend environment rather than remaining as a local-only prototype.
-          The deployment separated runtime configuration and secrets from the reviewable
-          core logic.
-        </p>
-
-        <p>
-          The project was completed and deployed during September–December 2024.
-          The public portfolio shows the architecture and flow. A cleaned private
-          core-logic repository can be shared for code review without exposing secrets,
-          frontend assets, virtual environments, logs, or deployment configuration.
+          The project was completed and deployed during September–December 2024. The public
+          portfolio shows the architecture, workflow, and demo. A cleaned private backend
+          package can be shared for code review without exposing secrets, production logs,
+          client-facing assets, or deployment configuration.
         </p>
       </div>
 
@@ -578,12 +632,38 @@
           <li>Intent-aware routing between service info and consultation flow.</li>
           <li>10-stage structured consultation form.</li>
           <li>Elai.io-generated videos triggered by assistant state.</li>
-          <li>Confirmation-code email verification.</li>
-          <li>Lead notification to business email.</li>
+          <li>Confirmation-code email verification before final submission.</li>
+          <li>Automated lead notification to the business email.</li>
           <li>FastAPI backend deployed on a DigitalOcean Droplet.</li>
           <li>Cleaned backend core logic available in a private review repo.</li>
         </ul>
       </div>
+    </div>
+
+    <div class="story-grid">
+      <article class="story-card">
+        <h3>Why it was built</h3>
+        <p>
+          To help a consultancy collect better project inquiries before a human needed
+          to follow up.
+        </p>
+      </article>
+
+      <article class="story-card">
+        <h3>What changed</h3>
+        <p>
+          Visitors moved through a guided consultation instead of submitting a generic
+          contact request.
+        </p>
+      </article>
+
+      <article class="story-card">
+        <h3>Why it is technically interesting</h3>
+        <p>
+          The system combines flexible LLM intent classification with deterministic
+          workflow control, verification, video state, and deployment.
+        </p>
+      </article>
     </div>
   </section>
 
@@ -596,12 +676,12 @@
     </p>
 
     <div class="impact-grid">
-      <div class="impact-card">
+      <div class="impact-card featured-impact">
         <span>Intake automation</span>
         <strong>Static form → guided consultant</strong>
         <p>
           Replaced passive lead capture with a multi-turn assistant that could ask relevant
-          follow-up questions and guide users through the consultation process.
+          questions and guide users through the consultation process.
         </p>
       </div>
 
@@ -620,7 +700,7 @@
         <strong>Pre-qualified lead summaries</strong>
         <p>
           Reduced the need for the business to manually ask first-pass discovery questions
-          by collecting the core project details before the lead reached the inbox.
+          by collecting core project details before the lead reached the inbox.
         </p>
       </div>
 
@@ -629,8 +709,7 @@
         <strong>Email verified before submission</strong>
         <p>
           Required confirmation-code verification before finalizing the consultation,
-          improving the quality of submitted contact details and reducing low-quality
-          or mistyped email leads.
+          improving contact-detail quality and reducing low-quality or mistyped email leads.
         </p>
       </div>
 
@@ -761,7 +840,7 @@
 
   <section id="visual">
     <h2>Visual reference</h2>
-  
+
     <figure class="image-card">
       <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/sb.png"
            alt="Smart-Based AI digital consultant project image"
