@@ -12,9 +12,11 @@
       --panel-2: #12161d;
       --text: #e8e8e8;
       --muted: #b8b8b8;
+      --muted-2: #8e98a6;
       --accent: #9bd18f;
       --accent-soft: #162316;
       --border: #303743;
+      --code: #101318;
     }
 
     * {
@@ -95,9 +97,15 @@
     }
 
     .hero p {
-      max-width: 850px;
+      max-width: 880px;
       color: var(--muted);
       font-size: 1.15rem;
+    }
+
+    .hero .hero-focus {
+      color: var(--text);
+      font-size: 1.22rem;
+      max-width: 900px;
     }
 
     .actions {
@@ -145,7 +153,7 @@
 
     .section-lead {
       color: var(--muted);
-      max-width: 850px;
+      max-width: 880px;
       margin-bottom: 22px;
       font-size: 1.04rem;
     }
@@ -192,6 +200,53 @@
       margin-bottom: 10px;
     }
 
+    .project-meta {
+      color: var(--muted-2);
+      font-size: 0.9rem;
+      margin: -2px 0 14px;
+    }
+
+    .project-impact {
+      border: 1px solid rgba(155, 209, 143, 0.26);
+      background: rgba(155, 209, 143, 0.07);
+      border-radius: 14px;
+      padding: 12px 14px;
+      color: var(--text);
+      margin: 16px 0;
+      font-size: 0.95rem;
+    }
+
+    .project-impact strong {
+      color: var(--accent);
+    }
+
+    .snapshot-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .snapshot-card {
+      border: 1px solid var(--border);
+      background:
+        linear-gradient(135deg, rgba(155, 209, 143, 0.045), rgba(16, 19, 24, 0.96)),
+        var(--panel);
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    .snapshot-card h3 {
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+
+    .snapshot-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 0;
+    }
+
     .tags {
       display: flex;
       flex-wrap: wrap;
@@ -205,7 +260,13 @@
       padding: 4px 9px;
       color: var(--muted);
       font-size: 0.85rem;
-      background: #101318;
+      background: var(--code);
+    }
+
+    .tag.strong {
+      color: var(--accent);
+      border-color: rgba(155, 209, 143, 0.34);
+      background: rgba(155, 209, 143, 0.08);
     }
 
     .current-work {
@@ -258,11 +319,16 @@
   <header class="hero">
     <div class="eyebrow">AI / Software Engineering Portfolio</div>
     <h1>Joshua Skelton</h1>
+
+    <p class="hero-focus">
+      I build AI systems that do useful work inside real software products: project-aware
+      assistants, workflow automation, cloud applications, and computer vision pipelines.
+    </p>
+
     <p>
-      AI / Software Engineer building project-aware assistants, agentic workflows,
-      LLM-powered tools, automation systems, cloud applications, and computer vision
-      pipelines. My work focuses on turning AI from a chat interface into useful
-      software infrastructure: grounded, testable, integrated, and operational.
+      My strongest focus is applied AI engineering: connecting models to files, tools,
+      state, retrieval, validation, and product workflows so AI systems are more grounded,
+      testable, configurable, and operational.
     </p>
 
     <div class="actions">
@@ -273,23 +339,71 @@
     </div>
   </header>
 
+  <section id="snapshot">
+    <h2>Portfolio snapshot</h2>
+    <p class="section-lead">
+      These projects are selected to show the same pattern from different angles:
+      take an unclear or manual workflow, structure it, connect it to AI or automation,
+      and make the result easier to inspect, evaluate, or operate.
+    </p>
+
+    <div class="snapshot-grid">
+      <article class="snapshot-card">
+        <h3>Project-aware AI tooling</h3>
+        <p>
+          Coeus AI explores how coding assistants can become more transparent and verifiable
+          by grounding answers in local project files, source evidence, and telemetry.
+        </p>
+      </article>
+
+      <article class="snapshot-card">
+        <h3>Workflow automation</h3>
+        <p>
+          The digital consultant and current telehealth work focus on turning real business
+          processes into structured, stateful software flows.
+        </p>
+      </article>
+
+      <article class="snapshot-card">
+        <h3>Computer vision</h3>
+        <p>
+          The log and bark pipeline shows practical ML engineering: video detection,
+          stitching, segmentation, inference geometry, and final inspection outputs.
+        </p>
+      </article>
+    </div>
+  </section>
+
   <section id="projects">
     <h2>Featured Projects</h2>
     <p class="section-lead">
-      Selected projects showing applied AI systems work: project-aware tooling,
-      retrieval and grounding, agentic workflows, automation, computer vision,
-      and practical software engineering.
+      Each project page starts with the user problem and outcome, then provides deeper
+      technical detail for reviewers who want to inspect the implementation approach.
     </p>
 
     <div class="grid featured">
       <article class="card">
         <div class="tagline">Featured case study</div>
         <h3>Coeus AI</h3>
+        <div class="project-meta">Nov 2024 – May 2026 demo release</div>
+
         <p>
-          Native C++ project-aware AI desktop workspace with a custom Skia/SDL2 GUI,
-          repository context, retrieval-backed source QA, workflow orchestration,
-          telemetry, and private headless evaluation reports.
+          A native C++ project-aware AI desktop workspace built around a simple problem:
+          normal chat assistants can lose project context, make unsupported claims, and hide
+          how answers were produced.
         </p>
+
+        <p>
+          Coeus explores a more transparent, model-agnostic desktop workflow for LLM usage:
+          local project context, retrieval-backed source QA, configurable providers,
+          workflow routing, telemetry, and headless evaluation.
+        </p>
+
+        <div class="project-impact">
+          <strong>Impact:</strong>
+          public RepoGrounding reports show 13 / 13 Core QA turns and 14 / 14 Plus QA turns passing;
+          private codebase scan reports 144k+ code lines after exclusions.
+        </div>
 
         <div class="actions">
           <a class="button primary" href="https://joshsnz.github.io/coeus.ai/">Open Coeus AI project site</a>
@@ -297,6 +411,7 @@
         </div>
 
         <div class="tags">
+          <span class="tag strong">Project-aware AI</span>
           <span class="tag">C++20</span>
           <span class="tag">Skia</span>
           <span class="tag">SDL2</span>
@@ -308,17 +423,33 @@
 
       <article class="card">
         <div class="tagline">Computer vision / edge AI</div>
-        <h3>Log & Bark Computer Vision Pipeline</h3>
+        <h3>Log &amp; Bark Computer Vision Pipeline</h3>
+        <div class="project-meta">Dec 2023 – Dec 2024</div>
+
         <p>
-          Edge AI pipeline for commercial log and bark percentage analysis using segmentation,
-          classification, feature extraction, and traditional machine learning.
+          Industrial computer vision pipeline for estimating bark coverage on moving logs.
+          The system detects log intervals in video, stitches frames into a full log surface,
+          segments the log boundary, detects bark fragments, and produces final annotated outputs.
         </p>
+
+        <p>
+          The project combines classical ML and deep learning: frame differencing,
+          EfficientNet features, PCA, SVM classification, YOLO segmentation, tiled inference,
+          and mask fusion.
+        </p>
+
+        <div class="project-impact">
+          <strong>Impact:</strong>
+          designed for a 70–80% manual inspection-effort reduction target; selected log-boundary
+          checkpoint achieved 97.5% mAP50.
+        </div>
 
         <div class="actions">
           <a class="button primary" href="projects/log-bark-cv.html">Open project page</a>
         </div>
 
         <div class="tags">
+          <span class="tag strong">70–80% inspection target</span>
           <span class="tag">YOLO</span>
           <span class="tag">PyTorch</span>
           <span class="tag">OpenCV</span>
@@ -330,16 +461,33 @@
       <article class="card">
         <div class="tagline">Agentic workflow app</div>
         <h3>Agentic Digital Consultant</h3>
+        <div class="project-meta">September – December 2024</div>
+
         <p>
-          Stateful AI consultant workflow with intent classification, guided service collection,
-          frontend integration, automated lead handling, and business-service routing.
+          Deployed AI consultation system built for a New Zealand AI consultancy. It replaced
+          a passive contact-form experience with a guided digital consultant that classified
+          visitor intent, collected structured project details, verified email ownership,
+          and handed qualified leads to the business.
         </p>
+
+        <p>
+          The system combined LLM intent classification with deterministic workflow control,
+          state management, FastAPI backend logic, Nuxt/Vue frontend integration, email
+          verification, and state-triggered Elai.io video responses.
+        </p>
+
+        <div class="project-impact">
+          <strong>Impact:</strong>
+          converted static inquiry capture into a deployed 10-stage guided consultation flow
+          with email-verified lead handoff.
+        </div>
 
         <div class="actions">
           <a class="button primary" href="projects/digital-consultant.html">Open project page</a>
         </div>
 
         <div class="tags">
+          <span class="tag strong">Deployed workflow</span>
           <span class="tag">LangChain</span>
           <span class="tag">FastAPI</span>
           <span class="tag">Vue</span>
@@ -383,7 +531,7 @@
       </p>
 
       <div class="tags">
-        <span class="tag">Current role</span>
+        <span class="tag strong">Current professional work</span>
         <span class="tag">Technical AI lead</span>
         <span class="tag">Telehealth</span>
         <span class="tag">AWS</span>
@@ -393,7 +541,7 @@
         <span class="tag">Patient portal</span>
         <span class="tag">Healthcare workflows</span>
         <span class="tag">Automation</span>
-        <span class="tag">Private client work</span>
+        <span class="tag">Private company work</span>
       </div>
     </article>
   </section>
@@ -401,9 +549,10 @@
   <section id="focus">
     <h2>Technical Focus</h2>
     <p class="section-lead">
-      My strongest focus is applied AI engineering: building the runtime, tooling,
-      retrieval, workflow, and evaluation layers around LLMs so they can operate
-      reliably inside real software products.
+      The project pages are written for both non-technical and technical readers. At a high
+      level, the work is about making AI useful inside real products. At a technical level,
+      the focus is runtime design, state, retrieval, evaluation, workflow integration, and
+      production-aware engineering.
     </p>
 
     <div class="grid">
