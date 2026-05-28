@@ -124,6 +124,17 @@
       font-size: 1.14rem;
     }
 
+    .timeline-pill {
+      display: inline-block;
+      border: 1px solid rgba(155, 209, 143, 0.32);
+      background: rgba(155, 209, 143, 0.08);
+      color: var(--accent);
+      border-radius: 999px;
+      padding: 6px 11px;
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+
     .actions {
       display: flex;
       flex-wrap: wrap;
@@ -216,6 +227,32 @@
       margin-bottom: 6px;
     }
 
+    .story-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .story-card {
+      border: 1px solid var(--border);
+      background: rgba(16, 19, 24, 0.86);
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    .story-card h3 {
+      font-size: 1rem;
+      color: var(--text);
+      margin-bottom: 7px;
+    }
+
+    .story-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 0;
+    }
+
     .metric-card {
       border-color: rgba(155, 209, 143, 0.45);
     }
@@ -250,6 +287,13 @@
       padding: 18px;
     }
 
+    .impact-card.featured-impact {
+      border-color: rgba(155, 209, 143, 0.55);
+      background:
+        linear-gradient(135deg, rgba(155, 209, 143, 0.11), rgba(16, 19, 24, 0.95)),
+        var(--code);
+    }
+
     .impact-card span {
       display: block;
       color: var(--muted-2);
@@ -265,6 +309,11 @@
       font-size: 1.35rem;
       line-height: 1.2;
       margin-bottom: 8px;
+    }
+
+    .impact-card.featured-impact strong {
+      font-size: 1.65rem;
+      color: var(--accent);
     }
 
     .impact-card p {
@@ -299,6 +348,12 @@
       color: var(--muted);
       font-size: 0.85rem;
       background: var(--code);
+    }
+
+    .tag.strong {
+      color: var(--accent);
+      border-color: rgba(155, 209, 143, 0.32);
+      background: rgba(155, 209, 143, 0.08);
     }
 
     .image-card {
@@ -547,18 +602,23 @@
 
   <header class="hero">
     <div class="eyebrow">Computer vision / edge AI portfolio project</div>
+    <div class="timeline-pill">Dec 2023 – Dec 2024 · two intensive development phases</div>
     <h1>Log & Bark Computer Vision Pipeline</h1>
     <p class="lead">
-      A two-stage industrial computer vision pipeline for detecting logs in video,
-      stitching continuous log images, segmenting the main log boundary, detecting
-      bark regions, and generating a final annotated output for bark-percentage analysis.
-      The system combines a classical feature/classification stage with deep-learning
-      segmentation models.
+      An industrial computer vision pipeline for estimating bark coverage on moving logs.
+      The system detects when a log appears in video, stitches the passing frames into one
+      continuous surface image, segments the log boundary, detects bark fragments, and
+      produces an annotated output for bark-percentage analysis.
+    </p>
+    <p class="lead">
+      The practical goal was to reduce manual inspection effort by automating the slow parts:
+      finding the log interval, reconstructing the full surface, segmenting the log body,
+      and highlighting bark regions for review.
     </p>
 
     <div class="actions">
-      <a class="button primary" href="#overview">View pipeline</a>
-      <a class="button" href="#impact">Impact metrics</a>
+      <a class="button primary" href="#impact">See Impact Metrics</a>
+      <a class="button" href="#overview">View pipeline</a>
       <a class="button" href="#geometry">Inference geometry</a>
       <a class="button" href="#metrics">Training metrics</a>
       <a class="button" href="#validation">Validation examples</a>
@@ -567,6 +627,7 @@
     </div>
 
     <div class="tags">
+      <span class="tag strong">70–80% inspection-effort reduction target</span>
       <span class="tag">Computer vision</span>
       <span class="tag">YOLO segmentation</span>
       <span class="tag">PyTorch</span>
@@ -583,28 +644,28 @@
   </header>
 
   <section id="overview">
-    <h2>Project summary</h2>
+    <h2>Problem and solution</h2>
 
     <div class="split">
       <div class="card">
+        <h3>The user problem</h3>
         <p>
-          This project follows the same linear structure as the original notebook:
-          first detect logs from video on Jetson-class hardware, then stitch log
-          intervals into full surface images, then run GPU-based segmentation for
-          the log boundary and bark regions.
+          Manual bark inspection is repetitive and difficult to scale. A log moves through
+          the camera view, but the useful information is spread across many frames. To estimate
+          bark coverage, a reviewer needs to identify the log, reconstruct its visible surface,
+          and inspect irregular bark patches.
         </p>
 
         <p>
-          The pipeline is built around an industrial inspection problem. A moving log
-          passes through a camera view, the system identifies the relevant frame interval,
-          reconstructs the visible log surface, segments the full log body, detects bark
-          fragments, and fuses the predictions into a final annotated output.
+          This project turns that process into an automated computer vision workflow. It first
+          detects the useful frame interval, stitches those frames into a full log image, then
+          runs segmentation models to produce a final bark-and-boundary overlay.
         </p>
 
         <p>
-          Development was carried out in a Windows + WSL workflow, with the edge-facing
-          Stage A designed around Jetson-class deployment and the heavier segmentation
-          stage trained/evaluated with GPU tooling.
+          Development was carried out in a Windows + WSL workflow. The edge-facing video stage
+          was designed around Jetson-class deployment, while the heavier segmentation stage was
+          trained and evaluated with GPU tooling.
         </p>
       </div>
 
@@ -617,13 +678,39 @@
         </p>
 
         <ul>
-          <li><strong>Feature / ML stage:</strong> ROI differencing, EfficientNet feature extraction, fitted scaling, PCA reduction, and RBF SVM classification.</li>
+          <li><strong>Frame stage:</strong> ROI differencing, EfficientNet feature extraction, fitted scaling, PCA reduction, and RBF SVM classification.</li>
           <li><strong>Segmentation stage:</strong> one YOLO model for log-boundary segmentation and one YOLO model for bark-fragment segmentation.</li>
           <li><strong>Log boundary:</strong> Phase 2 — Unfreeze selected as best checkpoint.</li>
           <li><strong>Bark fragments:</strong> Phase 3 — Fine-tune selected for cleaner visual fusion.</li>
-          <li><strong>Evaluation note:</strong> bark mAP is lower because bark is fragmented and boundary-ambiguous.</li>
+          <li><strong>Output:</strong> stitched log with red outer boundary and white bark outlines.</li>
         </ul>
       </div>
+    </div>
+
+    <div class="story-grid">
+      <article class="story-card">
+        <h3>Why it was built</h3>
+        <p>
+          To reduce the amount of manual visual inspection needed for bark-percentage analysis
+          on industrial log footage.
+        </p>
+      </article>
+
+      <article class="story-card">
+        <h3>What makes it practical</h3>
+        <p>
+          The pipeline splits the problem into lighter edge detection, high-resolution stitching,
+          GPU segmentation, and final coordinate reconstruction.
+        </p>
+      </article>
+
+      <article class="story-card">
+        <h3>Why it is technically interesting</h3>
+        <p>
+          Long stitched logs are awkward for one model pass, so the project uses tiled inference
+          and mask fusion to preserve bark detail.
+        </p>
+      </article>
     </div>
   </section>
 
@@ -636,6 +723,24 @@
     </p>
 
     <div class="impact-grid">
+      <div class="impact-card featured-impact">
+        <span>Workflow impact target</span>
+        <strong>70–80% reduction</strong>
+        <p>
+          Designed to reduce manual inspection effort by automating interval detection,
+          stitching, segmentation, and final annotation for bark-percentage review.
+        </p>
+      </div>
+
+      <div class="impact-card">
+        <span>Project timeline</span>
+        <strong>Dec 2023 – Dec 2024</strong>
+        <p>
+          Worked across roughly one year, including an initial five-month intensive build phase,
+          a break, and a later three-month intensive refinement phase.
+        </p>
+      </div>
+
       <div class="impact-card">
         <span>Hybrid model stack</span>
         <strong>Classical ML + YOLO</strong>
@@ -682,14 +787,6 @@
         <strong>4 PCA components</strong>
         <p>
           Compressed EfficientNet features into a lightweight PCA + SVM frame classifier for log interval detection.
-        </p>
-      </div>
-
-      <div class="impact-card">
-        <span>Workflow impact target</span>
-        <strong>70–80% reduction</strong>
-        <p>
-          Designed to reduce manual inspection effort by automating interval detection, stitching, segmentation, and final annotation.
         </p>
       </div>
     </div>
