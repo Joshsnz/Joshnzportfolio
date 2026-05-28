@@ -590,6 +590,7 @@
     <nav class="nav" aria-label="Primary navigation">
       <a href="#overview">Overview</a>
       <a href="#impact">Impact</a>
+      <a href="#pipeline">Pipeline</a>
       <a href="#stage-a">Stage A</a>
       <a href="#stage-b">Stage B</a>
       <a href="#geometry">Inference geometry</a>
@@ -602,28 +603,28 @@
 
   <header class="hero">
     <div class="eyebrow">Computer vision / edge AI portfolio project</div>
-    <div class="timeline-pill">Dec 2023 – Dec 2024 · two intensive development phases</div>
+    <div class="timeline-pill">Dec 2023 – Dec 2024 · staged development across one year</div>
     <h1>Log & Bark Computer Vision Pipeline</h1>
     <p class="lead">
       An industrial computer vision pipeline for estimating bark coverage on moving logs.
-      The system detects when a log appears in video, stitches the passing frames into one
-      continuous surface image, segments the log boundary, detects bark fragments, and
-      produces an annotated output for bark-percentage analysis.
+      The system first detects when a log appears in video, groups the positive frame interval,
+      stitches those frames into one continuous surface image, then segments the log body and
+      bark regions for bark-percentage analysis.
     </p>
     <p class="lead">
       The practical goal was to reduce manual inspection effort by automating the slow parts:
-      finding the log interval, reconstructing the full surface, segmenting the log body,
-      and highlighting bark regions for review.
+      finding the useful video interval, reconstructing the full log surface, segmenting the
+      log boundary, and highlighting bark regions for review.
     </p>
 
     <div class="actions">
       <a class="button primary" href="#impact">See Impact Metrics</a>
-      <a class="button" href="#overview">View pipeline</a>
-      <a class="button" href="#geometry">Inference geometry</a>
-      <a class="button" href="#metrics">Training metrics</a>
-      <a class="button" href="#validation">Validation examples</a>
-      <a class="button" href="#final-output">Final outputs</a>
-      <a class="button" href="https://github.com/Joshsnz/Joshnzportfolio/blob/main/bark%26knot.ipynb">Open notebook</a>
+      <a class="button" href="#pipeline">View Pipeline Order</a>
+      <a class="button" href="#geometry">Inference Geometry</a>
+      <a class="button" href="#metrics">Training Metrics</a>
+      <a class="button" href="#validation">Validation Examples</a>
+      <a class="button" href="#final-output">Final Outputs</a>
+      <a class="button" href="https://github.com/Joshsnz/Joshnzportfolio/blob/main/bark%26knot.ipynb">Open Notebook</a>
     </div>
 
     <div class="tags">
@@ -663,6 +664,13 @@
         </p>
 
         <p>
+          There are two separate “log” tasks in the system. The first is <strong>frame-level
+          log presence detection</strong>, which happens before stitching. The second is
+          <strong>log-boundary segmentation</strong>, which happens after the stitched image
+          already exists.
+        </p>
+
+        <p>
           Development was carried out in a Windows + WSL workflow. The edge-facing video stage
           was designed around Jetson-class deployment, while the heavier segmentation stage was
           trained and evaluated with GPU tooling.
@@ -679,10 +687,11 @@
 
         <ul>
           <li><strong>Frame stage:</strong> ROI differencing, EfficientNet feature extraction, fitted scaling, PCA reduction, and RBF SVM classification.</li>
+          <li><strong>Stitching stage:</strong> positive frame interval grouping and full-log image reconstruction.</li>
           <li><strong>Segmentation stage:</strong> one YOLO model for log-boundary segmentation and one YOLO model for bark-fragment segmentation.</li>
           <li><strong>Log boundary:</strong> Phase 2 — Unfreeze selected as best checkpoint.</li>
           <li><strong>Bark fragments:</strong> Phase 3 — Fine-tune selected for cleaner visual fusion.</li>
-          <li><strong>Output:</strong> stitched log with red outer boundary and white bark outlines.</li>
+          <li><strong>Output:</strong> stitched log with red outer boundary, white bark outlines, and bark-percentage analysis support.</li>
         </ul>
       </div>
     </div>
@@ -699,8 +708,8 @@
       <article class="story-card">
         <h3>What makes it practical</h3>
         <p>
-          The pipeline splits the problem into lighter edge detection, high-resolution stitching,
-          GPU segmentation, and final coordinate reconstruction.
+          The pipeline separates video detection, frame interval grouping, stitching,
+          high-resolution segmentation, and final coordinate reconstruction.
         </p>
       </article>
 
@@ -736,8 +745,8 @@
         <span>Project timeline</span>
         <strong>Dec 2023 – Dec 2024</strong>
         <p>
-          Worked across roughly one year, including an initial five-month intensive build phase,
-          a break, and a later three-month intensive refinement phase.
+          Developed across a staged one-year period, with roughly eight months of active
+          model, pipeline, and refinement work.
         </p>
       </div>
 
@@ -804,54 +813,77 @@
   </section>
 
   <section id="pipeline">
-    <h2>Notebook-order pipeline</h2>
+    <h2>Pipeline order — from video to bark percentage</h2>
     <p class="section-lead">
-      The page below follows the notebook order: Stage A video detection and stitching,
-      followed by Stage B segmentation, final fusion, metrics, and interpretation.
+      The pipeline has two different log-related stages. First, it detects whether a log is
+      present in video frames. Later, after stitching, it segments the outer log boundary.
+      The split into left/right halves happens after stitching, not before frame-level log detection.
     </p>
 
     <div class="pipeline">
       <div class="pipeline-step">
-        <strong>Stage A — Jetson video detection:</strong>
-        process a region of interest, isolate motion with frame differencing,
-        extract EfficientNet features, reduce them with fitted preprocessing and PCA,
-        classify log/no-log frames with an SVM, and group positive frames into log intervals.
+        <strong>1. Video/frame-level log detection:</strong>
+        process a region of interest, isolate motion with frame differencing, extract
+        EfficientNet features, apply fitted preprocessing and PCA, then classify frames
+        as log/no-log using an RBF SVM.
       </div>
 
       <div class="pipeline-step">
-        <strong>Stitching:</strong>
-        consecutive positive frames are horizontally stitched into full log images
-        that represent the visible passing log surface.
+        <strong>2. Positive frame interval grouping:</strong>
+        group consecutive positive frames into the interval where the log is passing
+        through the camera view.
       </div>
 
       <div class="pipeline-step">
-        <strong>Stage B1 — Log-boundary segmentation:</strong>
-        split stitched logs into overlapping left/right halves, segment the outer log
-        boundary on each half with YOLO, normalize crop height, and preserve offsets
-        for final reconstruction.
+        <strong>3. Stitched full-log image creation:</strong>
+        stitch the positive frames horizontally into one long raw stitched image that
+        represents the visible log surface.
       </div>
 
       <div class="pipeline-step">
-        <strong>Stage B2 — Bark segmentation:</strong>
-        split each normalized half into two bark quarters, infer bark fragments on the
-        four quarter images, then restitch the four predictions back into full-log
-        coordinates.
+        <strong>4. Split stitched log into overlapping left/right halves:</strong>
+        after detection and stitching are complete, split the raw stitched image so
+        segmentation can run at a useful resolution.
       </div>
 
       <div class="pipeline-step">
-        <strong>Final fusion:</strong>
-        white bark outlines plus a red unified log boundary over the stitched log body.
+        <strong>5. Run log-boundary YOLO segmentation:</strong>
+        segment the outer log body on each overlapping half. This is boundary segmentation,
+        not the initial video log/no-log detection step.
+      </div>
+
+      <div class="pipeline-step">
+        <strong>6. Greenify and crop detected log body:</strong>
+        convert predicted polygons to masks, smooth them, crop both halves to a shared
+        top/bottom range, and replace non-log background with a consistent green fill.
+      </div>
+
+      <div class="pipeline-step">
+        <strong>7. Split cropped halves into bark-inference quarters:</strong>
+        divide the normalized halves into smaller tiles so bark fragments can be inferred
+        with more local detail.
+      </div>
+
+      <div class="pipeline-step">
+        <strong>8. Run bark YOLO segmentation:</strong>
+        detect bark fragments on each quarter tile.
+      </div>
+
+      <div class="pipeline-step">
+        <strong>9. Restitch, fuse masks, and support bark-percentage calculation:</strong>
+        map bark masks and log-boundary masks back into stitched-log coordinates, draw the
+        final overlay, and prepare the output for bark-percentage analysis.
       </div>
     </div>
   </section>
 
   <section id="stage-a">
-    <div class="stage-label">Stage A — Jetson: Video → Stitched Logs</div>
-    <h2>1. Region of interest and frame differencing</h2>
+    <div class="stage-label">Stage A — Jetson: Video → Positive Log Frames → Stitched Logs</div>
+    <h2>1. Video/frame-level log detection: ROI and frame differencing</h2>
     <p class="section-lead">
-      The first stage reduces the video problem to the area where logs appear.
-      Consecutive frames are differenced so the moving log is emphasized while
-      the mostly static background is suppressed.
+      The first stage detects whether the log is present in the video frames. It reduces
+      the video problem to the area where logs appear, then differences consecutive frames
+      so the moving log is emphasized while the mostly static background is suppressed.
     </p>
 
     <figure class="image-card large wide">
@@ -910,10 +942,11 @@
   </section>
 
   <section>
-    <h2>3. Log interval detection and frame stitching</h2>
+    <h2>3. Positive interval grouping and full-log stitching</h2>
     <p class="section-lead">
-      Consecutive positive predictions are grouped into log intervals. Frames inside
-      each interval are stitched horizontally to reconstruct the passing log surface.
+      Consecutive positive frame predictions are grouped into log intervals. Frames inside
+      each interval are then stitched horizontally to reconstruct the passing log surface.
+      This stitched image is the input to the later segmentation stage.
     </p>
 
     <div class="grid two">
@@ -949,11 +982,11 @@
 
   <section id="stage-b">
     <div class="stage-label">Stage B — GPU: Stitched Log → Log Boundary + Bark Segmentation</div>
-    <h2>4. Log segmentation setup</h2>
+    <h2>4. Log-boundary segmentation setup</h2>
     <p class="section-lead">
-      Stage B uses YOLO segmentation models. One model predicts the outer log boundary,
-      while a second model predicts bark surface fragments. The log segmentation stage
-      starts with polygon annotations and overlapping half-splits.
+      By this point, frame-level log presence has already been detected and the full-log
+      stitched image has already been created. Stage B is about segmenting the outer log
+      body and bark fragments from that stitched image.
     </p>
 
     <figure class="image-card large wide">
@@ -968,9 +1001,10 @@
   </section>
 
   <section>
-    <h2>5. Half split with overlap</h2>
+    <h2>5. Split stitched log into overlapping halves</h2>
     <p class="section-lead">
-      The stitched log is split into left and right halves with a small horizontal overlap.
+      The already-stitched log image is split into left and right halves with a small
+      horizontal overlap. This split happens after video detection and full-log stitching.
       The overlap helps prevent boundary discontinuities at crop edges where segmentation
       models can become less reliable.
     </p>
@@ -980,28 +1014,30 @@
         <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/log1_stitched_left.jpg"
              alt="Left half of stitched log"
              onerror="this.closest('figure').style.display='none'">
-        <figcaption>Left overlapping half prepared for YOLO log segmentation.</figcaption>
+        <figcaption>Left overlapping half prepared for YOLO log-boundary segmentation.</figcaption>
       </figure>
 
       <figure class="image-card large">
         <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/log1_stitched_right.jpg"
              alt="Right half of stitched log"
              onerror="this.closest('figure').style.display='none'">
-        <figcaption>Right overlapping half prepared for YOLO log segmentation.</figcaption>
+        <figcaption>Right overlapping half prepared for YOLO log-boundary segmentation.</figcaption>
       </figure>
     </div>
   </section>
 
   <section>
-    <h2>6. Greenify and unified height cropping</h2>
+    <h2>6. Run log-boundary segmentation, then greenify and crop</h2>
     <p class="section-lead">
-      After log segmentation, polygons are converted to masks, smoothed, and used
-      to crop both halves to a shared top/bottom height. Non-log areas are filled
-      with a uniform light-green background to prepare the image for bark segmentation.
+      YOLO predicts the outer log body on each overlapping half. After that, polygons are
+      converted to masks, smoothed, and used to crop both halves to a shared top/bottom
+      height. Non-log areas are filled with a uniform light-green background to prepare
+      the image for bark segmentation.
     </p>
 
     <div class="card">
       <ul>
+        <li>Run YOLO log-boundary segmentation on each overlapping half.</li>
         <li>Convert YOLO log polygons to binary masks.</li>
         <li>Morphologically smooth the log mask.</li>
         <li>Find the bounding rectangle of the log.</li>
@@ -1036,58 +1072,58 @@
     <p class="section-lead">
       The strongest part of the approach is the tiled inference and coordinate reconstruction.
       Instead of forcing a long stitched log through one compressed segmentation pass, the
-      pipeline splits the image into manageable pieces, predicts at higher effective resolution,
-      and then maps all masks back into the original stitched-log coordinate system.
+      pipeline splits the already-stitched image into manageable pieces, predicts at higher
+      effective resolution, and maps all masks back into the original stitched-log coordinate system.
     </p>
 
     <div class="geometry-flow">
       <div class="geometry-step">
         <strong>1. Start from one stitched full-log image.</strong><br>
-        Stage A produces a long stitched log surface from consecutive video frames where
-        the log is present.
+        Stage A has already detected the log in video, grouped positive frames, and stitched
+        them into a long full-log surface image.
       </div>
 
       <div class="geometry-step">
         <strong>2. Split the stitched log into overlapping left and right halves.</strong><br>
-        The log-boundary model infers each side separately. The overlap helps avoid seam
-        failures at the split point.
+        This split is for high-resolution boundary segmentation. It happens after frame-level
+        detection and full-log stitching are complete.
       </div>
 
       <div class="geometry-step">
-        <strong>3. Infer the log boundary on each half.</strong><br>
+        <strong>3. Run log-boundary YOLO segmentation on each half.</strong><br>
         The log model predicts the outer log body on the left half and the right half.
-        Those masks are later merged into one full-log boundary.
+        These masks are later merged into one full-log boundary.
       </div>
 
       <div class="geometry-step">
-        <strong>4. Normalize each detected half for bark inference.</strong><br>
-        The non-log background is greenified and each half is cropped to a shared top/bottom
-        height. Offsets are saved so predictions can be transformed back later.
+        <strong>4. Greenify and crop each detected log half.</strong><br>
+        Non-log background is replaced with a consistent green fill, each half is cropped
+        to a shared top/bottom height, and offsets are saved so predictions can be transformed back.
       </div>
 
       <div class="geometry-step">
-        <strong>5. Split each normalized half into two quarters.</strong><br>
-        The left half becomes left-quarter A and left-quarter B. The right half becomes
-        right-quarter A and right-quarter B. This produces four bark-inference tiles.
+        <strong>5. Split each cropped half into two bark-inference quarters.</strong><br>
+        The left half becomes two bark tiles, and the right half becomes two bark tiles.
+        This produces four bark-inference tiles.
       </div>
 
       <div class="geometry-step">
-        <strong>6. Infer bark fragments on all four quarters.</strong><br>
+        <strong>6. Run bark YOLO segmentation on all four quarters.</strong><br>
         Running bark inference on quarters preserves texture detail and avoids compressing
         the full stitched log into a single low-resolution model input.
       </div>
 
       <div class="geometry-step">
-        <strong>7. Stitch the four bark predictions back together.</strong><br>
+        <strong>7. Restitch the four bark predictions.</strong><br>
         The bark quarters are restitched into left/right halves, then the halves are aligned
         into full-log coordinates. The saved crop offsets and split offsets keep the masks
         geometrically consistent.
       </div>
 
       <div class="geometry-step">
-        <strong>8. Fuse final output.</strong><br>
-        The merged log boundary is drawn in red, and the bark fragment outlines are drawn
-        in white over the original stitched log body.
+        <strong>8. Fuse final output and support bark-percentage analysis.</strong><br>
+        The merged log boundary is drawn in red, bark fragment outlines are drawn in white,
+        and the aligned masks support bark-percentage calculation on the stitched log surface.
       </div>
     </div>
 
@@ -1568,6 +1604,15 @@
           EfficientNet features are high dimensional. PCA compresses them into a small
           representation, and the SVM performs lightweight binary classification suitable
           for Jetson-class deployment.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Why splitting happens after stitching</h3>
+        <p>
+          The pipeline first detects positive video frames and stitches them into a full-log
+          surface image. Only after that does it split the stitched log into overlapping halves
+          for high-resolution log-boundary segmentation.
         </p>
       </article>
 
