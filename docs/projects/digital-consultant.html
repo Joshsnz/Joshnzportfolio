@@ -33,6 +33,7 @@
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background:
         radial-gradient(circle at top left, rgba(155, 209, 143, 0.08), transparent 34rem),
+        radial-gradient(circle at top right, rgba(155, 209, 143, 0.04), transparent 30rem),
         var(--bg);
       color: var(--text);
       line-height: 1.6;
@@ -189,13 +190,40 @@
       margin: 0;
     }
 
-    .hero-visual img {
-      display: block;
-      width: 100%;
-      height: auto;
-      border-radius: 14px;
+    .workflow-preview {
       border: 1px solid var(--border);
-      background: #f6f7f4;
+      background:
+        radial-gradient(circle at top left, rgba(155, 209, 143, 0.12), transparent 18rem),
+        var(--code);
+      border-radius: 14px;
+      padding: 18px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .workflow-preview-row {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 9px;
+      align-items: center;
+    }
+
+    .workflow-box {
+      border: 1px solid rgba(155, 209, 143, 0.24);
+      background: rgba(23, 26, 32, 0.95);
+      border-radius: 12px;
+      padding: 11px 12px;
+      color: var(--text);
+      font-size: 0.9rem;
+      line-height: 1.25;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+    }
+
+    .workflow-arrow {
+      color: var(--accent);
+      font-weight: 800;
     }
 
     .hero-visual figcaption {
@@ -370,6 +398,29 @@
       margin-bottom: 0;
     }
 
+    .reviewer-note {
+      border: 1px solid rgba(155, 209, 143, 0.32);
+      background:
+        linear-gradient(135deg, rgba(155, 209, 143, 0.07), rgba(16, 19, 24, 0.96)),
+        var(--panel);
+      border-radius: 18px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .reviewer-note p {
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .reviewer-note p:last-child {
+      margin-bottom: 0;
+    }
+
+    .reviewer-note strong {
+      color: var(--text);
+    }
+
     .story-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
@@ -435,6 +486,34 @@
 
     .comparison-table strong {
       color: var(--text);
+    }
+
+    .role-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .role-card {
+      border: 1px solid var(--border);
+      background:
+        linear-gradient(135deg, rgba(155, 209, 143, 0.045), rgba(16, 19, 24, 0.96)),
+        var(--code);
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    .role-card strong {
+      display: block;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .role-card p {
+      color: var(--muted);
+      font-size: 0.94rem;
+      margin-bottom: 0;
     }
 
     .metric-label {
@@ -703,9 +782,11 @@
     <nav class="nav" aria-label="Primary navigation">
       <a href="#summary">Summary</a>
       <a href="#overview">Overview</a>
+      <a href="#role">My role</a>
       <a href="#impact">Impact</a>
       <a href="#video">Video</a>
       <a href="#architecture">Architecture</a>
+      <a href="#agentic-boundary">Agentic design</a>
       <a href="#flow">Conversation flow</a>
       <a href="#code-review">Code review package</a>
       <a href="#security">Security</a>
@@ -754,11 +835,28 @@
       </div>
 
       <figure class="hero-visual">
-        <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/sb.png"
-             alt="Smart-Based AI digital consultant project image"
-             onerror="this.closest('figure').style.display='none'">
+        <div class="workflow-preview" aria-label="Digital consultant workflow preview">
+          <div class="workflow-preview-row">
+            <div class="workflow-box">Visitor message</div>
+            <div class="workflow-arrow">→</div>
+            <div class="workflow-box">Intent routing</div>
+          </div>
+
+          <div class="workflow-preview-row">
+            <div class="workflow-box">Guided intake</div>
+            <div class="workflow-arrow">→</div>
+            <div class="workflow-box">Email verification</div>
+          </div>
+
+          <div class="workflow-preview-row">
+            <div class="workflow-box">Lead summary</div>
+            <div class="workflow-arrow">→</div>
+            <div class="workflow-box">Business handoff</div>
+          </div>
+        </div>
+
         <figcaption>
-          Smart-Based AI consultant project image from the original portfolio notebook.
+          Workflow preview: conversational surface on top, deterministic business process underneath.
         </figcaption>
 
         <div class="metric-strip">
@@ -830,6 +928,15 @@
         </p>
       </article>
     </div>
+
+    <div class="reviewer-note">
+      <p>
+        <strong>How to review this project quickly:</strong>
+        start with the before/after impact table, then watch the demo, then inspect the
+        conversation-flow and code-review sections. That shows business value first, then the
+        workflow architecture, then the implementation boundary.
+      </p>
+    </div>
   </section>
 
   <section id="overview">
@@ -869,7 +976,7 @@
 
       <div class="card highlight-card">
         <div class="metric-label">Project outcome</div>
-        <div class="metric-value">Completed & deployed</div>
+        <div class="metric-value">Completed &amp; deployed</div>
         <p>
           A working AI consultation system with multi-turn state, guided form collection,
           contextual video responses, email verification, automated business handoff,
@@ -912,6 +1019,48 @@
         <p>
           The system combines flexible LLM intent classification with deterministic
           workflow control, verification, video state, and deployment.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section id="role">
+    <h2>My role and technical contribution</h2>
+    <p class="section-lead">
+      This project demonstrates full-stack AI workflow delivery: translating a business intake
+      problem into a deployed stateful assistant with backend workflow control.
+    </p>
+
+    <div class="role-grid">
+      <article class="role-card">
+        <strong>Workflow and product design</strong>
+        <p>
+          Structured the intake journey from first message through consultation questions,
+          contact capture, email verification, and business handoff.
+        </p>
+      </article>
+
+      <article class="role-card">
+        <strong>LLM + deterministic orchestration</strong>
+        <p>
+          Used the LLM for intent classification and natural-language flexibility, while keeping
+          state transitions, validation, and finalization under deterministic backend control.
+        </p>
+      </article>
+
+      <article class="role-card">
+        <strong>Backend implementation</strong>
+        <p>
+          Built the FastAPI assistant service, per-thread state handling, confirmation-code flow,
+          lead notification logic, logging, and API surfaces.
+        </p>
+      </article>
+
+      <article class="role-card">
+        <strong>Deployment-aware delivery</strong>
+        <p>
+          Deployed the backend on a DigitalOcean Droplet and maintained a clean boundary around
+          environment variables, credentials, logs, frontend assets, and private production details.
         </p>
       </article>
     </div>
