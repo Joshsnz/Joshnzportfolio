@@ -149,6 +149,10 @@
       margin-bottom: 0;
     }
 
+    .current-role-banner .actions {
+      margin-top: 16px;
+    }
+
     .hero-proof {
       border: 1px solid rgba(155, 209, 143, 0.34);
       background:
@@ -193,6 +197,13 @@
       margin-top: 18px;
       color: var(--muted-2);
       font-size: 0.95rem;
+      max-width: 920px;
+    }
+
+    .role-fit-line {
+      margin-top: 8px;
+      color: var(--accent);
+      font-size: 0.96rem;
       max-width: 920px;
     }
 
@@ -466,6 +477,21 @@
       color: var(--muted);
     }
 
+    .contact-card {
+      border: 1px solid rgba(155, 209, 143, 0.34);
+      background:
+        linear-gradient(135deg, rgba(155, 209, 143, 0.075), rgba(23, 26, 32, 0.94)),
+        var(--panel);
+      border-radius: 18px;
+      padding: 22px;
+    }
+
+    .contact-card p {
+      color: var(--muted);
+      max-width: 850px;
+      margin-bottom: 0;
+    }
+
     footer {
       margin-top: 64px;
       padding-top: 28px;
@@ -490,6 +516,7 @@
       <a href="#current">Current work</a>
       <a href="#education">Education</a>
       <a href="#focus">Technical focus</a>
+      <a href="#contact">Contact</a>
       <a href="cv/cv.pdf" target="_blank" rel="noopener noreferrer">CV</a>
       <a href="https://github.com/Joshsnz">GitHub</a>
       <a href="https://www.linkedin.com/in/josh-skelton-280696281/">LinkedIn</a>
@@ -526,6 +553,11 @@
             appointments, prescriptions, AWS-oriented architecture, and integration requirements
             around systems such as Elixir and Acuity.
           </p>
+
+          <div class="actions">
+            <a class="button primary" href="#current">Read current work summary</a>
+            <a class="button" href="cv/cv.pdf" target="_blank" rel="noopener noreferrer">View CV</a>
+          </div>
         </div>
 
         <div class="actions">
@@ -538,6 +570,10 @@
         <p class="trust-line">
           Current Technical AI Lead in telehealth · Data Science &amp; AI tutor since 2023 · Auckland University of Technology Data Science &amp; AI, 2023 · Shipped AI workflows · Native tooling · Industrial ML
         </p>
+
+        <p class="role-fit-line">
+          Best fit: Applied AI Engineer · AI Software Engineer · Forward-Deployed AI Engineer · LLM Applications Engineer · Computer Vision / Full-Stack AI
+        </p>
       </div>
 
       <aside class="hero-proof" aria-label="Portfolio proof points">
@@ -546,7 +582,7 @@
         <div class="proof-list">
           <div class="proof-item">
             <strong>Current product implementation</strong>
-            <span>Secure telehealth portal work across patient access, labs, appointments, and healthcare workflow integrations.</span>
+            <span>Secure telehealth portal work across patient access, labs, appointments, prescriptions, and healthcare workflow integrations.</span>
           </div>
 
           <div class="proof-item">
@@ -988,6 +1024,25 @@
       material. Public pages focus on architecture, demos, notebooks, screenshots,
       release artifacts, and evaluation evidence. Healthcare and client/company work is described
       only at a professional-summary level unless it has been explicitly cleared for public release.
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Interested in applied AI, LLM tooling, workflow automation, or healthcare / industrial AI?</h2>
+
+    <div class="contact-card">
+      <p>
+        I am focused on practical AI engineering roles where models need to connect to real
+        software: local context, tools, retrieval, validation, workflow state, cloud delivery,
+        and operational requirements.
+      </p>
+
+      <div class="actions">
+        <a class="button primary" href="cv/cv.pdf" target="_blank" rel="noopener noreferrer">View CV / Resume</a>
+        <a class="button" href="mailto:jlukeskelton@gmail.com">Email me</a>
+        <a class="button" href="https://www.linkedin.com/in/josh-skelton-280696281/">LinkedIn</a>
+        <a class="button" href="https://github.com/Joshsnz">GitHub</a>
+      </div>
     </div>
   </section>
 
