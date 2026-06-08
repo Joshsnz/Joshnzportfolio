@@ -33,6 +33,7 @@
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background:
         radial-gradient(circle at top left, rgba(155, 209, 143, 0.08), transparent 34rem),
+        radial-gradient(circle at top right, rgba(155, 209, 143, 0.04), transparent 30rem),
         var(--bg);
       color: var(--text);
       line-height: 1.6;
@@ -365,6 +366,29 @@
       margin-bottom: 0;
     }
 
+    .reviewer-note {
+      border: 1px solid rgba(155, 209, 143, 0.32);
+      background:
+        linear-gradient(135deg, rgba(155, 209, 143, 0.07), rgba(16, 19, 24, 0.96)),
+        var(--panel);
+      border-radius: 18px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .reviewer-note p {
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .reviewer-note p:last-child {
+      margin-bottom: 0;
+    }
+
+    .reviewer-note strong {
+      color: var(--text);
+    }
+
     .story-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
@@ -430,6 +454,34 @@
 
     .comparison-table strong {
       color: var(--text);
+    }
+
+    .role-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .role-card {
+      border: 1px solid var(--border);
+      background:
+        linear-gradient(135deg, rgba(155, 209, 143, 0.045), rgba(16, 19, 24, 0.96)),
+        var(--code);
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    .role-card strong {
+      display: block;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .role-card p {
+      color: var(--muted);
+      font-size: 0.94rem;
+      margin-bottom: 0;
     }
 
     .metric-card {
@@ -769,6 +821,7 @@
     <nav class="nav" aria-label="Primary navigation">
       <a href="#summary">Summary</a>
       <a href="#overview">Overview</a>
+      <a href="#role">My role</a>
       <a href="#impact">Impact</a>
       <a href="#pipeline">Pipeline</a>
       <a href="#geometry">Inference geometry</a>
@@ -897,6 +950,14 @@
         </p>
       </article>
     </div>
+
+    <div class="reviewer-note">
+      <p>
+        <strong>How to review this project quickly:</strong>
+        start with the final output image, then read the pipeline order, then inspect the training
+        tables. That shows the practical value first, then the engineering path, then the model evidence.
+      </p>
+    </div>
   </section>
 
   <section id="overview">
@@ -973,6 +1034,49 @@
         <p>
           Long stitched logs are awkward for one model pass, so the project uses tiled inference
           and mask fusion to preserve bark detail.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section id="role">
+    <h2>My role and technical contribution</h2>
+    <p class="section-lead">
+      This project demonstrates practical ML engineering across the whole pipeline:
+      problem framing, preprocessing, model selection, training, evaluation, inference geometry,
+      and final inspection outputs.
+    </p>
+
+    <div class="role-grid">
+      <article class="role-card">
+        <strong>End-to-end pipeline design</strong>
+        <p>
+          Structured the problem into frame detection, interval grouping, stitching,
+          log-boundary segmentation, bark segmentation, and final mask fusion.
+        </p>
+      </article>
+
+      <article class="role-card">
+        <strong>Classical + deep learning stack</strong>
+        <p>
+          Combined ROI differencing, EfficientNet features, fitted scaling, PCA, SVM,
+          YOLO segmentation, morphology, and geometric coordinate reconstruction.
+        </p>
+      </article>
+
+      <article class="role-card">
+        <strong>Model training and selection</strong>
+        <p>
+          Trained and compared staged YOLO checkpoints, selecting log and bark models based
+          on validation metrics and downstream visual output quality.
+        </p>
+      </article>
+
+      <article class="role-card">
+        <strong>Deployment-aware design</strong>
+        <p>
+          Kept the video detection stage lightweight for Jetson-class constraints while using
+          GPU tooling for the heavier segmentation and refinement stages.
         </p>
       </article>
     </div>
@@ -1148,7 +1252,7 @@
       <div class="pipeline-step">
         <strong>6. Greenify and crop detected log body:</strong>
         convert predicted polygons to masks, smooth them, crop both halves to a shared
-        top/bottom range, and replace non-log background with a consistent green fill.
+        top/bottom range, and replace non-log background with a consistent light-green fill.
       </div>
 
       <div class="pipeline-step">
@@ -1970,11 +2074,26 @@
       </article>
 
       <article class="card">
-        <h3>WSL-based development workflow</h3>
+        <h3>Deployment-aware constraints</h3>
         <p>
-          The project was developed in a Windows + WSL environment, with Python-based
-          ML tooling and GPU-oriented segmentation workflows separated from the
-          Jetson-facing edge deployment concept.
+          The project separates lightweight frame detection for Jetson-class constraints
+          from heavier GPU-trained segmentation workflows.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Inference geometry</h3>
+        <p>
+          The final result depends on careful coordinate tracking, split/overlap management,
+          crop offsets, tiled inference, and mask fusion.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Practical model interpretation</h3>
+        <p>
+          The project distinguishes benchmark metrics from downstream visual usefulness,
+          especially for fragmented bark regions with ambiguous boundaries.
         </p>
       </article>
     </div>
