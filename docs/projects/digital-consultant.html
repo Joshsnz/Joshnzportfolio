@@ -118,10 +118,30 @@
       margin-bottom: 52px;
     }
 
+    .hero-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(330px, 0.92fr);
+      gap: 28px;
+      align-items: start;
+    }
+
+    @media (max-width: 980px) {
+      .hero-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
     .lead {
       max-width: 960px;
       color: var(--muted);
       font-size: 1.14rem;
+    }
+
+    .hero-focus {
+      color: var(--text);
+      max-width: 960px;
+      font-size: 1.22rem;
+      line-height: 1.55;
     }
 
     .timeline-pill {
@@ -133,6 +153,84 @@
       padding: 6px 11px;
       font-size: 0.9rem;
       margin-bottom: 18px;
+    }
+
+    .value-statement {
+      border: 1px solid rgba(155, 209, 143, 0.35);
+      background:
+        linear-gradient(135deg, rgba(155, 209, 143, 0.075), rgba(23, 26, 32, 0.94)),
+        var(--panel);
+      border-radius: 18px;
+      padding: 20px;
+      margin-top: 22px;
+    }
+
+    .value-statement strong {
+      color: var(--accent);
+    }
+
+    .value-statement p {
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .value-statement p:last-child {
+      margin-bottom: 0;
+    }
+
+    .hero-visual {
+      border: 1px solid rgba(155, 209, 143, 0.34);
+      background:
+        linear-gradient(135deg, rgba(155, 209, 143, 0.055), rgba(16, 19, 24, 0.96)),
+        var(--panel);
+      border-radius: 18px;
+      padding: 18px;
+      margin: 0;
+    }
+
+    .hero-visual img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: #f6f7f4;
+    }
+
+    .hero-visual figcaption {
+      color: var(--muted);
+      font-size: 0.94rem;
+      margin-top: 12px;
+    }
+
+    .metric-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .metric-chip {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--code);
+      padding: 12px;
+    }
+
+    .metric-chip span {
+      display: block;
+      color: var(--muted-2);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+
+    .metric-chip strong {
+      display: block;
+      color: var(--text);
+      font-size: 1.05rem;
+      line-height: 1.25;
     }
 
     .actions {
@@ -541,28 +639,67 @@
   </div>
 
   <header class="hero">
-    <div class="eyebrow">Agentic workflow / AI consultant portfolio project</div>
-    <div class="timeline-pill">September – December 2024 · completed and deployed</div>
-    <h1>Agentic Digital Consultant</h1>
-    <p class="lead">
-      A deployed AI consultation system built for a New Zealand AI consultancy. Instead of
-      relying on a passive contact form, the site guided visitors through a structured
-      consultation, verified their email address, and sent a qualified lead summary to the business.
-    </p>
-    <p class="lead">
-      The project combined an LLM for natural-language intent routing with deterministic
-      backend workflow control, so the assistant could feel conversational while still following
-      a reliable business process.
-    </p>
+    <div class="hero-layout">
+      <div>
+        <div class="eyebrow">Agentic workflow / AI consultant portfolio project</div>
+        <div class="timeline-pill">September – December 2024 · completed and deployed</div>
+        <h1>Agentic Digital Consultant</h1>
 
-    <div class="actions">
-      <a class="button primary" href="#impact">View Operational Impact</a>
-      <a class="button" href="#video">Watch Demo Video</a>
-      <a class="button" href="#flow">View Conversation Flow</a>
-      <a class="button" href="#architecture">System Architecture</a>
-      <a class="button" href="#deployment">Deployment Notes</a>
-      <a class="button" href="#code-review">Core Logic Package</a>
-      <a class="button" href="https://github.com/Joshsnz/Joshnzportfolio/blob/main/digital_consultant.ipynb">Open Notebook</a>
+        <p class="hero-focus">
+          Deployed AI consultation workflow that turned a static contact path into an email-verified, structured lead-intake system for an AI consultancy.
+        </p>
+
+        <p class="lead">
+          Instead of relying on a passive contact form, the website guided visitors through
+          a structured consultation, collected useful project details, verified email ownership,
+          and sent a qualified lead summary to the business.
+        </p>
+
+        <div class="value-statement">
+          <p>
+            <strong>Primary value:</strong>
+            the business received a more complete inquiry before human follow-up: project problem,
+            domain, data context, timeline, expected solution, contact details, and verification status.
+          </p>
+          <p>
+            The LLM handled flexible natural-language intent routing, while deterministic backend
+            logic controlled the business workflow so the process stayed reliable.
+          </p>
+        </div>
+
+        <div class="actions">
+          <a class="button primary" href="#impact">View Operational Impact</a>
+          <a class="button" href="#video">Watch Demo Video</a>
+          <a class="button" href="#flow">View Conversation Flow</a>
+          <a class="button" href="#architecture">System Architecture</a>
+          <a class="button" href="#code-review">Core Logic Package</a>
+          <a class="button" href="https://github.com/Joshsnz/Joshnzportfolio/blob/main/digital_consultant.ipynb">Open Notebook</a>
+        </div>
+      </div>
+
+      <figure class="hero-visual">
+        <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/sb.png"
+             alt="Smart-Based AI digital consultant project image"
+             onerror="this.closest('figure').style.display='none'">
+        <figcaption>
+          Smart-Based AI consultant project image from the original portfolio notebook.
+        </figcaption>
+
+        <div class="metric-strip">
+          <div class="metric-chip">
+            <span>Workflow</span>
+            <strong>10-stage intake</strong>
+          </div>
+          <div class="metric-chip">
+            <span>Lead quality</span>
+            <strong>Email verified</strong>
+          </div>
+          <div class="metric-chip">
+            <span>Deployment</span>
+            <strong>DigitalOcean</strong>
+          </div>
+        </div>
+      </figure>
     </div>
 
     <div class="tags">
@@ -836,19 +973,6 @@
         </a>
       </div>
     </div>
-  </section>
-
-  <section id="visual">
-    <h2>Visual reference</h2>
-
-    <figure class="image-card">
-      <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/sb.png"
-           alt="Smart-Based AI digital consultant project image"
-           onerror="this.closest('figure').style.display='none'">
-      <figcaption>
-        Smart-Based AI consultant project image from the original portfolio notebook.
-      </figcaption>
-    </figure>
   </section>
 
   <section id="architecture">
