@@ -16,6 +16,7 @@
       --accent: #9bd18f;
       --accent-soft: #162316;
       --border: #303743;
+      --border-soft: #242a33;
       --code: #101318;
     }
 
@@ -325,6 +326,45 @@
       margin-bottom: 6px;
     }
 
+    .executive-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .executive-card {
+      border: 1px solid rgba(155, 209, 143, 0.3);
+      background:
+        linear-gradient(135deg, rgba(155, 209, 143, 0.07), rgba(16, 19, 24, 0.96)),
+        var(--panel);
+      border-radius: 18px;
+      padding: 20px;
+    }
+
+    .executive-card span {
+      display: block;
+      color: var(--muted-2);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+
+    .executive-card strong {
+      display: block;
+      color: var(--text);
+      font-size: 1.2rem;
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+
+    .executive-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 0;
+    }
+
     .story-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
@@ -349,6 +389,47 @@
       color: var(--muted);
       font-size: 0.95rem;
       margin-bottom: 0;
+    }
+
+    .comparison-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: rgba(23, 26, 32, 0.92);
+      margin-top: 18px;
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 760px;
+      font-size: 0.95rem;
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+      text-align: left;
+      padding: 14px;
+      border-bottom: 1px solid var(--border-soft);
+      vertical-align: top;
+    }
+
+    .comparison-table th {
+      background: var(--code);
+      color: var(--text);
+    }
+
+    .comparison-table td {
+      color: var(--muted);
+      background: rgba(23, 26, 32, 0.72);
+    }
+
+    .comparison-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .comparison-table strong {
+      color: var(--text);
     }
 
     .metric-card {
@@ -686,11 +767,10 @@
     <a class="portfolio-back" href="../index.html">← Back to main portfolio</a>
 
     <nav class="nav" aria-label="Primary navigation">
+      <a href="#summary">Summary</a>
       <a href="#overview">Overview</a>
       <a href="#impact">Impact</a>
       <a href="#pipeline">Pipeline</a>
-      <a href="#stage-a">Stage A</a>
-      <a href="#stage-b">Stage B</a>
       <a href="#geometry">Inference geometry</a>
       <a href="#metrics">Metrics</a>
       <a href="#validation">Validation</a>
@@ -707,20 +787,22 @@
         <h1>Log &amp; Bark Computer Vision Pipeline</h1>
 
         <p class="hero-focus">
-          Industrial computer vision pipeline designed to reduce manual bark inspection effort by automating log detection, stitched surface reconstruction, log-boundary segmentation, bark detection, and final annotation.
+          Industrial computer vision pipeline for reducing manual bark inspection by automating
+          log detection, full-surface reconstruction, bark-region segmentation, and final review overlays.
         </p>
 
         <p class="lead">
-          The system first detects when a log appears in video, groups the positive frame interval,
-          stitches those frames into one continuous surface image, then segments the log body and
-          bark regions for bark-percentage analysis.
+          The system detects when a log appears in video, groups the positive frame interval,
+          stitches those frames into one continuous surface image, then segments the log body
+          and bark regions for bark-percentage analysis.
         </p>
 
         <div class="value-statement">
           <p>
             <strong>Primary value:</strong>
-            target a 70–80% reduction in manual inspection effort by turning a slow visual review
-            process into an automated detection, stitching, segmentation, and overlay workflow.
+            designed to target a 70–80% reduction in manual inspection effort by turning
+            a slow visual review process into an automated detection, stitching, segmentation,
+            and overlay workflow.
           </p>
           <p>
             This is an operational target rather than measured production analytics, but it frames
@@ -729,7 +811,7 @@
         </div>
 
         <div class="actions">
-          <a class="button primary" href="#impact">See Impact Metrics</a>
+          <a class="button primary" href="#summary">See Summary</a>
           <a class="button" href="#pipeline">View Pipeline Order</a>
           <a class="button" href="#geometry">Inference Geometry</a>
           <a class="button" href="#metrics">Training Metrics</a>
@@ -743,7 +825,7 @@
              alt="Final annotated log with visible bark outlines and red log boundary"
              onerror="this.closest('figure').style.display='none'">
         <figcaption>
-          Final fused output: stitched log with captured log area and surface with visible white bark-region outlines.
+          Final fused output: stitched log with visible white bark-region outlines and a red log-boundary overlay.
         </figcaption>
 
         <div class="metric-strip">
@@ -779,6 +861,43 @@
       <span class="tag">Mask fusion</span>
     </div>
   </header>
+
+  <section id="summary">
+    <h2>Executive summary</h2>
+    <p class="section-lead">
+      The project is strongest when viewed as an end-to-end inspection workflow, not just
+      a pair of trained models.
+    </p>
+
+    <div class="executive-grid">
+      <article class="executive-card">
+        <span>Problem</span>
+        <strong>Bark inspection is manual and repetitive</strong>
+        <p>
+          Reviewers need to find each log in video, reconstruct its visible surface, and inspect
+          irregular bark patches across a long moving object.
+        </p>
+      </article>
+
+      <article class="executive-card">
+        <span>Solution</span>
+        <strong>Video → stitched log → segmented bark overlay</strong>
+        <p>
+          The pipeline detects log intervals, stitches the full surface, segments the boundary,
+          detects bark fragments, and fuses everything into a final review output.
+        </p>
+      </article>
+
+      <article class="executive-card">
+        <span>Outcome</span>
+        <strong>Targeted 70–80% inspection-effort reduction</strong>
+        <p>
+          The workflow was designed so human review can focus on final overlays and edge cases,
+          rather than manually inspecting every frame or surface area.
+        </p>
+      </article>
+    </div>
+  </section>
 
   <section id="overview">
     <h2>Problem and solution</h2>
@@ -943,6 +1062,35 @@
           Compressed EfficientNet features into a lightweight PCA + SVM frame classifier for log interval detection.
         </p>
       </div>
+    </div>
+
+    <div class="comparison-wrap">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Before</th>
+            <th>After</th>
+            <th>Practical value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Manual review depends on people visually inspecting log footage and surfaces.</td>
+            <td>The pipeline detects log intervals, reconstructs a stitched surface, and outputs bark overlays.</td>
+            <td>Reviewers can focus on final outputs and edge cases instead of repetitive frame-by-frame inspection.</td>
+          </tr>
+          <tr>
+            <td>A moving log appears across many frames, making complete-surface review awkward.</td>
+            <td>Positive frame intervals are grouped and stitched into full-log images.</td>
+            <td>The downstream segmentation stage works on a reconstructed surface rather than isolated frames.</td>
+          </tr>
+          <tr>
+            <td>Long stitched logs are difficult to segment in one compressed model pass.</td>
+            <td>The system uses overlapping halves and bark-inference quarters.</td>
+            <td>Tiled inference preserves detail for smaller bark fragments.</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
     <div class="notice">
@@ -1704,7 +1852,7 @@
 
       <figure class="image-card hero-image">
         <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/log29_stitched_final.jpg"
-             alt="Final annotated log output 5"
+             alt="Final annotated log output 5 with visible bark outlines"
              onerror="this.closest('figure').style.display='none'">
         <figcaption>Additional final output showing bark outlines and red boundary.</figcaption>
       </figure>
