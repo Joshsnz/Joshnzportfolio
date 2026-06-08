@@ -201,6 +201,42 @@
       margin-bottom: 6px;
     }
 
+    .project-card {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .project-card-body {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .project-image-wrap {
+      height: 178px;
+      border-bottom: 1px solid var(--border);
+      background:
+        linear-gradient(135deg, rgba(155, 209, 143, 0.06), rgba(16, 19, 24, 0.96)),
+        var(--code);
+      overflow: hidden;
+    }
+
+    .project-image-wrap img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .project-image-wrap.diagram img {
+      object-fit: contain;
+      padding: 12px;
+      background: #0f1115;
+    }
+
     .tagline {
       color: var(--accent);
       font-size: 0.95rem;
@@ -211,6 +247,11 @@
       color: var(--muted-2);
       font-size: 0.9rem;
       margin: -2px 0 14px;
+    }
+
+    .project-value {
+      color: var(--muted);
+      margin-bottom: 14px;
     }
 
     .project-impact {
@@ -367,6 +408,136 @@
     </p>
   </header>
 
+  <section id="projects">
+    <h2>Headline Projects</h2>
+    <p class="section-lead">
+      Three representative projects: transparent AI tooling, industrial computer vision,
+      and a deployed AI workflow. Each project page starts with the user problem and outcome,
+      then provides deeper technical detail for reviewers who want it.
+    </p>
+
+    <div class="grid featured">
+      <article class="card project-card">
+        <div class="project-image-wrap diagram">
+          <img
+            src="https://joshsnz.github.io/coeus.ai/screenshots/cle_diagram.svg"
+            alt="Coeus AI compiled-turn architecture diagram"
+            onerror="this.closest('.project-image-wrap').style.display='none'">
+        </div>
+
+        <div class="project-card-body">
+          <div class="tagline">Transparent AI tooling</div>
+          <h3>Coeus AI</h3>
+          <div class="project-meta">Nov 2024 – May 2026 demo release</div>
+
+          <p class="project-value">
+            Transparent desktop AI workspace for using LLMs with local project context,
+            configurable models, source-grounded answers, and traceable tool workflows.
+          </p>
+
+          <div class="project-impact">
+            <strong>Impact:</strong>
+            shipped a working Windows demo and repeatable source-grounding evaluations,
+            demonstrating repository-aware answers that can be traced back to project files.
+          </div>
+
+          <div class="actions">
+            <a class="button primary" href="https://joshsnz.github.io/coeus.ai/">Open project</a>
+            <a class="button" href="https://github.com/Joshsnz/coeus.ai">GitHub repo</a>
+          </div>
+
+          <div class="tags">
+            <span class="tag strong">Project-aware AI</span>
+            <span class="tag">C++20</span>
+            <span class="tag">Skia</span>
+            <span class="tag">SDL2</span>
+            <span class="tag">Retrieval</span>
+            <span class="tag">Evaluation</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card project-card">
+        <div class="project-image-wrap">
+          <img
+            src="images/log8_stitched_final.jpg"
+            alt="Annotated log image with bark outlines and log boundary"
+            onerror="this.closest('.project-image-wrap').style.display='none'">
+        </div>
+
+        <div class="project-card-body">
+          <div class="tagline">Industrial computer vision</div>
+          <h3>Log &amp; Bark Computer Vision Pipeline</h3>
+          <div class="project-meta">Dec 2023 – Dec 2024</div>
+
+          <p class="project-value">
+            Automates log and bark inspection by detecting log intervals, reconstructing
+            full log surfaces, and highlighting bark regions for percentage analysis.
+          </p>
+
+          <div class="project-impact">
+            <strong>Impact:</strong>
+            designed for a 70–80% manual inspection-effort reduction target; selected
+            log-boundary checkpoint achieved 97.5% mAP50.
+          </div>
+
+          <div class="actions">
+            <a class="button primary" href="projects/log-bark-cv.html">Open project</a>
+          </div>
+
+          <div class="tags">
+            <span class="tag strong">70–80% inspection target</span>
+            <span class="tag">YOLO</span>
+            <span class="tag">PyTorch</span>
+            <span class="tag">OpenCV</span>
+            <span class="tag">Jetson</span>
+            <span class="tag">ML</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card project-card">
+        <div class="project-image-wrap">
+          <img
+            src="images/sb.png"
+            alt="Smart-Based AI digital consultant project image"
+            onerror="this.closest('.project-image-wrap').style.display='none'">
+        </div>
+
+        <div class="project-card-body">
+          <div class="tagline">Deployed AI workflow</div>
+          <h3>Agentic Digital Consultant</h3>
+          <div class="project-meta">September – December 2024</div>
+
+          <p class="project-value">
+            Replaced a passive contact form with a guided AI consultant that collects
+            structured project details, verifies email ownership, and hands qualified leads
+            to the business.
+          </p>
+
+          <div class="project-impact">
+            <strong>Impact:</strong>
+            converted static inquiry capture into a deployed 10-stage consultation flow
+            with email-verified lead handoff.
+          </div>
+
+          <div class="actions">
+            <a class="button primary" href="projects/digital-consultant.html">Open project</a>
+          </div>
+
+          <div class="tags">
+            <span class="tag strong">Deployed workflow</span>
+            <span class="tag">LangChain</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">Vue</span>
+            <span class="tag">OpenAI</span>
+            <span class="tag">Automation</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
   <section id="snapshot">
     <h2>Portfolio snapshot</h2>
     <p class="section-lead">
@@ -406,126 +577,6 @@
           Since 2023 I have tutored data science and AI students, supporting debugging,
           project delivery, machine-learning concepts, and technical communication.
         </p>
-      </article>
-    </div>
-  </section>
-
-  <section id="projects">
-    <h2>Featured Projects</h2>
-    <p class="section-lead">
-      Each project page starts with the user problem and outcome, then provides deeper
-      technical detail for reviewers who want to inspect the implementation approach.
-    </p>
-
-    <div class="grid featured">
-      <article class="card">
-        <div class="tagline">Featured case study</div>
-        <h3>Coeus AI</h3>
-        <div class="project-meta">Nov 2024 – May 2026 demo release</div>
-
-        <p>
-          Model-agnostic desktop AI workspace for using LLMs with local project context,
-          configurable providers, retrieval-backed source QA, workflow routing, and telemetry.
-          Built to make AI assistance more transparent, verifiable, and adaptable than a
-          long opaque web-chat conversation.
-        </p>
-
-        <div class="project-impact">
-          <strong>Impact:</strong>
-          shipped a working Windows demo and repeatable source-grounding evaluations,
-          demonstrating repository-aware answers that can be traced back to project files.
-        </div>
-
-        <div class="actions">
-          <a class="button primary" href="https://joshsnz.github.io/coeus.ai/">Open Coeus AI project site</a>
-          <a class="button" href="https://github.com/Joshsnz/coeus.ai">GitHub repo</a>
-        </div>
-
-        <div class="tags">
-          <span class="tag strong">Project-aware AI</span>
-          <span class="tag">C++20</span>
-          <span class="tag">Skia</span>
-          <span class="tag">SDL2</span>
-          <span class="tag">Retrieval</span>
-          <span class="tag">LLM tooling</span>
-          <span class="tag">Evaluation</span>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="tagline">Computer vision / edge AI</div>
-        <h3>Log &amp; Bark Computer Vision Pipeline</h3>
-        <div class="project-meta">Dec 2023 – Dec 2024</div>
-
-        <p>
-          Industrial computer vision pipeline for estimating bark coverage on moving logs.
-          The system detects log intervals in video, stitches frames into a full log surface,
-          segments the log boundary, detects bark fragments, and produces final annotated outputs.
-        </p>
-
-        <p>
-          The project combines classical ML and deep learning: frame differencing,
-          EfficientNet features, PCA, SVM classification, YOLO segmentation, tiled inference,
-          and mask fusion.
-        </p>
-
-        <div class="project-impact">
-          <strong>Impact:</strong>
-          designed for a 70–80% manual inspection-effort reduction target; selected log-boundary
-          checkpoint achieved 97.5% mAP50.
-        </div>
-
-        <div class="actions">
-          <a class="button primary" href="projects/log-bark-cv.html">Open project page</a>
-        </div>
-
-        <div class="tags">
-          <span class="tag strong">70–80% inspection target</span>
-          <span class="tag">YOLO</span>
-          <span class="tag">PyTorch</span>
-          <span class="tag">OpenCV</span>
-          <span class="tag">Jetson</span>
-          <span class="tag">ML</span>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="tagline">Agentic workflow app</div>
-        <h3>Agentic Digital Consultant</h3>
-        <div class="project-meta">September – December 2024</div>
-
-        <p>
-          Deployed AI consultation system built for a New Zealand AI consultancy. It replaced
-          a passive contact-form experience with a guided digital consultant that classified
-          visitor intent, collected structured project details, verified email ownership,
-          and handed qualified leads to the business.
-        </p>
-
-        <p>
-          The system combined LLM intent classification with deterministic workflow control,
-          state management, FastAPI backend logic, Nuxt/Vue frontend integration, email
-          verification, and state-triggered Elai.io video responses.
-        </p>
-
-        <div class="project-impact">
-          <strong>Impact:</strong>
-          converted static inquiry capture into a deployed 10-stage guided consultation flow
-          with email-verified lead handoff.
-        </div>
-
-        <div class="actions">
-          <a class="button primary" href="projects/digital-consultant.html">Open project page</a>
-        </div>
-
-        <div class="tags">
-          <span class="tag strong">Deployed workflow</span>
-          <span class="tag">LangChain</span>
-          <span class="tag">FastAPI</span>
-          <span class="tag">Vue</span>
-          <span class="tag">OpenAI</span>
-          <span class="tag">Workflow</span>
-          <span class="tag">Automation</span>
-        </div>
       </article>
     </div>
   </section>
