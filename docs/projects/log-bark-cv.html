@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Industrial computer vision pipeline for log detection, stitched log reconstruction, bark segmentation, tiled inference, mask fusion, and bark-percentage review.">
   <title>Log &amp; Bark Computer Vision Pipeline — Joshua Skelton Portfolio</title>
 
   <style>
@@ -387,6 +388,32 @@
 
     .reviewer-note strong {
       color: var(--text);
+    }
+
+    .proof-path {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .proof-step {
+      border: 1px solid var(--border);
+      background: rgba(16, 19, 24, 0.88);
+      border-radius: 15px;
+      padding: 16px;
+    }
+
+    .proof-step strong {
+      display: block;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .proof-step p {
+      color: var(--muted);
+      font-size: 0.93rem;
+      margin-bottom: 0;
     }
 
     .story-grid {
@@ -957,6 +984,28 @@
         start with the final output image, then read the pipeline order, then inspect the training
         tables. That shows the practical value first, then the engineering path, then the model evidence.
       </p>
+    </div>
+
+    <div class="proof-path">
+      <div class="proof-step">
+        <strong>1. Operational problem</strong>
+        <p>Manual inspection required repeated visual review of moving logs and irregular bark regions.</p>
+      </div>
+
+      <div class="proof-step">
+        <strong>2. Pipeline design</strong>
+        <p>The work was split into detection, stitching, segmentation, tiling, mask fusion, and review output.</p>
+      </div>
+
+      <div class="proof-step">
+        <strong>3. Model evidence</strong>
+        <p>Log-boundary segmentation reached 97.5% mAP50; bark inference reached 98.9% box precision.</p>
+      </div>
+
+      <div class="proof-step">
+        <strong>4. Practical output</strong>
+        <p>The final system produces a stitched log visualization with red boundaries and white bark outlines.</p>
+      </div>
     </div>
   </section>
 
