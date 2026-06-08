@@ -122,6 +122,33 @@
       max-width: 900px;
     }
 
+    .current-role-banner {
+      border: 1px solid rgba(155, 209, 143, 0.38);
+      background:
+        linear-gradient(135deg, rgba(155, 209, 143, 0.09), rgba(23, 26, 32, 0.95)),
+        var(--panel);
+      border-radius: 18px;
+      padding: 18px 20px;
+      margin-top: 24px;
+      max-width: 920px;
+    }
+
+    .current-role-banner .tagline {
+      margin-bottom: 7px;
+    }
+
+    .current-role-banner h2 {
+      font-size: 1.16rem;
+      margin: 0 0 8px;
+      color: var(--text);
+    }
+
+    .current-role-banner p {
+      color: var(--muted);
+      font-size: 1.02rem;
+      margin-bottom: 0;
+    }
+
     .hero-proof {
       border: 1px solid rgba(155, 209, 143, 0.34);
       background:
@@ -491,15 +518,25 @@
           product workflows so AI systems are easier to trust, test, adapt, and operate.
         </p>
 
+        <div class="current-role-banner">
+          <div class="tagline">Current role</div>
+          <h2>Technical AI Lead / Software Engineer — Selfcaremen Telehealth Patient Portal</h2>
+          <p>
+            Leading implementation of a secure patient portal across patient access, lab results,
+            appointments, prescriptions, AWS-oriented architecture, and integration requirements
+            around systems such as Elixir and Acuity.
+          </p>
+        </div>
+
         <div class="actions">
           <a class="button primary" href="#projects">See My Projects</a>
+          <a class="button" href="#current">Current Professional Work</a>
           <a class="button" href="https://joshsnz.github.io/coeus.ai/">Explore Coeus AI</a>
           <a class="button" href="cv/cv.pdf" target="_blank" rel="noopener noreferrer">View CV / Resume</a>
-          <a class="button" href="#current">Current Professional Work</a>
         </div>
 
         <p class="trust-line">
-          Currently Technical AI Lead in telehealth · Data Science &amp; AI tutor since 2023 · Auckland University of Technology Data Science &amp; AI, 2023 · Shipped AI workflows · Native tooling · Industrial ML
+          Current Technical AI Lead in telehealth · Data Science &amp; AI tutor since 2023 · Auckland University of Technology Data Science &amp; AI, 2023 · Shipped AI workflows · Native tooling · Industrial ML
         </p>
       </div>
 
@@ -508,13 +545,18 @@
 
         <div class="proof-list">
           <div class="proof-item">
+            <strong>Current product implementation</strong>
+            <span>Secure telehealth portal work across patient access, labs, appointments, and healthcare workflow integrations.</span>
+          </div>
+
+          <div class="proof-item">
             <strong>AI systems, not just prompts</strong>
             <span>Runtime design, state, retrieval, tools, validation, deployment, and evaluation.</span>
           </div>
 
           <div class="proof-item">
             <strong>Real operational workflows</strong>
-            <span>Telehealth portal work, deployed AI lead intake, and industrial inspection automation.</span>
+            <span>Deployed AI lead intake, industrial inspection automation, and healthcare portal delivery.</span>
           </div>
 
           <div class="proof-item">
@@ -714,25 +756,25 @@
   <section id="current">
     <h2>Current Professional Work</h2>
     <p class="section-lead">
-      Current professional work includes both my private telehealth implementation role
+      Current professional work includes both my Selfcaremen telehealth patient-portal role
       and my ongoing data science and AI tutoring work. The telehealth work is described
-      at a professional-summary level only because it is private company work and does not
-      expose client systems, source code, patient data, internal screenshots, credentials,
-      or production architecture details.
+      at a professional-summary level because it involves private healthcare systems and does
+      not expose patient data, source code, internal screenshots, credentials, or production
+      architecture details.
     </p>
 
     <div class="grid">
       <article class="card current-work">
         <div class="tagline">Current role</div>
-        <h3>Technical AI Lead / AWS Patient Portal Development — Telehealth Company</h3>
-        <div class="project-meta">Current · Private company work</div>
+        <h3>Technical AI Lead / Software Engineer — Selfcaremen Telehealth Patient Portal</h3>
+        <div class="project-meta">Current · Professional telehealth implementation</div>
 
         <p>
           Leading technical implementation for a professional telehealth patient-portal and
           workflow-automation initiative. The work includes AWS onboarding, portal architecture,
           frontend/backend implementation, secure authentication and access design, patient
-          dashboard flows, lab-result workflows, appointment workflows, and healthcare operations
-          automation.
+          dashboard flows, lab-result workflows, appointment workflows, prescription-related
+          portal flows, and healthcare operations automation.
         </p>
 
         <p>
@@ -742,10 +784,9 @@
         </p>
 
         <p>
-          This is private company work, so public portfolio material remains intentionally
-          high-level. I can discuss the architecture, workflow modelling, integrations, and
-          technical decisions in interviews without exposing patient data, internal systems,
-          source code, or confidential implementation details.
+          I can discuss the architecture, workflow modelling, integrations, and technical
+          decisions in interviews without exposing patient data, internal systems, source code,
+          credentials, or confidential implementation details.
         </p>
 
         <div class="tags">
@@ -759,11 +800,11 @@
           <span class="tag">Patient portal</span>
           <span class="tag">Appointments</span>
           <span class="tag">Lab results</span>
+          <span class="tag">Prescriptions</span>
           <span class="tag">Elixir integration</span>
           <span class="tag">Acuity integration</span>
           <span class="tag">Secure access</span>
           <span class="tag">Healthcare workflows</span>
-          <span class="tag">Private company work</span>
         </div>
       </article>
 
@@ -945,7 +986,7 @@
     <div class="note">
       Most project source is private, notebook-based, or packaged as public portfolio/demo
       material. Public pages focus on architecture, demos, notebooks, screenshots,
-      release artifacts, and evaluation evidence. Current client/company work is described
+      release artifacts, and evaluation evidence. Healthcare and client/company work is described
       only at a professional-summary level unless it has been explicitly cleared for public release.
     </div>
   </section>
