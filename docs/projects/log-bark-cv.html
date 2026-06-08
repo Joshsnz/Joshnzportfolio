@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Log & Bark Computer Vision Pipeline — Joshua Skelton Portfolio</title>
+  <title>Log &amp; Bark Computer Vision Pipeline — Joshua Skelton Portfolio</title>
 
   <style>
     :root {
@@ -118,10 +118,30 @@
       margin-bottom: 52px;
     }
 
+    .hero-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(340px, 0.92fr);
+      gap: 28px;
+      align-items: start;
+    }
+
+    @media (max-width: 980px) {
+      .hero-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
     .lead {
       max-width: 980px;
       color: var(--muted);
       font-size: 1.14rem;
+    }
+
+    .hero-focus {
+      color: var(--text);
+      max-width: 980px;
+      font-size: 1.22rem;
+      line-height: 1.55;
     }
 
     .timeline-pill {
@@ -133,6 +153,84 @@
       padding: 6px 11px;
       font-size: 0.9rem;
       margin-bottom: 18px;
+    }
+
+    .value-statement {
+      border: 1px solid rgba(155, 209, 143, 0.35);
+      background:
+        linear-gradient(135deg, rgba(155, 209, 143, 0.075), rgba(23, 26, 32, 0.94)),
+        var(--panel);
+      border-radius: 18px;
+      padding: 20px;
+      margin-top: 22px;
+    }
+
+    .value-statement strong {
+      color: var(--accent);
+    }
+
+    .value-statement p {
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .value-statement p:last-child {
+      margin-bottom: 0;
+    }
+
+    .hero-visual {
+      border: 1px solid rgba(155, 209, 143, 0.34);
+      background:
+        linear-gradient(135deg, rgba(155, 209, 143, 0.055), rgba(16, 19, 24, 0.96)),
+        var(--panel);
+      border-radius: 18px;
+      padding: 18px;
+      margin: 0;
+    }
+
+    .hero-visual img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: #f6f7f4;
+    }
+
+    .hero-visual figcaption {
+      color: var(--muted);
+      font-size: 0.94rem;
+      margin-top: 12px;
+    }
+
+    .metric-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .metric-chip {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--code);
+      padding: 12px;
+    }
+
+    .metric-chip span {
+      display: block;
+      color: var(--muted-2);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+
+    .metric-chip strong {
+      display: block;
+      color: var(--text);
+      font-size: 1.05rem;
+      line-height: 1.25;
     }
 
     .actions {
@@ -602,29 +700,67 @@
   </div>
 
   <header class="hero">
-    <div class="eyebrow">Computer vision / edge AI portfolio project</div>
-    <div class="timeline-pill">Dec 2023 – Dec 2024 · staged development across one year</div>
-    <h1>Log & Bark Computer Vision Pipeline</h1>
-    <p class="lead">
-      An industrial computer vision pipeline for estimating bark coverage on moving logs.
-      The system first detects when a log appears in video, groups the positive frame interval,
-      stitches those frames into one continuous surface image, then segments the log body and
-      bark regions for bark-percentage analysis.
-    </p>
-    <p class="lead">
-      The practical goal was to reduce manual inspection effort by automating the slow parts:
-      finding the useful video interval, reconstructing the full log surface, segmenting the
-      log boundary, and highlighting bark regions for review.
-    </p>
+    <div class="hero-layout">
+      <div>
+        <div class="eyebrow">Computer vision / edge AI portfolio project</div>
+        <div class="timeline-pill">Dec 2023 – Dec 2024 · staged development across one year</div>
+        <h1>Log &amp; Bark Computer Vision Pipeline</h1>
 
-    <div class="actions">
-      <a class="button primary" href="#impact">See Impact Metrics</a>
-      <a class="button" href="#pipeline">View Pipeline Order</a>
-      <a class="button" href="#geometry">Inference Geometry</a>
-      <a class="button" href="#metrics">Training Metrics</a>
-      <a class="button" href="#validation">Validation Examples</a>
-      <a class="button" href="#final-output">Final Outputs</a>
-      <a class="button" href="https://github.com/Joshsnz/Joshnzportfolio/blob/main/bark%26knot.ipynb">Open Notebook</a>
+        <p class="hero-focus">
+          Industrial computer vision pipeline designed to reduce manual bark inspection effort by automating log detection, stitched surface reconstruction, log-boundary segmentation, bark detection, and final annotation.
+        </p>
+
+        <p class="lead">
+          The system first detects when a log appears in video, groups the positive frame interval,
+          stitches those frames into one continuous surface image, then segments the log body and
+          bark regions for bark-percentage analysis.
+        </p>
+
+        <div class="value-statement">
+          <p>
+            <strong>Primary value:</strong>
+            target a 70–80% reduction in manual inspection effort by turning a slow visual review
+            process into an automated detection, stitching, segmentation, and overlay workflow.
+          </p>
+          <p>
+            This is an operational target rather than measured production analytics, but it frames
+            the project around the business problem: process more logs with less repetitive manual review.
+          </p>
+        </div>
+
+        <div class="actions">
+          <a class="button primary" href="#impact">See Impact Metrics</a>
+          <a class="button" href="#pipeline">View Pipeline Order</a>
+          <a class="button" href="#geometry">Inference Geometry</a>
+          <a class="button" href="#metrics">Training Metrics</a>
+          <a class="button" href="#final-output">Final Outputs</a>
+          <a class="button" href="https://github.com/Joshsnz/Joshnzportfolio/blob/main/bark%26knot.ipynb">Open Notebook</a>
+        </div>
+      </div>
+
+      <figure class="hero-visual">
+        <img src="https://raw.githubusercontent.com/Joshsnz/Joshnzportfolio/main/images/log8_stitched_final.jpg"
+             alt="Final annotated log with bark outlines and red log boundary"
+             onerror="this.closest('figure').style.display='none'">
+        <figcaption>
+          Final fused output: stitched log surface with a red outer log boundary and white bark-region outlines.
+        </figcaption>
+
+        <div class="metric-strip">
+          <div class="metric-chip">
+            <span>Inspection target</span>
+            <strong>70–80% reduction</strong>
+          </div>
+          <div class="metric-chip">
+            <span>Log mAP50</span>
+            <strong>97.5%</strong>
+          </div>
+          <div class="metric-chip">
+            <span>Bark precision</span>
+            <strong>98.9%</strong>
+          </div>
+        </div>
+      </figure>
     </div>
 
     <div class="tags">
@@ -738,6 +874,15 @@
         <p>
           Designed to reduce manual inspection effort by automating interval detection,
           stitching, segmentation, and final annotation for bark-percentage review.
+        </p>
+      </div>
+
+      <div class="impact-card">
+        <span>Operational value</span>
+        <strong>More logs reviewed per operator</strong>
+        <p>
+          Throughput-oriented design: automate the repetitive visual-inspection stages so
+          human review can focus on checking final outputs and edge cases.
         </p>
       </div>
 
