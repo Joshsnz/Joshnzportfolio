@@ -16,6 +16,7 @@
       --accent: #9bd18f;
       --accent-soft: #162316;
       --border: #303743;
+      --border-soft: #242a33;
       --code: #101318;
     }
 
@@ -262,12 +263,6 @@
       color: var(--accent);
     }
 
-    .button.disabled {
-      color: var(--muted);
-      cursor: default;
-      pointer-events: none;
-    }
-
     section {
       margin-top: 58px;
     }
@@ -336,6 +331,45 @@
       border-color: rgba(155, 209, 143, 0.45);
     }
 
+    .executive-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .executive-card {
+      border: 1px solid rgba(155, 209, 143, 0.3);
+      background:
+        linear-gradient(135deg, rgba(155, 209, 143, 0.07), rgba(16, 19, 24, 0.96)),
+        var(--panel);
+      border-radius: 18px;
+      padding: 20px;
+    }
+
+    .executive-card span {
+      display: block;
+      color: var(--muted-2);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+
+    .executive-card strong {
+      display: block;
+      color: var(--text);
+      font-size: 1.2rem;
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+
+    .executive-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 0;
+    }
+
     .story-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
@@ -360,6 +394,47 @@
       color: var(--muted);
       font-size: 0.95rem;
       margin-bottom: 0;
+    }
+
+    .comparison-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: rgba(23, 26, 32, 0.92);
+      margin-top: 22px;
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 780px;
+      font-size: 0.95rem;
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+      text-align: left;
+      padding: 14px;
+      border-bottom: 1px solid var(--border-soft);
+      vertical-align: top;
+    }
+
+    .comparison-table th {
+      background: var(--code);
+      color: var(--text);
+    }
+
+    .comparison-table td {
+      color: var(--muted);
+      background: rgba(23, 26, 32, 0.72);
+    }
+
+    .comparison-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .comparison-table strong {
+      color: var(--text);
     }
 
     .metric-label {
@@ -626,11 +701,11 @@
     <a class="portfolio-back" href="../index.html">← Back to main portfolio</a>
 
     <nav class="nav" aria-label="Primary navigation">
+      <a href="#summary">Summary</a>
       <a href="#overview">Overview</a>
       <a href="#impact">Impact</a>
       <a href="#video">Video</a>
       <a href="#architecture">Architecture</a>
-      <a href="#deployment">Deployment</a>
       <a href="#flow">Conversation flow</a>
       <a href="#code-review">Code review package</a>
       <a href="#security">Security</a>
@@ -646,11 +721,12 @@
         <h1>Agentic Digital Consultant</h1>
 
         <p class="hero-focus">
-          Deployed AI consultation workflow that turned a static contact path into an email-verified, structured lead-intake system for an AI consultancy.
+          Deployed AI consultation workflow that turned a passive contact form into an
+          email-verified, structured lead-intake system for an AI consultancy.
         </p>
 
         <p class="lead">
-          Instead of relying on a passive contact form, the website guided visitors through
+          Instead of leaving visitors to submit a generic message, the site guided them through
           a structured consultation, collected useful project details, verified email ownership,
           and sent a qualified lead summary to the business.
         </p>
@@ -668,12 +744,12 @@
         </div>
 
         <div class="actions">
-          <a class="button primary" href="#impact">View Operational Impact</a>
+          <a class="button primary" href="#summary">See Summary</a>
+          <a class="button" href="#impact">View Operational Impact</a>
           <a class="button" href="#video">Watch Demo Video</a>
           <a class="button" href="#flow">View Conversation Flow</a>
           <a class="button" href="#architecture">System Architecture</a>
           <a class="button" href="#code-review">Core Logic Package</a>
-          <a class="button" href="https://github.com/Joshsnz/Joshnzportfolio/blob/main/digital_consultant.ipynb">Open Notebook</a>
         </div>
       </div>
 
@@ -704,7 +780,7 @@
 
     <div class="tags">
       <span class="tag strong">Static form → guided consultant</span>
-      <span class="tag">Agentic workflows</span>
+      <span class="tag strong">Bounded agentic workflow</span>
       <span class="tag">LLMs</span>
       <span class="tag">GPT-4</span>
       <span class="tag">LangChain</span>
@@ -718,6 +794,43 @@
       <span class="tag">Structured logging</span>
     </div>
   </header>
+
+  <section id="summary">
+    <h2>Executive summary</h2>
+    <p class="section-lead">
+      This project is best understood as a practical business workflow: the AI layer improves
+      the user experience, while the backend controls the operational process.
+    </p>
+
+    <div class="executive-grid">
+      <article class="executive-card">
+        <span>Problem</span>
+        <strong>Static forms produce weak leads</strong>
+        <p>
+          A generic contact request often leaves the business needing to ask basic discovery
+          questions before it can assess whether the project is worth pursuing.
+        </p>
+      </article>
+
+      <article class="executive-card">
+        <span>Solution</span>
+        <strong>Guided AI consultation intake</strong>
+        <p>
+          The assistant classifies intent, moves users into a structured consultation flow,
+          collects project details, verifies email ownership, and triggers the handoff.
+        </p>
+      </article>
+
+      <article class="executive-card">
+        <span>Outcome</span>
+        <strong>Completed and deployed</strong>
+        <p>
+          The FastAPI backend was deployed on a DigitalOcean Droplet, with reviewable core
+          logic separated from secrets, logs, frontend assets, and production configuration.
+        </p>
+      </article>
+    </div>
+  </section>
 
   <section id="overview">
     <h2>Problem and solution</h2>
@@ -889,13 +1002,13 @@
       </div>
     </div>
 
-    <div class="table-wrap" style="margin-top: 22px;">
-      <table class="impact-table">
+    <div class="comparison-wrap">
+      <table class="comparison-table">
         <thead>
           <tr>
             <th>Before</th>
             <th>After</th>
-            <th>Operational impact</th>
+            <th>Operational value</th>
           </tr>
         </thead>
         <tbody>
@@ -1053,6 +1166,56 @@
           logs, frontend assets, or production deployment configuration.
         </p>
       </article>
+    </div>
+  </section>
+
+  <section id="agentic-boundary">
+    <h2>Why this counts as agentic</h2>
+    <p class="section-lead">
+      This was not an open-ended autonomous agent. It was a bounded business agent:
+      conversational at the surface, but controlled by deterministic workflow rules underneath.
+    </p>
+
+    <div class="grid">
+      <article class="card">
+        <h3>Goal-directed workflow</h3>
+        <p>
+          The assistant was not only answering questions. It had a defined operational goal:
+          move a qualified visitor through consultation intake and hand the result to the business.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Stateful progression</h3>
+        <p>
+          Each thread carried state across turns, including the current form stage, collected details,
+          finalization status, and email verification progress.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Tool-like actions</h3>
+        <p>
+          The backend triggered workflow actions such as sending confirmation codes, validating
+          verification input, selecting video responses, and submitting the lead summary.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Deterministic guardrails</h3>
+        <p>
+          The LLM classified intent and handled natural language, but the backend controlled what
+          could happen next. This kept the business process stable and auditable.
+        </p>
+      </article>
+    </div>
+
+    <div class="notice">
+      <p>
+        <strong>Positioning:</strong>
+        “agentic” here means a bounded, stateful workflow agent for a real business process.
+        It does not mean unrestricted autonomy or unsupervised decision-making.
+      </p>
     </div>
   </section>
 
